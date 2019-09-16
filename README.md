@@ -1,2 +1,2 @@
 # mobile_git
-뭐냐이게
+lee min kyu
