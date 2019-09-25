@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16.5"
+    tools:context=".Alarm">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="17"
+        >
+
+        <ListView
+            android:id="@+id/list1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:background="#FFFFFF"
+            android:baselineAligned="false"></ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+        //tools:context=".Alarm">
+
+
+        <Button
+            android:id="@+id/button_alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:background="@drawable/alarm1"
+            android:layout_weight="2"
+            />
+        <Button
+            android:id="@+id/button_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:background="@drawable/sche1"
+            android:layout_weight="2"
+            />
+
+
+        <Button
+            android:id="@+id/button_search"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:background="@drawable/search1"
+            />
+        <Button
+            android:id="@+id/button_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_weight="2"
+            android:background="@drawable/set1"
+             />
+
+
+        <!--
+           <ImageView
+               android:id="@+id/ivSet"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="0dp"
+               android:layout_marginTop="640dp"
+               android:layout_marginEnd="0dp"
+               android:layout_marginRight="40dp"
+               android:src="@drawable/set" />
+           -->
+    </LinearLayout>
+
+    </LinearLayout>
