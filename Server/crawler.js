@@ -38,7 +38,7 @@ exports.crawler = function(id,pw,callback){
        return data;
      }
         const browserOption = {// 브라우저 옵션 설정
-          headless: false // 디버깅용으로 false 지정하면 브라우저가 자동으로 열린다.
+          headless: true // 디버깅용으로 false 지정하면 브라우저가 자동으로 열린다.
         };
         const browser = await puppeteer.launch(browserOption);//브라우저 생성
         const page = await browser.newPage(); // 페이지 생성
@@ -46,15 +46,21 @@ exports.crawler = function(id,pw,callback){
         try {
           const pageOption = {// 탭 옵션
             waitUntil: 'networkidle2',// waitUntil: 적어도 500ms 동안 두 개 이상의 네트워크 연결이 없으면 탐색이 완료된 것으로 간주합니다.
-            timeout: 20000 // 타임아웃 20초
+            timeout: 20000, // 타임아웃 20초
           };
           response = await page.goto(url, pageOption);
+          //await page.waitForNavigation();
+          await page.waitForSelector('div.textform >  input#input-username');
           await page.type( "div.textform >  input#input-username", id ); // 아이디 입력
         	await page.type( "div.textform >  input#input-password", pw ); // 패스워드 입력
-          await delay(3000);
+          //await delay(100);
+          //var html3 = await page.content();
+          //console.log(html3);
           const elementHandle = await page.waitFor( "input" ); // 인풋
           await elementHandle.press( "Enter" );  // 입력
-          await delay(5000);
+          await page.waitForSelector('#page-blocks > div.block.block-notification.block-coursemos > div.content.ubnotification > div.more_button > a');
+          //await page.waitForNavigation();
+
         } catch (error) {
           await page.close();
           await browser.close();
@@ -62,17 +68,22 @@ exports.crawler = function(id,pw,callback){
           return;
         }
         let html; // 첫번쨰 페이지
+        //await console.log(html);
         try {
+
           html = await page.content();// 첫번째 페이지 크롤링
         } catch (error) {
           console.error(error);
           return;
         }
         let html2
+        //await console.log(html2);
         try{
-          await delay(3000);
+          //await delay(100);
           await page.click( "#page-blocks > div.block.block-notification.block-coursemos > div.content.ubnotification > div.more_button > a" );// 모두보기 click
-          await delay(3000);
+          //await delay(3000);
+          await page.waitForSelector('div');
+          //await page.waitForNavigation();
           html2 = await page.content();
         }catch{
           await page.close();
@@ -85,7 +96,7 @@ exports.crawler = function(id,pw,callback){
           await browser.close();
         }
         const newsData = scrapdata(html,html2);
-        console.log(newsData);
-        callback(newsData);
+        //console.log(newsData);
+        callback(newsData);//콜백으로 결과값을 넘겨줌
   })();
 }

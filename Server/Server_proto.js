@@ -15,10 +15,12 @@ let users = [
 */
 app.get('/', (req, res) => {
   console.log("Start SCrapping");
+  //var id = req.param('id');//안드로이드 접속시 파리미터 id를 받는다
+  //var pw = req.param('pw');//안드로이드 접속시 파리미터 pw를 받는다
   var id = "2015125054"
   var pw = "jooboo100@"
   var result = crawler.crawler(id,pw,function(result){
-    res.send(result);
+    res.json(result);
   })
 });
 
