@@ -14,7 +14,7 @@ exports.crawler = function(id,pw,callback){
        const $ = cheerio.load(html);
        const $2 = cheerio.load(html2);
        var data = new Array()
-       $('#page-blocks > div.block.block-upcomming.block-coursemos > div.content > ul').each(function (index, ele) {
+       $('#page-blocks > div.block.block-upcomming.block-coursemos > div.content > ul > li').each(function (index, ele) {
            var temp = Object()
            temp['name'] = $(this).find('li> a > div.title').text().trim()
            temp['link'] = $(this).find('li > a').attr('href')
