@@ -42,7 +42,7 @@ class Main : AppCompatActivity() {
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
-        HttpAsyncTask().execute("http://192.168.168.178:8080")
+        HttpAsyncTask().execute("http://172.30.1.50:8080")
 
     }
 
