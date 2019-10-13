@@ -1,4 +1,8 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">Oh</string>
     <string name="title_activity_main2">Main2Activity</string>
+=======
+    <string name="app_name">My Application</string>
+>>>>>>> 5bbb9add0b27179768c156ea5bc06545dc7484d7
 </resources>
