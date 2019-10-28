@@ -1,5 +1,6 @@
 const crawler = require('./crawler')
 const crawlerj = require('./crawlerj')
+const crawlerc = require('./crawlerc')
 var express = require('express');
 var http = require('http');
 var nic_ip = '192.168.1.71';
@@ -58,6 +59,10 @@ app.post('/', (req, res) => {
     });
   }else if(num ==="1"){
     var result = crawlerj.crawlerj(id,pw,function(result){            //시험시간표 크롤링 장치
+       res.json(result);
+    });
+  }else if(num ==="2"){
+    var result = crawlerc.crawlerc(id,pw,function(result){            //시험시간표 크롤링 장치
        res.json(result);
     });
   }
