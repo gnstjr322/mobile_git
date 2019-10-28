@@ -41,6 +41,7 @@ app.post('/', (req, res) => {
   //var pw = req.param();//안드로이드 접속시 파리미터 pw를 받는다
   var id = req.param("id");
 	var pw = req.param("pw");
+  var num = req.param("num");
 	//res.writeHead("200", {"Content-Type":"text/html;charset=utf8"});
 	//res.write("user uId : " + uId);
 	//res.write("<br>");
@@ -51,13 +52,18 @@ app.post('/', (req, res) => {
   console.log("id: "+id+"pw: "+ pw);
   //var id = "2015125054"
   //var pw = "jooboo100@"
-  var result = crawler.crawler(id,pw,function(result){
-    res.json(result);
-  })
-  /*
-  var result = crawlerj.crawlerj(id,pw,function(result){            //시험시간표 크롤링 장치
-     res.json(result);
-  })*/
+  if(num==="0"){
+    var result = crawler.crawler(id,pw,function(result){
+      res.json(result);
+    });
+  }else if(num ==="1"){
+    var result = crawlerj.crawlerj(id,pw,function(result){            //시험시간표 크롤링 장치
+       res.json(result);
+    });
+  }
+
+
+
 
 });
 

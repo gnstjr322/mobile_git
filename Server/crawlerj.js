@@ -28,7 +28,7 @@ exports.crawlerj = function(id,pw,callback){
        return data;
      }
         const browserOption = {// 브라우저 옵션 설정
-          headless: false // 디버깅용으로 false 지정하면 브라우저가 자동으로 열린다.
+          headless: true // 디버깅용으로 false 지정하면 브라우저가 자동으로 열린다.
         };
         const browser = await puppeteer.launch(browserOption);//브라우저 생성
         const page = await browser.newPage(); // 페이지 생성
