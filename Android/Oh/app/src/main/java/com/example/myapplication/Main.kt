@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 
+import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.IOException
+import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
@@ -33,7 +35,7 @@ class Main : AppCompatActivity() {
     private var tabLayout: TabLayout? = null
     private var viewPager: ViewPager? = null
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
-
+    var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,8 @@ class Main : AppCompatActivity() {
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
-        HttpAsyncTask().execute("http://172.30.1.50:8080")
+        HttpAsyncTask().execute("http://192.168.193.80:8080")
+
 
     }
 
@@ -52,6 +55,18 @@ class Main : AppCompatActivity() {
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
 
+
+        //progres dialog
+        val dialog = ProgressDialog(this@Main)
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            dialog.setMessage("로딩중입니다...")
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+            dialog.show()
+        }
 
         // OkHttp 클라이언트
         internal var client = OkHttpClient.Builder()
@@ -63,6 +78,7 @@ class Main : AppCompatActivity() {
         internal var formBody: RequestBody = FormBody.Builder()
                 .add("id", userID)
                 .add("pw", userPass)
+                .add("num", "0")
                 .build()
 
 
@@ -88,7 +104,7 @@ class Main : AppCompatActivity() {
                 }.type
                 nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
                 //Log.d(TAG, "onCreate: " + weatherList.toString());
-               // notify2()
+                // notify2()
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -102,6 +118,98 @@ class Main : AppCompatActivity() {
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
+            HttpAsyncTask2(userID, userPass).execute("http://192.168.193.80:8080")
+            Thread(Runnable {
+                try{
+                    if(dialog != null && dialog.isShowing){
+                        dialog.dismiss()
+                    }
+                }catch (e:Exception){
+
+                }
+                dialog.dismiss()
+            }).start()
+        }
+    }
+
+
+    private inner class HttpAsyncTask2(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Cal>>() {
+        //private val TAG = HttpAsyncTask::class.java.simpleName
+        //val intent = intent
+
+
+        // OkHttp 클라이언트
+        internal var client = OkHttpClient.Builder()
+                .connectTimeout(600, TimeUnit.SECONDS)
+                .writeTimeout(600, TimeUnit.SECONDS)
+                .readTimeout(600, TimeUnit.SECONDS)
+                .build()
+
+        internal var formBody: RequestBody = FormBody.Builder()
+                .add("id", userID)
+                .add("pw", userPass)
+                .add("num", "1")
+                .build()
+
+        //progres dialog
+        val dialog = ProgressDialog(this@Main)
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            dialog.setMessage("로딩중입니다...")
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+
+        override fun doInBackground(vararg params: String): List<Cal>? {
+
+            var nameList: List<Cal> = ArrayList()
+            val strUrl = params[0]
+            try {
+                //notify2()
+                //Response response2 = client.newCall(request2).execute();
+                // 요청
+
+                val request = Request.Builder()
+                        .url(strUrl)
+                        .post(formBody)
+                        .build()
+
+                // 응답
+                val response = client.newCall(request).execute()
+                val gson = Gson()
+                val listType = object : TypeToken<ArrayList<Cal>>() {
+
+                }.type
+                nameList = gson.fromJson<List<Cal>>(response.body!!.string(), listType)
+                //Log.d(TAG, "onCreate: " + weatherList.toString());
+                // notify2()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            Log.d("프레그먼트2", nameList.toString())//nameList의 형식은 List<Name>
+
+            nameList3 = nameList
+            return nameList
+        }
+
+
+        override fun onPostExecute(nameList: List<Cal>?) {
+            super.onPostExecute(nameList)
+
+            Thread(Runnable {
+                try{
+                    if(dialog != null && dialog.isShowing){
+                        dialog.dismiss()
+                    }
+                }catch (e:Exception){
+
+                }
+                dialog.dismiss()
+            }).start()
 
             tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
             tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
@@ -110,9 +218,15 @@ class Main : AppCompatActivity() {
             //탭페이지 어댑터 설정
             viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
 
+
             Log.d("main", " $nameList2")
-            val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2,tabLayout!!.tabCount)
+
+
+
+            val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, tabLayout!!.tabCount)
             viewPager!!.adapter = pagerAdapter
+
+
 
             //페이지 체인지 리스너 설정
             viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
@@ -131,7 +245,12 @@ class Main : AppCompatActivity() {
             }
 
             )
-        }
+            if (nameList != null) {
+                //Log.d("HttpAsyncTask", nameList.toString());
+                val adapter = CalAdapter(nameList)
+        mWeatherListView?.adapter = adapter
+    }
+}
     }
 
 

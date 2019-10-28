@@ -42,10 +42,10 @@ class NameAdapter(var mList: List<Name>) : BaseAdapter() {
             holder = convertView.tag as ViewHolder
         }
 
-        val weather = getItem(position) as Name
-        holder.name!!.setText(weather.name)
-        holder.link!!.setText(weather.link)
-        holder.day!!.setText(weather.day)
+        val name1 = getItem(position) as Name
+        holder.name!!.setText(name1.name)
+        holder.link!!.setText(name1.link)
+        holder.day!!.setText(name1.day)
 
         return convertView
     }
