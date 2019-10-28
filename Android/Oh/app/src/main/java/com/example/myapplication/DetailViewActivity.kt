@@ -29,7 +29,6 @@ class DetailViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_view)
-
         a1 = intent.getStringExtra("Name")
         b1 = intent.getStringExtra("Link")
         c1  = intent.getStringExtra("Day")

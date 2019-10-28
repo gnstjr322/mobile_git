@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 
+import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.IOException
+import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
@@ -42,7 +44,7 @@ class Main : AppCompatActivity() {
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
-        HttpAsyncTask().execute("http://172.30.1.50:8080")
+        HttpAsyncTask().execute("http://192.168.195.212:8080")
 
     }
 
@@ -51,6 +53,22 @@ class Main : AppCompatActivity() {
         //val intent = intent
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
+
+        //progressdialog code
+
+        val dialog = ProgressDialog(this@Main)
+
+        override fun onPreExecute(){
+            super.onPreExecute()
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            dialog.setMessage("로딩중입니다...")
+            dialog.setCanceledOnTouchOutside(false) //로딩중일때 바깥 터치 안됨
+            dialog.setCancelable(false)
+            dialog.show()
+
+        }
+        //progressdialog 끝
+
 
 
         // OkHttp 클라이언트
@@ -102,6 +120,26 @@ class Main : AppCompatActivity() {
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
+
+
+            //progressdialog 종료 코드 -> 위에 백그라운드 함수에서 nameList를 받아오기 전까지는
+            //onPreExecute로 pregressDialog가 계속 돌고 있을 것이고 서버에서 lms받아오면
+            //그 뒤로 5초 뒤에 보여지도록 설정하였다.
+            Thread(Runnable {
+                try{
+                    //Thread.sleep(5000)
+                    if(dialog != null && dialog.isShowing){
+                        dialog.dismiss()
+                    }
+                }catch (e: Exception) {
+
+                }
+                dialog.dismiss()
+            }).start()
+
+            //progressdialog 코드 끝
+
+
 
             tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
             tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
