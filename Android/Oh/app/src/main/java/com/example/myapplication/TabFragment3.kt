@@ -49,8 +49,8 @@ class TabFragment3 : Fragment() {
     private inner class HttpAsyncTask : AsyncTask<String, Void, List<Name2>>() {
 
         var title : String = "2"
-        var userID : String = "2015125063"
-        var userPass : String= "lh091977!"
+        var userID : String = "2015125054"
+        var userPass : String= "jooboo100@"
 
 
         // OkHttp 클라이언트

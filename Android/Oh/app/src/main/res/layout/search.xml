@@ -4,13 +4,23 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/btn_search"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:layout_width="0dip"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:text="Seach Subject" />
+            <Button
+                android:id="@+id/btn_search"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Search" />
+        </TableRow>
+    </TableLayout>
     <ListView
         android:id="@+id/search_view"
         tools:listitem="@layout/item_weather2"
@@ -18,5 +28,4 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="206dp" />
-
 </LinearLayout>
