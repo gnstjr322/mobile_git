@@ -44,7 +44,10 @@ class Main : AppCompatActivity() {
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
+
         HttpAsyncTask().execute("http://192.168.193.80:8080")
+
+
 
 
     }
@@ -54,6 +57,9 @@ class Main : AppCompatActivity() {
         //val intent = intent
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
+
+
+
 
 
         //progres dialog
@@ -210,6 +216,26 @@ class Main : AppCompatActivity() {
                 }
                 dialog.dismiss()
             }).start()
+
+
+            //progressdialog 종료 코드 -> 위에 백그라운드 함수에서 nameList를 받아오기 전까지는
+            //onPreExecute로 pregressDialog가 계속 돌고 있을 것이고 서버에서 lms받아오면
+            //그 뒤로 5초 뒤에 보여지도록 설정하였다.
+            Thread(Runnable {
+                try{
+                    //Thread.sleep(5000)
+                    if(dialog != null && dialog.isShowing){
+                        dialog.dismiss()
+                    }
+                }catch (e: Exception) {
+
+                }
+                dialog.dismiss()
+            }).start()
+
+            //progressdialog 코드 끝
+
+
 
             tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
             tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL

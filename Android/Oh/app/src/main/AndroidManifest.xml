@@ -9,11 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/saebom_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/AppTheme">
         <meta-data android:name="com.samsung.android.icon_container.has_icon_container" android:value="true"/>
         <activity
-            android:name="com.example.myapplication.Splash"
+            android:name=".Splash"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity">
-
         </activity>
         <activity android:name=".Main"></activity>
         <activity android:name=".DetailViewActivity"></activity>
