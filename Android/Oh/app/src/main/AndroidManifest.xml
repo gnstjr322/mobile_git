@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
+    package="com.example.oh">
+
+=======
     package="com.example.myapplication">
+>>>>>>> 5bbb9add0b27179768c156ea5bc06545dc7484d7
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,11 +14,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/saebom_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Splash"
+=======
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <meta-data android:name="com.samsung.android.icon_container.has_icon_container" android:value="true"/>
         <activity
             android:name="com.example.myapplication.Splash"
+>>>>>>> 5bbb9add0b27179768c156ea5bc06545dc7484d7
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +32,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Alarm" />
+        <activity android:name=".Detail_View" />
+        <activity android:name=".Setting" />
+=======
         <activity android:name=".RegisterActivity">
 
         </activity>
         <activity android:name=".Main"></activity>
         <activity android:name=".DetailViewActivity"></activity>
+>>>>>>> 5bbb9add0b27179768c156ea5bc06545dc7484d7
     </application>
 
 </manifest>
