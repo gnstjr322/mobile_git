@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.GridView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
@@ -23,7 +24,7 @@ import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 class TabFragment2(var nameList3 : List<Cal>) : Fragment() {
-    private var mWeatherListView: ListView? = null
+    private var mWeatherListView: GridView? = null
     val adapter = CalAdapter(nameList3)
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -31,7 +32,7 @@ class TabFragment2(var nameList3 : List<Cal>) : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment2, container, false)
-        mWeatherListView = view.findViewById<ListView>(R.id.list_view2)
+        mWeatherListView = view.findViewById<GridView>(R.id.grid_view1)
         Log.d("최종정착지2", nameList3.toString())
 
         if (mWeatherListView != null) {

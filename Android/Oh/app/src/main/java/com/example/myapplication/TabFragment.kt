@@ -59,18 +59,12 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(data !=null) {
-            val accountA = data.getStringExtra("ListsBackA")
+            //val accountA = data.getStringExtra("ListsBackA")
             val accountB = data.getStringExtra("ListsBackB")
-            val accountC = data.getStringExtra("ListsBackC")
+            //val accountC = data.getStringExtra("ListsBackC")
             if (position != null) {
-                if (accountA!= null) {
-                    nameList[position!!].name = accountA
-                } //그사이 바뀔 수 있으니까 !! 선언 해줘야함 널이 아니라고
                 if (accountB!= null) {
                     nameList[position!!].link = accountB
-                }
-                if (accountC!= null) {
-                    nameList[position!!].day = accountC
                 }
                 (list_view.adapter as BaseAdapter).notifyDataSetChanged()
 
