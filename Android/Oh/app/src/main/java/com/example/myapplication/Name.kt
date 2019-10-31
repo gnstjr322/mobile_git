@@ -1,14 +1,10 @@
 package com.example.myapplication
 
+import android.os.Parcel
+import android.os.Parcelable
 
-class Name(var form:String,var name:String, var link: String, var day: String)  {
 
-    /*constructor(name: String, link: String, day: String) {
-        this.name = name
-        this.link = link
-        this.day = day
-    }*/
-
+class Name(var form: String?, var name: String?, var link: String?, var day: String?) : Parcelable {
 
     override fun toString(): String { //이런 형식으로 문자열을 재배치 해주는거야 이클래스는
 
@@ -19,5 +15,29 @@ class Name(var form:String,var name:String, var link: String, var day: String)  
         sb.append(day).append('\'')
 
         return sb.toString()
+    }
+
+    constructor(source: Parcel) : this(
+            source?.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(form)
+        writeString(name)
+        writeString(link)
+        writeString(day)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Name> = object : Parcelable.Creator<Name> {
+            override fun createFromParcel(source: Parcel): Name = Name(source)
+            override fun newArray(size: Int): Array<Name?> = arrayOfNulls(size)
+        }
     }
 }

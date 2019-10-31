@@ -37,6 +37,7 @@ class Main : AppCompatActivity() {
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,240 +45,53 @@ class Main : AppCompatActivity() {
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
-
-        HttpAsyncTask().execute("http://192.168.193.80:8080")
-
-
-
-
-    }
-
-    private inner class HttpAsyncTask : AsyncTask<String, Void, List<Name>>() {
-        //private val TAG = HttpAsyncTask::class.java.simpleName
-        //val intent = intent
+        nameList2 = intent.getParcelableArrayListExtra("nameList2")
+        nameList3 = intent.getParcelableArrayListExtra("nameList3")
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
+        Log.d("메인1", " $nameList2")
+        Log.d("메인2", " $nameList3")
+        Log.d("메인3", " $userID")
+        Log.d("메인4", " $userPass")
 
 
+        tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
+        tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
+        //mWeatherListView = findViewById(R.id.list_view) as? ListView
+
+        //탭페이지 어댑터 설정
+        viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
 
 
-
-        //progres dialog
-        val dialog = ProgressDialog(this@Main)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
-        }
-
-        // OkHttp 클라이언트
-        internal var client = OkHttpClient.Builder()
-                .connectTimeout(600, TimeUnit.SECONDS)
-                .writeTimeout(600, TimeUnit.SECONDS)
-                .readTimeout(600, TimeUnit.SECONDS)
-                .build()
-
-        internal var formBody: RequestBody = FormBody.Builder()
-                .add("id", userID)
-                .add("pw", userPass)
-                .add("num", "0")
-                .build()
+        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, userID, userPass,tabLayout!!.tabCount)
+        viewPager!!.adapter = pagerAdapter
 
 
-        override fun doInBackground(vararg params: String): List<Name>? {
-
-            var nameList: List<Name> = ArrayList()
-            val strUrl = params[0]
-            try {
-                //notify2()
-                //Response response2 = client.newCall(request2).execute();
-                // 요청
-
-                val request = Request.Builder()
-                        .url(strUrl)
-                        .post(formBody)
-                        .build()
-
-                // 응답
-                val response = client.newCall(request).execute()
-                val gson = Gson()
-                val listType = object : TypeToken<ArrayList<Name>>() {
-
-                }.type
-                nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
-            } catch (e: IOException) {
-                e.printStackTrace()
+        //페이지 체인지 리스너 설정
+        viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager!!.currentItem = tab.position
             }
 
-            //Log.d(TAG, nameList.toString())//nameList의 형식은 List<Name>
+            override fun onTabUnselected(tab: TabLayout.Tab) {
 
-            nameList2 = nameList
-            return nameList
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
         }
 
-
-        override fun onPostExecute(nameList: List<Name>?) {
-            super.onPostExecute(nameList)
-            HttpAsyncTask2(userID, userPass).execute("http://192.168.193.80:8080")
-            Thread(Runnable {
-                try{
-                    if(dialog != null && dialog.isShowing){
-                        dialog.dismiss()
-                    }
-                }catch (e:Exception){
-
-                }
-                dialog.dismiss()
-            }).start()
+        )
+        if (nameList3 != null) {
+            //Log.d("HttpAsyncTask", nameList.toString());
+            val adapter = CalAdapter(nameList3)
+            mWeatherListView?.adapter = adapter
         }
     }
 
-
-    private inner class HttpAsyncTask2(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Cal>>() {
-        //private val TAG = HttpAsyncTask::class.java.simpleName
-        //val intent = intent
-
-
-        // OkHttp 클라이언트
-        internal var client = OkHttpClient.Builder()
-                .connectTimeout(600, TimeUnit.SECONDS)
-                .writeTimeout(600, TimeUnit.SECONDS)
-                .readTimeout(600, TimeUnit.SECONDS)
-                .build()
-
-        internal var formBody: RequestBody = FormBody.Builder()
-                .add("id", userID)
-                .add("pw", userPass)
-                .add("num", "1")
-                .build()
-
-        //progres dialog
-        val dialog = ProgressDialog(this@Main)
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
-        }
-
-        override fun doInBackground(vararg params: String): List<Cal>? {
-
-            var nameList: List<Cal> = ArrayList()
-            val strUrl = params[0]
-            try {
-                //notify2()
-                //Response response2 = client.newCall(request2).execute();
-                // 요청
-
-                val request = Request.Builder()
-                        .url(strUrl)
-                        .post(formBody)
-                        .build()
-
-                // 응답
-                val response = client.newCall(request).execute()
-                val gson = Gson()
-                val listType = object : TypeToken<ArrayList<Cal>>() {
-
-                }.type
-                nameList = gson.fromJson<List<Cal>>(response.body!!.string(), listType)
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            Log.d("프레그먼트2", nameList.toString())//nameList의 형식은 List<Name>
-
-            nameList3 = nameList
-            return nameList
-        }
-
-
-        override fun onPostExecute(nameList: List<Cal>?) {
-            super.onPostExecute(nameList)
-
-            Thread(Runnable {
-                try{
-                    if(dialog != null && dialog.isShowing){
-                        dialog.dismiss()
-                    }
-                }catch (e:Exception){
-
-                }
-                dialog.dismiss()
-            }).start()
-
-
-            //progressdialog 종료 코드 -> 위에 백그라운드 함수에서 nameList를 받아오기 전까지는
-            //onPreExecute로 pregressDialog가 계속 돌고 있을 것이고 서버에서 lms받아오면
-            //그 뒤로 5초 뒤에 보여지도록 설정하였다.
-            Thread(Runnable {
-                try{
-                    //Thread.sleep(5000)
-                    if(dialog != null && dialog.isShowing){
-                        dialog.dismiss()
-                    }
-                }catch (e: Exception) {
-
-                }
-                dialog.dismiss()
-            }).start()
-
-            //progressdialog 코드 끝
-
-
-
-            tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
-            tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
-            //mWeatherListView = findViewById(R.id.list_view) as? ListView
-
-            //탭페이지 어댑터 설정
-            viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
-
-
-            Log.d("main", " $nameList2")
-
-
-
-            val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, tabLayout!!.tabCount)
-            viewPager!!.adapter = pagerAdapter
-
-
-
-            //페이지 체인지 리스너 설정
-            viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-            tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab) {
-                    viewPager!!.currentItem = tab.position
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab) {
-
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab) {
-
-                }
-            }
-
-            )
-            if (nameList != null) {
-                //Log.d("HttpAsyncTask", nameList.toString());
-                val adapter = CalAdapter(nameList)
-        mWeatherListView?.adapter = adapter
-    }
 }
-    }
 
 
 /*
@@ -325,4 +139,4 @@ class Main : AppCompatActivity() {
     }
 */
 
-}
+

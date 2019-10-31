@@ -26,7 +26,7 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3 : Fragment() {
+class TabFragment3(var userID : String, var userPass : String) : Fragment() {
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
@@ -40,7 +40,7 @@ class TabFragment3 : Fragment() {
         searchListView = view?.findViewById<ListView>(R.id.search_view)
 
         btn_search?.setOnClickListener {
-            HttpAsyncTask().execute("http://192.168.193.80:8080")
+            HttpAsyncTask().execute("http://172.30.1.60:8080")
         }
 
         return view
@@ -49,8 +49,6 @@ class TabFragment3 : Fragment() {
     private inner class HttpAsyncTask : AsyncTask<String, Void, List<Name2>>() {
 
         var title : String = "2"
-        var userID : String = "2015125054"
-        var userPass : String= "jooboo100@"
 
 
         // OkHttp 클라이언트
