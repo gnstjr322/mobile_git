@@ -40,7 +40,7 @@ class TabFragment3(var userID : String, var userPass : String) : Fragment() {
         searchListView = view?.findViewById<ListView>(R.id.search_view)
 
         btn_search?.setOnClickListener {
-            HttpAsyncTask().execute("http://172.30.1.60:8080")
+            HttpAsyncTask().execute("http://172.30.1.7:8080")
         }
 
         return view

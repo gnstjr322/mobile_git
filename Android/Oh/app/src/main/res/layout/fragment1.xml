@@ -6,14 +6,28 @@
     android:layout_height="match_parent">
 
 
-
     <ListView
         android:id="@+id/list_view"
-        tools:listitem="@layout/item_weather"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="206dp" />
+        android:layout_width="404dp"
+        android:layout_height="592dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        tools:listitem="@layout/item_weather" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="131dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="공지사항"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     />

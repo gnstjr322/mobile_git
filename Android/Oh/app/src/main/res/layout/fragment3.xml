@@ -6,13 +6,31 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
    >
+    <TextView
+        android:id="@+id/sdfsdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="검색"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="430dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sdfsdf">
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="0dip"
@@ -27,13 +45,13 @@
                 android:layout_weight="1"
                 android:text="Search" />
         </TableRow>
+
         <ListView
             android:id="@+id/search_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:listitem="@layout/item_weather2" />
     </TableLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

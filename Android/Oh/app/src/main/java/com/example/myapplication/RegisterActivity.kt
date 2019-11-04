@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -29,7 +26,6 @@ import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 
-//로그인 화면 참고: 홍드로이드
 
 class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 비밀번호를 넘겨야댐
 
@@ -37,6 +33,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     private var et_pass: EditText? = null
     private var btn_register: Button? = null
     private var mWeatherListView: ListView? = null
+
 
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
@@ -46,24 +43,25 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        val dbHelper = DBHelper(applicationContext, "LOGIN.db", null, 1)
+        val result = findViewById<View>(R.id.result) as TextView
 
         et_id = findViewById(R.id.et_id)
         et_pass = findViewById(R.id.et_pass)
         btn_register = findViewById(R.id.btn_register)
 
 
-
         //로그인 버튼 클릭시 수행
         btn_register!!.setOnClickListener {
             //Edit Text에 현재 입력되어있는값을 가져온다.
-
 
             var userID = et_id?.text.toString()
             var userPass = et_pass?.text.toString()
             mWeatherListView = findViewById(R.id.list_view) as? ListView
 
-
-            HttpAsyncTask(userID,userPass).execute("http://172.30.1.60:8080")
+            result.text = dbHelper.result
+            println("$result")
+            HttpAsyncTask(userID,userPass).execute("http:/172.30.1.7:8080")
 
         }
     }
@@ -138,7 +136,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
-            HttpAsyncTask2(userID, userPass).execute("http://172.30.1.60:8080")
+            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.7:8080")
             Thread(Runnable {
                 try{
                     if(dialog != null && dialog.isShowing){
@@ -252,7 +250,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             if(nameList == null)
             {
-                Log.d("로그인 불가","로그인불가")
+                Toast.makeText(applicationContext, "로그인 실패", Toast.LENGTH_SHORT).show()
             }
 
             Log.d("확1", " $nameList2")
