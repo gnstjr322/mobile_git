@@ -1,6 +1,7 @@
 const crawler = require('./crawler')
 const crawlerj = require('./crawlerj')
 const crawlerc = require('./crawlerc')
+const crawlers = require('./crawlers')
 var express = require('express');
 var http = require('http');
 var nic_ip = '192.168.1.71';
@@ -43,6 +44,7 @@ app.post('/', (req, res) => {
   var id = req.param("id");
 	var pw = req.param("pw");
   var num = req.param("num");
+  var link = req.param("link");
 	//res.writeHead("200", {"Content-Type":"text/html;charset=utf8"});
 	//res.write("user uId : " + uId);
 	//res.write("<br>");
@@ -62,7 +64,11 @@ app.post('/', (req, res) => {
        res.json(result);
     });
   }else if(num ==="2"){
-    var result = crawlerc.crawlerc(id,pw,function(result){            //시험시간표 크롤링 장치
+    var result = crawlerc.crawlerc(id,pw,link,function(result){            //시험시간표 크롤링 장치
+       res.json(result);
+    });
+  }else if(num ==="3"){
+    var result = crawlers.crawlers(id,pw,function(result){            //시험시간표 크롤링 장치
        res.json(result);
     });
   }
