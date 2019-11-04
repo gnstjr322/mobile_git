@@ -36,21 +36,25 @@ class Main : AppCompatActivity() {
     private var viewPager: ViewPager? = null
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
+    var nameList4: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
         nameList2 = intent.getParcelableArrayListExtra("nameList2")
         nameList3 = intent.getParcelableArrayListExtra("nameList3")
+        nameList4 = intent.getParcelableArrayListExtra("nameList4")
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         Log.d("메인1", " $nameList2")
         Log.d("메인2", " $nameList3")
+        Log.d("메인6", " $nameList4")
         Log.d("메인3", " $userID")
         Log.d("메인4", " $userPass")
 
@@ -63,7 +67,7 @@ class Main : AppCompatActivity() {
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
 
 
-        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, userID, userPass,tabLayout!!.tabCount)
+        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, nameList4, userID, userPass,tabLayout!!.tabCount)
         viewPager!!.adapter = pagerAdapter
 
 
@@ -89,7 +93,14 @@ class Main : AppCompatActivity() {
             val adapter = CalAdapter(nameList3)
             mWeatherListView?.adapter = adapter
         }
+        if (nameList4 != null) {
+            //Log.d("HttpAsyncTask", nameList.toString());
+            val adapter = SubjectAdapter(nameList4)
+            mWeatherListView?.adapter = adapter
+        }
     }
+
+
 
 }
 

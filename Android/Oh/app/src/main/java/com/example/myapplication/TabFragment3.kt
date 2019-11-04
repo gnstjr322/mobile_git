@@ -9,10 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -26,10 +23,14 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3(var userID : String, var userPass : String) : Fragment() {
+class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass : String) : Fragment() {
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
+    private var mWeatherListView: ListView? = null
+    val adapter = SubjectAdapter(nameList4)
+    var position : Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
+    var link:String? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -38,9 +39,23 @@ class TabFragment3(var userID : String, var userPass : String) : Fragment() {
         var view: View = inflater.inflate(R.layout.fragment3, container, false)
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById<ListView>(R.id.search_view)
+        mWeatherListView  = view?.findViewById<ListView>(R.id.subject_view)
+
+        //val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, weatherList)
+        Log.d("들어가라", " $nameList4")
+        if (mWeatherListView != null) {
+            mWeatherListView!!.adapter = adapter
+        }
+        mWeatherListView!!.setOnItemClickListener({parent, itemView,position,id->
+            this.position = position
+            link = nameList4[position].link
+           Log.d("확3", "$link")
+            HttpAsyncTask().execute("http:/172.30.1.34:8080")
+        })
+
 
         btn_search?.setOnClickListener {
-            HttpAsyncTask().execute("http://172.30.1.7:8080")
+            //HttpAsyncTask().execute("http://172.30.1.7:8080")
         }
 
         return view
@@ -59,6 +74,7 @@ class TabFragment3(var userID : String, var userPass : String) : Fragment() {
                 .build()
 
         internal var formBody: RequestBody = FormBody.Builder()
+                .add("link",link!!)
                 .add("id", userID)
                 .add("pw", userPass)
                 .add("num", title)

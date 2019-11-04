@@ -37,6 +37,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
+    var nameList4: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
 
 
     override fun onCreate(savedInstanceState: Bundle?) { // 액티비티 처음 실행되는 생명주기
@@ -61,7 +62,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             result.text = dbHelper.result
             println("$result")
-            HttpAsyncTask(userID,userPass).execute("http:/172.30.1.7:8080")
+            HttpAsyncTask(userID,userPass).execute("http:/172.30.1.34:8080")
 
         }
     }
@@ -136,7 +137,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
-            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.7:8080")
+            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.34:8080")
             Thread(Runnable {
                 try{
                     if(dialog != null && dialog.isShowing){
@@ -149,6 +150,89 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             }).start()
         }
     }
+
+    private inner class HttpAsyncTask3(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Subject>>() {
+        //private val TAG = HttpAsyncTask::class.java.simpleName
+        //val intent = intent
+
+
+        // OkHttp 클라이언트
+        internal var client = OkHttpClient.Builder()
+                .connectTimeout(600, TimeUnit.SECONDS)
+                .writeTimeout(600, TimeUnit.SECONDS)
+                .readTimeout(600, TimeUnit.SECONDS)
+                .build()
+
+        internal var formBody: RequestBody = FormBody.Builder()
+                .add("id", userID)
+                .add("pw", userPass)
+                .add("num", "3")
+                .build()
+
+        //progres dialog
+        val dialog = ProgressDialog(this@RegisterActivity)
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            dialog.setMessage("로딩중입니다...")
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+            dialog.show()
+        }
+
+        override fun doInBackground(vararg params: String): List<Subject>? {
+
+            var nameList: List<Subject> = ArrayList()
+            val strUrl = params[0]
+            try {
+                //notify2()
+                //Response response2 = client.newCall(request2).execute();
+                // 요청
+
+                val request = Request.Builder()
+                        .url(strUrl)
+                        .post(formBody)
+                        .build()
+
+                // 응답
+                val response = client.newCall(request).execute()
+                val gson = Gson()
+                val listType = object : TypeToken<ArrayList<Subject>>() {
+
+                }.type
+                nameList = gson.fromJson<List<Subject>>(response.body!!.string(), listType)
+                //Log.d(TAG, "onCreate: " + weatherList.toString());
+                // notify2()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            //Log.d("프레그먼트2", nameList.toString())//nameList의 형식은 List<Name>
+
+            nameList4 = nameList
+            return nameList
+        }
+
+
+        override fun onPostExecute(nameList: List<Subject>?) {
+            super.onPostExecute(nameList)
+            HttpAsyncTask2(userID,userPass).execute("http:/172.30.1.34:8080")
+            Thread(Runnable {
+                try{
+                    if(dialog != null && dialog.isShowing){
+                        dialog.dismiss()
+                    }
+                }catch (e: Exception){
+
+                }
+                dialog.dismiss()
+            }).start()
+            Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
+        }
+    }
+
+
 
 
     private inner class HttpAsyncTask2(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Cal>>() {
@@ -255,11 +339,13 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             Log.d("확1", " $nameList2")
             Log.d("확2", "$nameList3")//nameList의 형식은 List<Name>
+            Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
 
             Toast.makeText(applicationContext, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
             intent.putExtra("nameList2", nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", nameList3 as ArrayList<List<Cal>>)
+            intent.putExtra("nameList4", nameList4 as ArrayList<List<Subject>>)
             intent.putExtra("userID",userID)
             intent.putExtra("userPass",userPass)
             startActivity(intent)
