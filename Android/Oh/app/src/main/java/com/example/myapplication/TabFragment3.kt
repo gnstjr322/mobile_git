@@ -48,14 +48,15 @@ class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass
         }
         mWeatherListView!!.setOnItemClickListener({parent, itemView,position,id->
             this.position = position
-            link = nameList4[position].link
+            link = nameList4[position].link!!
            Log.d("확3", "$link")
-            HttpAsyncTask().execute("http:/172.30.1.34:8080")
+            HttpAsyncTask().execute("http:/192.168.173.70:8080")
         })
 
 
         btn_search?.setOnClickListener {
-            //HttpAsyncTask().execute("http://172.30.1.7:8080")
+            HttpAsyncTask().execute("http://192.168.173.70:8080")
+
         }
 
         return view

@@ -62,7 +62,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             result.text = dbHelper.result
             println("$result")
-            HttpAsyncTask(userID,userPass).execute("http:/172.30.1.34:8080")
+
+            HttpAsyncTask(userID,userPass).execute("http:/192.168.173.70:8080")
+
 
         }
     }
@@ -124,7 +126,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 //Log.d(TAG, "onCreate: " + weatherList.toString());
                 // notify2()
             } catch (e: IOException) {
-                Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
 
@@ -137,7 +139,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
-            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.34:8080")
+
+            HttpAsyncTask2(userID, userPass).execute("http:/192.168.173.70:8080")
+
             Thread(Runnable {
                 try{
                     if(dialog != null && dialog.isShowing){
@@ -217,7 +221,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
-            HttpAsyncTask2(userID,userPass).execute("http:/172.30.1.34:8080")
+            HttpAsyncTask2(userID,userPass).execute("http:/192.168.173.70:8080")
             Thread(Runnable {
                 try{
                     if(dialog != null && dialog.isShowing){
