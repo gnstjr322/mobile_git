@@ -30,7 +30,7 @@ class SearchAdapter(var mList: List<Name2>) : BaseAdapter() {
                 LayoutInflater.from(parent.context).inflate(R.layout.item_weather2, parent, false)
 
             holder = ViewHolder()
-            holder.txt = convertView!!.findViewById(R.id.text_text) as TextView
+            holder.title = convertView!!.findViewById(R.id.text_text) as TextView
             holder.data = convertView.findViewById(R.id.data_text) as TextView
             convertView.tag = holder
         } else {
@@ -38,7 +38,7 @@ class SearchAdapter(var mList: List<Name2>) : BaseAdapter() {
         }
 
         val name1 = getItem(position) as Name2
-        holder.txt!!.setText(name1.txt)
+        holder.title!!.setText(name1.title)
         holder.data!!.setText(name1.data)
 
 
@@ -47,7 +47,7 @@ class SearchAdapter(var mList: List<Name2>) : BaseAdapter() {
 
     // 뷰 홀더 패턴
     internal class ViewHolder {
-        var txt: TextView? = null
+        var title: TextView? = null
         var data: TextView? = null
 
     }
