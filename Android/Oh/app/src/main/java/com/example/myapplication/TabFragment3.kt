@@ -69,7 +69,11 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
 
         btn_search?.setOnClickListener {
             link = nameList4[positionthis!!].link
+<<<<<<< HEAD
             HttpAsyncTask().execute("http:/192.168.164.96:8080")
+=======
+            HttpAsyncTask().execute("http:/192.168.167.240:8080")
+>>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
             //HttpAsyncTask().execute("http://172.30.1.7:8080")
         }
 

@@ -118,8 +118,14 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 var userPass = et_pass?.text.toString()
                 mWeatherListView = findViewById(R.id.list_view) as? ListView
 
+<<<<<<< HEAD
                 result.text = dbHelper.result
                 println("$result")
+=======
+            result.text = dbHelper.result
+            println("$result")
+            HttpAsyncTask(userID,userPass).execute("http:/192.168.167.240:8080")
+>>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
 
 
                 HttpAsyncTask(userID, userPass).execute("http:/192.168.164.96:8080")
@@ -197,10 +203,14 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
+<<<<<<< HEAD
 
 
             HttpAsyncTask2(userID, userPass).execute("http:/192.168.164.96:8080")
 
+=======
+            HttpAsyncTask3(userID, userPass).execute("http:/192.168.167.240:8080")
+>>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
             Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
@@ -280,9 +290,13 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
+<<<<<<< HEAD
 
             HttpAsyncTask2(userID, userPass).execute("http:/192.168.164.96:8080")
 
+=======
+            HttpAsyncTask2(userID,userPass).execute("http:/192.168.167.240:8080")
+>>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
             Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
