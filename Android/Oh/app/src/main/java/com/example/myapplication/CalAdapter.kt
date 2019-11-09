@@ -45,13 +45,13 @@ class CalAdapter(var cList: List<Cal>?) : BaseAdapter() {
             holder = convertView.tag as ViewHolder
         }
 
-        val name1 = getItem(position) as Cal
-        holder.date!!.setText(name1.date)
-        holder.mon!!.setText(name1.mon)
-        holder.tue!!.setText(name1.tue)
-        holder.wed!!.setText(name1.wed)
-        holder.thu!!.setText(name1.thu)
-        holder.fri!!.setText(name1.fri)
+        val name1 = getItem(position) as Cal?
+        holder.date?.setText(name1?.date)
+        holder.mon?.setText(name1?.mon)
+        holder.tue?.setText(name1?.tue)
+        holder.wed?.setText(name1?.wed)
+        holder.thu?.setText(name1?.thu)
+        holder.fri?.setText(name1?.fri)
 
         return convertView
     }

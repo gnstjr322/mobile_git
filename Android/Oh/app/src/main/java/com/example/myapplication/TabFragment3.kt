@@ -23,14 +23,14 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass : String) : Fragment() {
+class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPass: String) : Fragment() {
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
-    private var mWeatherListView: ListView? = null
+    private var mWeatherListView: Spinner? = null
     val adapter = SubjectAdapter(nameList4)
-    var position : Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
-    var link:String? = null
+    var positionthis: Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
+    var link: String? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -39,24 +39,38 @@ class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass
         var view: View = inflater.inflate(R.layout.fragment3, container, false)
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById<ListView>(R.id.search_view)
-        mWeatherListView  = view?.findViewById<ListView>(R.id.subject_view)
+        mWeatherListView = view?.findViewById<Spinner>(R.id.subject_spinner)
 
         //val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, weatherList)
         Log.d("들어가라", " $nameList4")
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
         }
+        mWeatherListView!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                positionthis = position
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+
+        }
+        /*
         mWeatherListView!!.setOnItemClickListener({parent, itemView,position,id->
             this.position = position
-            link = nameList4[position].link!!
+            link = nameList4[position].link
            Log.d("확3", "$link")
-            HttpAsyncTask().execute("http:/192.168.173.70:8080")
+            HttpAsyncTask().execute("http:/192.168.168.3:8080")
         })
+        */
 
 
         btn_search?.setOnClickListener {
-            HttpAsyncTask().execute("http://192.168.173.70:8080")
-
+            link = nameList4[positionthis!!].link
+            HttpAsyncTask().execute("http:/192.168.164.96:8080")
+            //HttpAsyncTask().execute("http://172.30.1.7:8080")
         }
 
         return view
@@ -64,7 +78,7 @@ class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass
 
     private inner class HttpAsyncTask : AsyncTask<String, Void, List<Name2>>() {
 
-        var title : String = "2"
+        var title: String = "2"
 
 
         // OkHttp 클라이언트
@@ -75,7 +89,7 @@ class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass
                 .build()
 
         internal var formBody: RequestBody = FormBody.Builder()
-                .add("link",link!!)
+                .add("link", link!!)
                 .add("id", userID)
                 .add("pw", userPass)
                 .add("num", title)
@@ -124,19 +138,19 @@ class TabFragment3(var nameList4:List<Subject>,var userID : String, var userPass
             super.onPostExecute(searchList)
 
             Thread(Runnable {
-                try{
+                try {
                     //Thread.sleep(5000)
-                    if(dialog != null && dialog.isShowing){
+                    if (dialog != null && dialog.isShowing) {
                         dialog.dismiss()
                     }
-                }catch (e: Exception) {
+                } catch (e: Exception) {
 
                 }
                 dialog.dismiss()
             }).start()
 
 
-            if(searchList != null) {
+            if (searchList != null) {
                 val adapter = SearchAdapter(searchList)
                 searchListView?.adapter = adapter
             }

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 
 class TabFragment2(var nameList3 : List<Cal>) : Fragment() {
     private var mWeatherListView: GridView? = null
-    val adapter = CalAdapter(nameList3)
+
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -35,6 +35,8 @@ class TabFragment2(var nameList3 : List<Cal>) : Fragment() {
         mWeatherListView = view.findViewById<GridView>(R.id.grid_view1)
         Log.d("최종정착지2", nameList3.toString())
 
+
+        val adapter = CalAdapter(nameList3)
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
         }
