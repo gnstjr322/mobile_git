@@ -34,12 +34,12 @@ class CalAdapter(var cList: List<Cal>?) : BaseAdapter() {
                 LayoutInflater.from(parent.context).inflate(R.layout.item_calendar, parent, false)
 
             holder = ViewHolder()
-            holder.date = convertView!!.findViewById(R.id.date_text) as TextView
-            holder.mon = convertView.findViewById(R.id.mon_text) as TextView
-            holder.tue = convertView.findViewById(R.id.tue_text) as TextView
-            holder.wed = convertView.findViewById(R.id.wed_text) as TextView
-            holder.thu = convertView.findViewById(R.id.thu_text) as TextView
-            holder.fri = convertView.findViewById(R.id.fri_text) as TextView
+            holder?.date = convertView!!.findViewById(R.id.date_text) as TextView
+            holder?.mon = convertView.findViewById(R.id.mon_text) as TextView
+            holder?.tue = convertView.findViewById(R.id.tue_text) as TextView
+            holder?.wed = convertView.findViewById(R.id.wed_text) as TextView
+            holder?.thu = convertView.findViewById(R.id.thu_text) as TextView
+            holder?.fri = convertView.findViewById(R.id.fri_text) as TextView
             convertView.tag = holder
         } else {
             holder = convertView.tag as ViewHolder

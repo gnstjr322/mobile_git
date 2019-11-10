@@ -46,7 +46,7 @@ class TabFragment4 : Fragment() {
             }
             else if(position == 1) { // 설정 항목 액티비티 띄우기
                 intent = Intent(activity, Setting2Activity::class.java) //알림
-<<<<<<< HEAD
+
             }
             else if(position == 4) {
                 intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
@@ -60,19 +60,6 @@ class TabFragment4 : Fragment() {
 
             }
             else
-=======
-            }else if(position == 4) {
-                intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
-                startActivity(intent)
-                //val auto : SharedPreferences = context!!.getSharedPreferences("auto", MODE_PRIVATE)
-                //val editor = auto.edit()
-                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
-                //editor.clear()
-                //editor.commit()
-                Toast.makeText(activity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-
-            } else
->>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
                 intent = Intent(activity, Setting1Activity::class.java) //개발자
 
             startActivityForResult(intent,1)

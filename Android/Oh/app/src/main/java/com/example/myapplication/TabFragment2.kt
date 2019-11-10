@@ -32,6 +32,7 @@ class TabFragment2(var nameList3 : List<Cal>) : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view: View = inflater.inflate(R.layout.fragment2, container, false)
+
         mWeatherListView = view.findViewById<GridView>(R.id.grid_view1)
         Log.d("최종정착지2", nameList3.toString())
 

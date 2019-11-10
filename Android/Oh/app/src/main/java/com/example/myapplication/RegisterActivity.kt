@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.FormBody
@@ -29,7 +30,6 @@ import java.lang.Exception
 import java.lang.reflect.Array.set
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
-
 
 
 class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 비밀번호를 넘겨야댐
@@ -46,30 +46,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     var autoId: String? = null
     var autoPwd: String? = null
-    var auto_nameList2: List<Name> = ArrayList()
-    var auto_nameList3: List<Cal> = ArrayList()
-    var auto_nameList4: List<Subject> = ArrayList()
-
-
-    fun <E> getList(key: String): List<E> { //전역변수를 받아오는 함수(자동로그인)
-        val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
-
-        var plz: List<E> = ArrayList()
-        val json = auto.getString(key, null)
-        val valueList = ArrayList<E>()
-
-        if (json != null) {
-            try {
-                val jsonArray = JSONArray(json)
-                for (i in 0 until jsonArray.length()) {
-                    valueList.add(jsonArray.opt(i) as E)
-                }
-            } catch (e: JSONException) {
-
-            }
-        }
-        return valueList
-    }
+    var auto_nameList2: List<Name>? = ArrayList()
+    var auto_nameList3: List<Cal>? = ArrayList()
+    var auto_nameList4: List<Subject>? = ArrayList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) { // 액티비티 처음 실행되는 생명주기
@@ -88,24 +67,42 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //처음에는 SharedPreferences에 아무런 정보도 없으므로 값을 저장할 키들을 생성한다.
         // getString의 첫 번째 인자는 저장될 키, 두 번쨰 인자는 값( 저장된 전역변수를 불러온다 라고 생각해)
         // 첨엔 값이 없으므로 키값은 원하는 것으로 하고 값을 null을 준다.
-
         autoId = auto.getString("inputId", null) // 불러오기
         autoPwd = auto.getString("inputPwd", null)
-        auto_nameList2 = getList("nameList2")
-        auto_nameList3 = getList("nameList3")
-        auto_nameList4 = getList("nameList4")
-        Log.d("확1-1", " $auto_nameList2")
-        Log.d("확2-2", "$auto_nameList3")//nameList의 형식은 List<Name>
-        Log.d("확3-3", "$auto_nameList4")//nameList의 형식은 List<Name>
 
-        if (autoId != null && autoPwd != null ) { //로그인한 이력이 있으면
+
+        val gson = Gson()
+        val string = auto.getString("nameList2", null)
+        val type = object : TypeToken<List<Name>>() {
+
+        }.getType()
+
+        val string2 = auto.getString("nameList3", null)
+        val type2 = object : TypeToken<List<Cal>>() {
+
+        }.getType()
+
+        val string3 = auto.getString("nameList4", null)
+        val type3 = object : TypeToken<List<Subject>>() {
+
+        }.getType()
+
+        // getString으로 받아온 문자열을 json 형식으로 파싱시켜야 커스텀 List 형식으로 다시 저장할 수 있다.
+        auto_nameList2 = gson.fromJson<List<Name>>(string, type)
+        auto_nameList3 = gson.fromJson<List<Cal>>(string2, type2)
+        auto_nameList4 = gson.fromJson<List<Subject>>(string3, type3)
+
+        //로그인한 이력이 있었으면
+        if (autoId != null && autoPwd != null && auto_nameList2 != null
+                && auto_nameList3 != null && auto_nameList4 != null) {
             Toast.makeText(this@RegisterActivity, autoId + "님, 다시만나서 반가워요!", Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
+
+            intent.putExtra("userID", autoId)
+            intent.putExtra("userPass", autoPwd)
             intent.putExtra("nameList2", auto_nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", auto_nameList3 as ArrayList<List<Cal>>)
             intent.putExtra("nameList4", auto_nameList4 as ArrayList<List<Subject>>)
-            intent.putExtra("userID", autoId)
-            intent.putExtra("userPass", autoPwd)
             startActivity(intent)
 
 
@@ -118,17 +115,12 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 var userPass = et_pass?.text.toString()
                 mWeatherListView = findViewById(R.id.list_view) as? ListView
 
-<<<<<<< HEAD
+
                 result.text = dbHelper.result
                 println("$result")
-=======
-            result.text = dbHelper.result
-            println("$result")
-            HttpAsyncTask(userID,userPass).execute("http:/192.168.167.240:8080")
->>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
 
 
-                HttpAsyncTask(userID, userPass).execute("http:/192.168.164.96:8080")
+                HttpAsyncTask(userID, userPass).execute("http:/172.30.1.49:8080")
 
             }
         }
@@ -203,14 +195,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
-<<<<<<< HEAD
 
+            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.49:8080")
 
-            HttpAsyncTask2(userID, userPass).execute("http:/192.168.164.96:8080")
-
-=======
-            HttpAsyncTask3(userID, userPass).execute("http:/192.168.167.240:8080")
->>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
             Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
@@ -290,13 +277,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
-<<<<<<< HEAD
 
-            HttpAsyncTask2(userID, userPass).execute("http:/192.168.164.96:8080")
+            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.49:8080")
 
-=======
-            HttpAsyncTask2(userID,userPass).execute("http:/192.168.167.240:8080")
->>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
             Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
@@ -332,7 +315,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
-
 
 
         override fun onPreExecute() {
@@ -378,34 +360,21 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
 
 
-
-        /*fun <E> setJsonArrayList(key: String, valueList: List<E>) { //List를 put
+        operator fun set(key: String, value: String) {
             val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
+            //val tinyDB : TinyDB = TinyDB(applicationContext)
+            val autoLogin = auto.edit()
 
-            val jsonArray = JSONArray()
-            for (value in valueList) {
-                jsonArray.put(value)
-            }
-
-            if (!valueList.isEmpty()) {
-                auto.edit().putString(key, jsonArray.toString()).commit()
-            } else {
-                auto.edit().putString(key, null).commit()
-            }
-        }*/
+            autoLogin.putString(key, value)
+            autoLogin.commit()
+        }
 
         fun <T> setList(key: String, list: List<T>) {
             val gson = Gson()
             val json = gson.toJson(list)
-
             set(key, json)
         }
 
-        operator fun set(key: String, value: String) {
-            val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
-            auto.edit().putString(key, value)
-            auto.edit().commit()
-        }
 
         override fun onPostExecute(nameList: List<Cal>?) {
             super.onPostExecute(nameList)
@@ -439,14 +408,17 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             //progressdialog 코드 끝
 
+
             val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
             //val tinyDB : TinyDB = TinyDB(applicationContext)
             val autoLogin = auto.edit()
+
             autoLogin.putString("inputId", userID) //저장
             autoLogin.putString("inputPwd", userPass) //저장
-            setList("nameList2", nameList2)  //저장
-            setList("nameList3", nameList3 ) //저장
+            setList("nameList2", nameList2) //저장
+            setList("nameList3", nameList3) //저장
             setList("nameList4", nameList4) //저장
+
             //꼭 commit()을 해줘야 값이 저장됨
             autoLogin.commit()
 
@@ -465,7 +437,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
 
         }
-
 
 
     }

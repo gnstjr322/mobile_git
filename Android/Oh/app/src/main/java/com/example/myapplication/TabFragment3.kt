@@ -36,7 +36,8 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        var view: View = inflater.inflate(R.layout.fragment3, container, false)
+        var view: View? = inflater.inflate(R.layout.fragment3, container, false)
+
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById<ListView>(R.id.search_view)
         mWeatherListView = view?.findViewById<Spinner>(R.id.subject_spinner)
@@ -46,8 +47,8 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
         }
-        mWeatherListView!!.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+        mWeatherListView?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 positionthis = position
 
             }
@@ -57,24 +58,13 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             }
 
         }
-        /*
-        mWeatherListView!!.setOnItemClickListener({parent, itemView,position,id->
-            this.position = position
-            link = nameList4[position].link
-           Log.d("확3", "$link")
-            HttpAsyncTask().execute("http:/192.168.168.3:8080")
-        })
-        */
 
 
         btn_search?.setOnClickListener {
             link = nameList4[positionthis!!].link
-<<<<<<< HEAD
-            HttpAsyncTask().execute("http:/192.168.164.96:8080")
-=======
-            HttpAsyncTask().execute("http:/192.168.167.240:8080")
->>>>>>> 3088747a6261d1910f3ba421045ca7811167fd37
-            //HttpAsyncTask().execute("http://172.30.1.7:8080")
+
+            HttpAsyncTask().execute("http:/172.30.1.49:8080")
+
         }
 
         return view
