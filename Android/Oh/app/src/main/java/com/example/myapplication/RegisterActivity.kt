@@ -1,18 +1,21 @@
 package com.example.myapplication
 
+import android.app.*
 import androidx.appcompat.app.AppCompatActivity
-import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.os.AsyncTask
-import android.os.Bundle
-import android.os.Handler
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.net.Uri
+import android.os.*
+import android.provider.Settings
 import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -34,7 +37,7 @@ import java.util.concurrent.TimeUnit
 
 
 class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 비밀번호를 넘겨야댐
-
+    val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,1)
     //custom dialog 변수
     var customAnimationDialog: CustomAnimationDialog? = null
     val handler = Handler()
@@ -57,11 +60,13 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList4: List<Subject>? = ArrayList()
 
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     override fun onCreate(savedInstanceState: Bundle?) { // 액티비티 처음 실행되는 생명주기
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        val dbHelper = DBHelper(applicationContext, "LOGIN.db", null, 1)
+        //val dbHelper = DBHelper(applicationContext, "NAME", null, 1)
         val result = findViewById<View>(R.id.result) as TextView
 
 
@@ -93,6 +98,10 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         }.getType()
 
+
+
+
+
         // getString으로 받아온 문자열을 json 형식으로 파싱시켜야 커스텀 List 형식으로 다시 저장할 수 있다.
         auto_nameList2 = gson.fromJson<List<Name>>(string, type)
         auto_nameList3 = gson.fromJson<List<Cal>>(string2, type2)
@@ -122,16 +131,47 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 mWeatherListView = findViewById(R.id.list_view) as? ListView
 
 
-                result.text = dbHelper.result
-                println("$result")
+                //result.text = dbHelper.result
+                //println("$result")
 
 
-                HttpAsyncTask(userID, userPass).execute("http:/192.168.194.178:8080")
+                HttpAsyncTask(userID, userPass).execute("http:/172.30.1.13:8080")
 
             }
         }
-    }
 
+        //////////////////////////
+        val pm = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+        var isWhiteListing = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            isWhiteListing = pm.isIgnoringBatteryOptimizations(applicationContext.packageName)
+        }
+        if (!isWhiteListing) {
+            val intent = Intent()
+            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+            intent.data = Uri.parse("package:" + applicationContext.packageName)
+            //intent.putExtra("nameList2", auto_nameList2 as ArrayList<List<Name>>)
+            startActivity(intent)
+        }
+
+        if (RealService.serviceIntent == null) {
+            RealService.serviceIntent = Intent(this, RealService::class.java)
+            startService(RealService.serviceIntent)
+        } else {
+            RealService.serviceIntent = RealService.serviceIntent//getInstance().getApplication();
+        }
+
+
+        //////////////////
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        if (RealService.serviceIntent != null) {
+            stopService(RealService.serviceIntent)
+            RealService.serviceIntent = null
+        }
+    }
     //customDialog
 
     private fun makeDialog(){
@@ -146,6 +186,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     //customdialog code 끝
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
         //private val TAG = HttpAsyncTask::class.java.simpleName
         //val intent = intent
@@ -217,16 +258,21 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             }
 
             //Log.d(TAG, nameList.toString())//nameList의 형식은 List<Name>
-
             nameList2 = nameList
+            for (i in nameList2){
+                if(nameList2!=null) {
+                    dbHelper.nameInsert(i.form,i.name,i.link,i.day)
+                }
+            }
             return nameList
         }
 
 
+        @RequiresApi(Build.VERSION_CODES.CUPCAKE)
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask3(userID, userPass).execute("http:/192.168.194.178:8080")
+            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.13:8080")
 
             /*Thread(Runnable {
                 try {
@@ -256,6 +302,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask3(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Subject>>() { //두번째
         //private val TAG = HttpAsyncTask::class.java.simpleName
         //val intent = intent
@@ -333,7 +380,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask2(userID, userPass).execute("http:/192.168.194.178:8080")
+            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.13:8080")
 
             /*Thread(Runnable {
                 try {
@@ -365,6 +412,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask2(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Cal>>() {
         //private val TAG = HttpAsyncTask::class.java.simpleName
         //val intent = intent
@@ -456,6 +504,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
 
 
+        @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         override fun onPostExecute(nameList: List<Cal>?) {
             super.onPostExecute(nameList)
 
@@ -537,6 +586,8 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
 
             Toast.makeText(applicationContext, userID + "님, 환영합니다.", Toast.LENGTH_SHORT).show()
+            var fd2 : String = dbHelper.result
+            Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
             intent.putExtra("nameList2", nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", nameList3 as ArrayList<List<Cal>>)
@@ -547,6 +598,51 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         }
     }
+
+/*
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    fun notify2(){
+        lateinit var notificationManager: NotificationManager
+        lateinit var notificationChannel: NotificationChannel
+        lateinit var builder: Notification.Builder
+        val channelId = "com.example.noti"
+        val description = "뭐?과제떴다고?"
+        notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        //ContextCompat.
+
+        val intent = Intent(this, LauncherActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val contentView = RemoteViews(packageName, R.layout.notification_layout)
+
+        contentView.setTextViewText(R.id.tv_title, "접속을 환영합니다.")
+        contentView.setTextViewText(R.id.tv_content, "로그인완료")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = Notification.Builder(this, channelId)
+                    .setContent(contentView)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
+                    .setContentIntent(pendingIntent)
+
+        } else {
+            builder = Notification.Builder(this)
+                    .setContent(contentView)
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
+                    .setContentIntent(pendingIntent)
+
+        }
+
+        notificationManager.notify(1234, builder.build())
+
+    }*/
 
 }
 
