@@ -1,15 +1,28 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
 
-function delay( timeout ) {
+function delay( timeout ) { // 딜레이 함수
   return new Promise(( resolve ) => {
     setTimeout( resolve, timeout );
   });
 }
-exports.crawlerj = function(id,pw,callback){
+
+function spliter(data){ // 문자열 파싱 작업 함수
+  if(data.indexOf('감') != -1){
+    var split1 = data.substring(0,data.indexOf('감'));
+    var split2 = data.substring(data.indexOf('감'),);
+    var split = split1 + '\n' + split2;
+    split1 = split.substring(0,data.indexOf('장')+1);
+    split2 = split.substring(data.indexOf('장')+1,);
+    split = split1 + '\n' +split2;
+    return split;
+  }
+  return data;
+}
+exports.crawlerj = function(id,pw,callback){ // 모듈화
   const url = 'https://www.kau.ac.kr/page/login.jsp?ppage=&target_page=act_Portal_Check.jsp@chk1-1';
 
-  (async () => {
+  (async () => { // 동기를 맞추기 위해 어싱크를 사용
      function scrapdata(html) {
        const $ = cheerio.load(html);
        //const $2 = cheerio.load(html2);
@@ -22,6 +35,11 @@ exports.crawlerj = function(id,pw,callback){
            temp['wed'] = $(this).find('td:nth-child(4)').text().trim()
            temp['thu'] = $(this).find('td:nth-child(5)').text().trim()
            temp['fri'] = $(this).find('td:nth-child(6)').text().trim()
+           temp['mon']=spliter(temp['mon']); // 파싱한 돔을 다시 파싱함
+           temp['tue']=spliter(temp['tue']);
+           temp['wed']=spliter(temp['wed']);
+           temp['thu']=spliter(temp['thu']);
+           temp['fri']=spliter(temp['fri']);
            data.push(temp)
        })
        console.log(data);

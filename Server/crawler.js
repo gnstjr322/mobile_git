@@ -20,7 +20,11 @@ exports.crawler = function(id,pw,callback){
            temp['name'] = $(this).find('li> a > div.title > h5').text().trim()
            temp['day'] = $2(this).find('li> a > div.title > p').text().trim()
            temp['link'] = $(this).find('li > a').attr('href')
-           if(temp['name']!= null || temp['link']!=undefined)data.push(temp)
+           if(temp['name'] === '' || temp['link'] === ''){
+
+           }else{
+             data.push(temp)
+           }
        })
        $('#div > div.media').each(function (index, ele) {
          var temp = Object()
@@ -28,7 +32,11 @@ exports.crawler = function(id,pw,callback){
          temp['name'] = $(this).find('a > div.media-body > h5.media-heading').text().trim()
          temp['link'] = $(this).find('a').attr('href')
          //temp['day'] = $(this).find('a > div.media-body >  p.timeago').text().trim()
-         if(temp['name']!= null || temp['link']!=undefined)data.push(temp)
+         if(temp['name'] === '' || temp['link'] === ''){
+
+         }else{
+           data.push(temp)
+         }
        })
        $2('div > div.media').each(function (index, ele) {
            var temp = Object()
@@ -36,7 +44,11 @@ exports.crawler = function(id,pw,callback){
            temp['name'] = $2(this).find('a > div.media-body > h4.media-heading').text().trim()
            temp['link'] = $2(this).find('a').attr('href')
            temp['day'] = $2(this).find('a > div.media-body >  p.timeago').text().trim()
-           if(temp['name']!= null || temp['link']!=undefined)data.push(temp)
+           if(temp['name'] === '' || temp['link'] === ''){
+
+           }else{
+             data.push(temp)
+           }
        })
        console.log(data);
        return data;

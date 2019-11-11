@@ -21,6 +21,7 @@ exports.crawlerc = function(id,pw,link,callback){
              var temp = Object()
              temp['title'] = $(this).find("span.hidden.sectionname").text().trim()
              temp['data'] = $(this).find("div.content").text().trim()
+             //temp['data'] = $(this).find("div.no-overflow").text().trim()
              i++
              data.push(temp)
          })
