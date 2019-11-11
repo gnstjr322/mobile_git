@@ -17,19 +17,19 @@
             android:id="@+id/name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="과목명" />
+            android:text="@string/과목명" />
 
         <TextView
             android:id="@+id/link_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="링크" />
+            android:text="@string/링크" />
 
         <TextView
             android:id="@+id/day_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="날짜" />
+            android:text="@string/날짜" />
     </TableLayout>
 
 

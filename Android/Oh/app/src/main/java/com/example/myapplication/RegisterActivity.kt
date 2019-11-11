@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.util.Log
 import android.view.View
@@ -33,6 +34,11 @@ import java.util.concurrent.TimeUnit
 
 
 class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 비밀번호를 넘겨야댐
+
+    //custom dialog 변수
+    var customAnimationDialog: CustomAnimationDialog? = null
+    val handler = Handler()
+    //
 
     private var et_id: EditText? = null
     private var et_pass: EditText? = null
@@ -120,12 +126,25 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 println("$result")
 
 
-                HttpAsyncTask(userID, userPass).execute("http:/172.30.1.49:8080")
+                HttpAsyncTask(userID, userPass).execute("http:/192.168.194.178:8080")
 
             }
         }
     }
 
+    //customDialog
+
+    private fun makeDialog(){
+        CustomAnimationDialog.Builder(this)
+                .show()
+    }
+
+    private fun deleteDialog(){
+        CustomAnimationDialog.Builder(this)
+                .dismiss()
+    }
+
+    //customdialog code 끝
 
     private inner class HttpAsyncTask(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
         //private val TAG = HttpAsyncTask::class.java.simpleName
@@ -135,14 +154,25 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
 
-        override fun onPreExecute() {
+        /*override fun onPreExecute() {
             super.onPreExecute()
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             dialog.setMessage("로딩중입니다...")
             dialog.setCanceledOnTouchOutside(false)
             dialog.setCancelable(false)
             dialog.show()
+
+        }*/
+        //customDialogcode
+        override fun onPreExecute() {
+            super.onPreExecute()
+            //custom dialog 실행
+            handler.postDelayed({
+                customAnimationDialog = CustomAnimationDialog(this@RegisterActivity)
+                makeDialog()
+            },0)
         }
+
 
         // OkHttp 클라이언트
         internal var client = OkHttpClient.Builder()
@@ -196,9 +226,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.49:8080")
+            HttpAsyncTask3(userID, userPass).execute("http:/192.168.194.178:8080")
 
-            Thread(Runnable {
+            /*Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
                         dialog.dismiss()
@@ -207,7 +237,22 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                     Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
                 dialog.dismiss()
-            }).start()
+            }).start()*/
+            handler.postDelayed({
+                Thread(Runnable {
+                    try{
+                        if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
+                            //customAnimationDialog!!.dismiss()
+                            deleteDialog()
+                        }
+                    }catch (e: Exception){
+                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        deleteDialog()
+                    }
+
+                }).start()
+
+            },0)
         }
     }
 
@@ -232,14 +277,24 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
 
-        override fun onPreExecute() {
+        /*override fun onPreExecute() {
             super.onPreExecute()
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             dialog.setMessage("로딩중입니다...")
             dialog.setCanceledOnTouchOutside(false)
             dialog.setCancelable(false)
             dialog.show()
+        }*/
+        //customDialogcode
+        override fun onPreExecute() {
+            super.onPreExecute()
+            //custom dialog 실행
+            handler.postDelayed({
+                customAnimationDialog = CustomAnimationDialog(this@RegisterActivity)
+                makeDialog()
+            },0)
         }
+
 
         override fun doInBackground(vararg params: String): List<Subject>? {
 
@@ -278,9 +333,9 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.49:8080")
+            HttpAsyncTask2(userID, userPass).execute("http:/192.168.194.178:8080")
 
-            Thread(Runnable {
+            /*Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
                         dialog.dismiss()
@@ -289,7 +344,22 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
                 }
                 dialog.dismiss()
-            }).start()
+            }).start()*/
+            handler.postDelayed({
+                Thread(Runnable {
+                    try{
+                        if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
+                            //customAnimationDialog!!.dismiss()
+                            deleteDialog()
+                        }
+                    }catch (e: Exception){
+                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        deleteDialog()
+                    }
+
+                }).start()
+
+            },0)
             Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
         }
     }
@@ -317,14 +387,24 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         val dialog = ProgressDialog(this@RegisterActivity)
 
 
-        override fun onPreExecute() {
+        /*override fun onPreExecute() {
             super.onPreExecute()
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             dialog.setMessage("로딩중입니다...")
             dialog.setCanceledOnTouchOutside(false)
             dialog.setCancelable(false)
             dialog.show()
+        }*/
+        //customDialogcode
+        override fun onPreExecute() {
+            super.onPreExecute()
+            //custom dialog 실행
+            handler.postDelayed({
+                customAnimationDialog = CustomAnimationDialog(this@RegisterActivity)
+                makeDialog()
+            },0)
         }
+
 
         override fun doInBackground(vararg params: String): List<Cal>? {
 
@@ -379,7 +459,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Cal>?) {
             super.onPostExecute(nameList)
 
-            Thread(Runnable {
+            /*Thread(Runnable {
                 try {
                     if (dialog != null && dialog.isShowing) {
                         dialog.dismiss()
@@ -389,12 +469,27 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 }
                 dialog.dismiss()
             }).start()
+            */
+            handler.postDelayed({
+                Thread(Runnable {
+                    try{
+                        if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
+                            //customAnimationDialog!!.dismiss()
+                            deleteDialog()
+                        }
+                    }catch (e: Exception){
+                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        deleteDialog()
+                    }
 
+                }).start()
+
+            },0)
 
             //progressdialog 종료 코드 -> 위에 백그라운드 함수에서 nameList를 받아오기 전까지는
             //onPreExecute로 pregressDialog가 계속 돌고 있을 것이고 서버에서 lms받아오면
             //그 뒤로 5초 뒤에 보여지도록 설정하였다.
-            Thread(Runnable {
+            /*Thread(Runnable {
                 try {
                     //Thread.sleep(5000)
                     if (dialog != null && dialog.isShowing) {
@@ -404,7 +499,22 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
                 }
                 dialog.dismiss()
-            }).start()
+            }).start()*/
+            handler.postDelayed({
+                Thread(Runnable {
+                    try{
+                        if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
+                            //customAnimationDialog!!.dismiss()
+                            deleteDialog()
+                        }
+                    }catch (e: Exception){
+                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        deleteDialog()
+                    }
+
+                }).start()
+
+            },0)
 
             //progressdialog 코드 끝
 
@@ -435,10 +545,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             intent.putExtra("userPass", userPass)
             startActivity(intent)
 
-
         }
-
-
     }
 
 }

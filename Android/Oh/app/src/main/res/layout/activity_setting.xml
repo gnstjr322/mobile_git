@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E5E7E5"
-    tools:context=".Setting">
+    tools:context=".Setting2Activity">
 
 
     <Switch
@@ -16,7 +16,7 @@
         android:layout_marginTop="120dp"
         android:background="#BABBBB"
         android:switchPadding="150dp"
-        android:text="               전체 알람"
+        android:text="@string/전체알람"
         app:layout_constraintBottom_toTopOf="@+id/switch2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -32,7 +32,7 @@
         android:layout_marginBottom="280dp"
         android:background="#BABBBB"
         android:switchPadding="150dp"
-        android:text="              과제 알람"
+        android:text="@string/과제알람"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"

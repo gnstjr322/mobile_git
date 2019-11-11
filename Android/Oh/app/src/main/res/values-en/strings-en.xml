@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">What?!Assignment?</string>
+    <string name ="설정">Setting</string>
+    <string name= "학번">Student_number</string>
+    <string name="비밀번호">Password</string>
+    <string name="자동로그인">Auto Login</string>
+    <string name ="로그인">Login</string>
+    <string name = "자동로그인을선택하지않으셨습니다">UnSelect Auto Login.</string>
+    <string name = "과목검색">Subject Search</string>
+    <string name = "검색">Search</string>
+    <string name ="아이디">ID</string>
+    <string name = "제목">Title</string>
+    <string name = "내용">Data</string>
+    <string name = "과목명">Subject</string>
+    <string name = "링크">Link</string>
+    <string name = "날짜">Date</string>
+    <string name = "설정항목">Setting Item</string>
+    <string name = "월">Mon</string>
+    <string name = "화">Tue</string>
+    <string name = "수">Wed</string>
+    <string name = "목">Thur</string>
+    <string name = "금">Fri</string>
+    <string name = "시험시간표">Exam TimeTable</string>
+    <string name = "공지사항">Notice</string>
+    <string name = "내정보">My Info</string>
+    <string name = "개발자">Developer</string>
+    <string name = "이훈석">Hun Seok Lee</string>
+    <string name = "박승재">Seung Jae Park</string>
+    <string name = "이민규">Min Kyu Lee</string>
+    <string name = "전체알람">               Full Notification</string>
+    <string name = "과제알람">               Assignment Notification</string>
+
+</resources>

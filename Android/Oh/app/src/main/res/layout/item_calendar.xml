@@ -13,7 +13,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:layout_height="100dp"
-            android:text="date" />
+            android:text="@string/날짜" />
         <TextView
             android:id="@+id/mon_text"
             android:textSize="10dp"
@@ -21,7 +21,7 @@
             android:layout_height="100dp"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:text="mon" />
+            android:text="@string/월" />
         <TextView
             android:id="@+id/tue_text"
             android:textSize="10dp"
@@ -29,7 +29,7 @@
             android:layout_height="100dp"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:text="tue" />
+            android:text="@string/화" />
 
         <TextView
             android:id="@+id/wed_text"
@@ -38,7 +38,7 @@
             android:layout_height="100dp"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:text="wed" />
+            android:text="@string/수" />
 
         <TextView
             android:id="@+id/thu_text"
@@ -47,7 +47,7 @@
             android:layout_height="100dp"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:text="thu" />
+            android:text="@string/목" />
 
         <TextView
             android:id="@+id/fri_text"
@@ -56,7 +56,7 @@
             android:layout_height="100dp"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:text="fri" />
+            android:text="@string/금" />
     </TableRow>
 
 
