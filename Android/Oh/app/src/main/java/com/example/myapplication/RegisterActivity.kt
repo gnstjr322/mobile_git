@@ -135,7 +135,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 //println("$result")
 
 
-                HttpAsyncTask(userID, userPass).execute("http:/172.30.1.13:8080")
+                HttpAsyncTask(userID, userPass).execute("http:/192.168.194.178:8080")
 
             }
         }
@@ -272,7 +272,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask3(userID, userPass).execute("http:/172.30.1.13:8080")
+            HttpAsyncTask3(userID, userPass).execute("http:/192.168.194.178:8080")
 
             /*Thread(Runnable {
                 try {
@@ -380,7 +380,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask2(userID, userPass).execute("http:/172.30.1.13:8080")
+            HttpAsyncTask2(userID, userPass).execute("http:/192.168.194.178:8080")
 
             /*Thread(Runnable {
                 try {

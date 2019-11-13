@@ -36,6 +36,8 @@ class RealService : Service() {
     private var mainThread: Thread? = null
     private var nameList2 :  List<Name> = ArrayList()
     //val nameList2 by lazy { intent.getParcelableArrayListExtra["Account"] as Name}
+    var dbHelper : DBHelper = DBHelper(this@RealService,"NAME.db",null,1)
+    var dbHelper2 : DBHelper = DBHelper(this@RealService,"SECURE.db",null,1)
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         serviceIntent = intent
 
@@ -47,8 +49,12 @@ class RealService : Service() {
                     //Thread.sleep((1000 * 60 * 1).toLong()) // 1 minute
                     Thread.sleep((1000 * 30 * 1).toLong()) // 30초
                     val date = Date()
+                    val fd = dbHelper2.getSecure()
+                    var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
-                    HttpAsyncTask("2015125054", "jooboo100@",sdf.format(date)).execute("http:/172.30.1.13:8080")
+                    if(fd1 != null){
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.194.178:8080")
+                    }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {
                     run = false
@@ -228,7 +234,6 @@ class RealService : Service() {
         @RequiresApi(Build.VERSION_CODES.CUPCAKE)
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
-            var dbHelper : DBHelper = DBHelper(this@RealService,"NAME.db",null,1)
             var fd1 :String? = dbHelper.selectDate()
             if(nameList2[0].day!=fd1){
                 sendNotification(sdf)

@@ -57,10 +57,9 @@ class Main : AppCompatActivity() {
         Log.d("메인6", " $nameList4")
         Log.d("메인3", " $userID")
         Log.d("메인4", " $userPass")
-        var dbHelper : DBHelper = DBHelper(this,"NAME.db",null,1)
-        var fd1 :String? = dbHelper.selectDate()
-        //var fd2 : String = dbHelper.result
-        Toast.makeText(applicationContext, fd1, Toast.LENGTH_SHORT).show()
+        //var dbHelper : DBHelper = DBHelper(this,"NAME.db",null,1)
+        var dbHelper1 : DBHelper = DBHelper(this,"SECURE.db",null,1)
+        dbHelper1.secureInsert(userID,userPass)
 
 
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
