@@ -53,7 +53,7 @@ class Main : AppCompatActivity() {
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         var Str_url  = intent.getStringExtra("url")
-
+        Log.d("들어가라123", " $Str_url")
         Log.d("메인1", " $nameList2")
         Log.d("메인2", " $nameList3")
         Log.d("메인6", " $nameList4")

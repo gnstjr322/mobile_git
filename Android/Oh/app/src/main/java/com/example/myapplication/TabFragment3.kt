@@ -62,7 +62,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
 
         btn_search?.setOnClickListener {
             link = nameList4[positionthis!!].link
-
+            Log.d("들어가라", " $Str_url")
             HttpAsyncTask().execute(Str_url)
 
         }

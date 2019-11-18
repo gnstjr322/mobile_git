@@ -53,7 +53,7 @@ class RealService : Service() {
                     var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
                     if(fd1 != null){
-                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.194.178:8080")
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.198.144:8080")
                     }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {
@@ -235,7 +235,9 @@ class RealService : Service() {
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
             var fd1 :String? = dbHelper.selectDate()
-            if(nameList2[0].day!=fd1){
+            if(nameList == null){
+              //nothing
+            } else if(nameList2[0].day!=fd1){
                 sendNotification(sdf)
             }else{
                 sendNotification2(sdf)

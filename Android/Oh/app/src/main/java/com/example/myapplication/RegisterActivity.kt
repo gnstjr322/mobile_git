@@ -119,6 +119,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             intent.putExtra("nameList2", auto_nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", auto_nameList3 as ArrayList<List<Cal>>)
             intent.putExtra("nameList4", auto_nameList4 as ArrayList<List<Subject>>)
+            intent.putExtra("url", Str_url)
             startActivity(intent)
 
 
@@ -594,6 +595,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             intent.putExtra("userID", userID)
             intent.putExtra("userPass", userPass)
             intent.putExtra("url", Str_url)
+            //Log.d("들어가라1244", " $Str_url")
             startActivity(intent)
 
         }
