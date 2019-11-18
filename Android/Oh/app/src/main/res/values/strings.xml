@@ -29,5 +29,6 @@
     <string name = "이민규">이민규</string>
     <string name = "전체알람">               전체알람</string>
     <string name = "과제알람">               과제알람</string>
-
+    <string name = "푸시알림">알림설정</string>
+    <string name = "LMS">LMS</string>
 </resources>

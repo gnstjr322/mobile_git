@@ -30,5 +30,6 @@
     <string name = "이민규">Min Kyu Lee</string>
     <string name = "전체알람">               Full Notification</string>
     <string name = "과제알람">               Assignment Notification</string>
-
+    <string name = "LMS">LMS</string>
+    <string name = "푸시알림">Setting Notify</string>
 </resources>
