@@ -58,6 +58,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList2: List<Name>? = ArrayList()
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
+    var Str_url : String = "http:/192.168.198.144:8080"
 
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
@@ -135,12 +136,11 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 //println("$result")
 
 
-                HttpAsyncTask(userID, userPass).execute("http:/192.168.194.178:8080")
+                HttpAsyncTask(userID, userPass).execute(Str_url)
 
             }
         }
 
-        //////////////////////////
         val pm = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
         var isWhiteListing = false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -162,7 +162,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
 
 
-        //////////////////
 
     }
     override fun onDestroy() {
@@ -272,7 +271,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask3(userID, userPass).execute("http:/192.168.194.178:8080")
+            HttpAsyncTask3(userID, userPass).execute(Str_url)
 
             /*Thread(Runnable {
                 try {
@@ -380,7 +379,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Subject>?) {
             super.onPostExecute(nameList)
 
-            HttpAsyncTask2(userID, userPass).execute("http:/192.168.194.178:8080")
+            HttpAsyncTask2(userID, userPass).execute(Str_url)
 
             /*Thread(Runnable {
                 try {
@@ -594,6 +593,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             intent.putExtra("nameList4", nameList4 as ArrayList<List<Subject>>)
             intent.putExtra("userID", userID)
             intent.putExtra("userPass", userPass)
+            intent.putExtra("url", Str_url)
             startActivity(intent)
 
         }

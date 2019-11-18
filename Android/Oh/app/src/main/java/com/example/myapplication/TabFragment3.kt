@@ -23,7 +23,7 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPass: String) : Fragment() {
+class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPass: String, var Str_url: String?) : Fragment() {
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
@@ -63,7 +63,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         btn_search?.setOnClickListener {
             link = nameList4[positionthis!!].link
 
-            HttpAsyncTask().execute("http:/172.30.1.13:8080")
+            HttpAsyncTask().execute(Str_url)
 
         }
 

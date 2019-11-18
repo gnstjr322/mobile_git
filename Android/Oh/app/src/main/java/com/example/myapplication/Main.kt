@@ -52,6 +52,8 @@ class Main : AppCompatActivity() {
         nameList4 = intent.getParcelableArrayListExtra("nameList4")
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
+        var Str_url  = intent.getStringExtra("url")
+
         Log.d("메인1", " $nameList2")
         Log.d("메인2", " $nameList3")
         Log.d("메인6", " $nameList4")
@@ -70,7 +72,7 @@ class Main : AppCompatActivity() {
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
 
 
-        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, nameList4, userID, userPass,tabLayout!!.tabCount)
+        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, nameList4, userID, userPass,Str_url,tabLayout!!.tabCount)
         viewPager!!.adapter = pagerAdapter
 
 

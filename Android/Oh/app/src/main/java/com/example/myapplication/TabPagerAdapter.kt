@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import java.lang.NullPointerException
 
 class TabPagerAdapter(fm: FragmentManager,var nameList2 : List<Name> ,var nameList3 : List<Cal>,var nameList4 : List<Subject>, var userID : String, var userPass : String
-                      ,private val tabcount: Int) : FragmentStatePagerAdapter(fm) {
+                      ,var Str_url : String? ,private val tabcount: Int) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         when (position) {
@@ -19,7 +19,7 @@ class TabPagerAdapter(fm: FragmentManager,var nameList2 : List<Name> ,var nameLi
                 return TabFragment2(nameList3)
             }
             2 -> {
-                return TabFragment3(nameList4,userID,userPass)
+                return TabFragment3(nameList4,userID,userPass,Str_url)
             }
             3 -> {
                 return TabFragment4()
