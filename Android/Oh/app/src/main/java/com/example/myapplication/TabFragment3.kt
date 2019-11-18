@@ -31,7 +31,8 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
     val adapter = SubjectAdapter(nameList4)
     var positionthis: Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
     var link: String? = null
-
+    var back : TextView? = null
+    var value :Int? = 0
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,16 +42,20 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById<ListView>(R.id.search_view)
         mWeatherListView = view?.findViewById<Spinner>(R.id.subject_spinner)
+        back = view?.findViewById<TextView>(R.id.back)
 
         //val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, weatherList)
         Log.d("들어가라", " $nameList4")
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
+
+
         }
         mWeatherListView?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 positionthis = position
 
+                value = 0;
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
@@ -60,11 +65,15 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         }
 
 
+
         btn_search?.setOnClickListener {
             link = nameList4[positionthis!!].link
             Log.d("들어가라", " $Str_url")
             HttpAsyncTask().execute(Str_url)
-
+            value = 1
+            if(value == 1){
+                back!!.text = null
+            }
         }
 
         return view
@@ -147,6 +156,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             if (searchList != null) {
                 val adapter = SearchAdapter(searchList)
                 searchListView?.adapter = adapter
+
             }
 
         }

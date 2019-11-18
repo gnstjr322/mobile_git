@@ -7,17 +7,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/text_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/제목" />
+            android:text="@string/제목"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/data_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/내용" />
+            android:text="@string/내용"
+            android:textSize="17sp" />
 
     </TableLayout>
 

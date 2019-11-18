@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList2: List<Name>? = ArrayList()
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
-    var Str_url : String = "http:/192.168.198.144:8080"
+    var Str_url : String = "http:/192.168.174.238:8080"
 
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
