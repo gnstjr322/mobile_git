@@ -19,7 +19,8 @@ class DetailViewActivity2 : AppCompatActivity() {
 
     // 돈계산된거 보이게 한다. 텍스트로
     fun  reload(){
-        textView22.text = b1?.toString()// text는 문자열 형식이기 떄문에 toString 해줘야함
+        textView33.text = b1?.toString()// text는 문자열 형식이기 떄문에 toString 해줘야함
+        textView22.text = b2?.toString()// text는 문자열 형식이기 떄문에 toString 해줘야함
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class DetailViewActivity2 : AppCompatActivity() {
         Log.d("aaadsd2", b2.toString())
 
         reload()
-        Linkify.addLinks(textView22, Linkify.WEB_URLS)
+        Linkify.addLinks(textView33, Linkify.WEB_URLS)
 
     }
 

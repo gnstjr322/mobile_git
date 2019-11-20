@@ -90,15 +90,19 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             var a = searchList2[position2!!].link
             var b = searchList2[position2!!].linkname
 
-
+            if(a.size == 0 && b.size == 0 ){
+                Toast.makeText(activity, "내용이 없어요.", Toast.LENGTH_SHORT).show()
+            }
             //println(weatherList[position].country)
-            val intent = Intent(activity, DetailViewActivity2::class.java)
+            else {
+                val intent = Intent(activity, DetailViewActivity2::class.java)
 
-            intent.putExtra("LinkName", a)
-            intent.putExtra("Link", b)
+                intent.putExtra("LinkName", a)
+                intent.putExtra("Link", b)
 
 
-            startActivityForResult(intent,1)
+                startActivityForResult(intent, 1)
+            }
         }
         return view
     }

@@ -38,6 +38,7 @@ class RealService : Service() {
     //val nameList2 by lazy { intent.getParcelableArrayListExtra["Account"] as Name}
     var dbHelper : DBHelper = DBHelper(this@RealService,"NAME.db",null,1)
     var dbHelper2 : DBHelper = DBHelper(this@RealService,"SECURE.db",null,1)
+    @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         serviceIntent = intent
 
@@ -53,7 +54,9 @@ class RealService : Service() {
                     var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
                     if(fd1 != null){
-                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.166.211:8080")
+
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.171.156:8080")
+
                     }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {
@@ -146,9 +149,7 @@ class RealService : Service() {
 
         val channelId = "fcm_default_channel"//getString(R.string.default_notification_channel_id);
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        ////////////
 
-        ////////////
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_launcher_background)//drawable.splash)
@@ -161,7 +162,7 @@ class RealService : Service() {
                 .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        /////////////////////////
+
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
