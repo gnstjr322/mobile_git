@@ -53,7 +53,11 @@ class RealService : Service() {
                     var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
                     if(fd1 != null){
+<<<<<<< HEAD
                         HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.193.210:8080")
+=======
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.166.211:8080")
+>>>>>>> b69debf5a0f6968d7da329606f1c5f07835875fb
                     }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {
@@ -219,14 +223,18 @@ class RealService : Service() {
                 val listType = object : TypeToken<ArrayList<Name>>() {
 
                 }.type
-                nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
+                if(nameList!=null) {
+                    nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
+                }
                 //Log.d(TAG, "onCreate: " + weatherList.toString());
                 // notify2()
             } catch (e: IOException) {
                 //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
-            nameList2 = nameList
+            if(nameList!=null){
+                nameList2 = nameList
+            }
             return nameList
         }
 
@@ -236,7 +244,7 @@ class RealService : Service() {
             super.onPostExecute(nameList)
             var fd1 :String? = dbHelper.selectDate()
             if(nameList == null){
-              //nothing
+                //nothing
             } else if(nameList2[0].day!=fd1){
                 sendNotification(sdf)
             }else{
