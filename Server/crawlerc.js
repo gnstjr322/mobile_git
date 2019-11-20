@@ -14,15 +14,25 @@ exports.crawlerc = function(id,pw,link,callback){
        //console.log(html);
        const $ = cheerio.load(html);
        //const $2 = cheerio.load(html2);
-       var data = new Array()
+       var data = new Array();
        for(var i=1; i<17;i++){
-         var section = "#section-"+i
+         var section = "#section-"+i;
+         var temp = Object();
          $(section).each(function (index, ele) {
              var temp = Object()
+             var data2 = new Array();
+             var data3 = new Array();
              temp['title'] = $(this).find("span.hidden.sectionname").text().trim()
-             temp['data'] = $(this).find("div.content").text().trim()
+             temp['data'] = $(this).find("div.no-overflow").text().trim()
              //temp['data'] = $(this).find("div.no-overflow").text().trim()
              i++
+             $(section+" > div.content > ul > li").each(function (index, ele) {
+                 data2.push($(this).find("a").attr('href'))
+                 data3.push($(this).find("span.instancename").text().trim())
+                 //temp['data'] = $(this).find("div.no-overflow").text().trim()
+             })
+             temp['link'] = data2;
+             temp['linkname'] = data3;
              data.push(temp)
          })
        }
