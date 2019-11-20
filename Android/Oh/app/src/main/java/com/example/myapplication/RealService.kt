@@ -54,9 +54,17 @@ class RealService : Service() {
                     var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
                     if(fd1 != null){
+<<<<<<< HEAD
 
                         HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.171.156:8080")
 
+=======
+<<<<<<< HEAD
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.193.210:8080")
+=======
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.166.211:8080")
+>>>>>>> b69debf5a0f6968d7da329606f1c5f07835875fb
+>>>>>>> fa0425f6b2dbe1a526ac8c788df41262a53ac8a4
                     }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {
