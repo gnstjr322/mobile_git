@@ -53,7 +53,7 @@ class RealService : Service() {
                     var fd1 = fd?.split('/')
                     //showToast(getApplication(), sdf.format(date));
                     if(fd1 != null){
-                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.174.238:8080")
+                        HttpAsyncTask(fd1[0], fd1[1],sdf.format(date)).execute("http:/192.168.166.216:8080")
                     }
                     //sendNotification(sdf.format(date))
                 } catch (e: InterruptedException) {

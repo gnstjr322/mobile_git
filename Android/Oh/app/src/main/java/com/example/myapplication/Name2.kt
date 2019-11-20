@@ -1,7 +1,7 @@
 package com.example.myapplication
 
 
-class Name2(var title:String, var data: String)  {
+class Name2(var title:String, var data: String, var link : ArrayList<String?>, var linkname : ArrayList<String?> )  {
 
 
 
@@ -10,7 +10,8 @@ class Name2(var title:String, var data: String)  {
         val sb = StringBuffer()
         sb.append(title).append('\'')
         sb.append(data).append('\'')
-
+        sb.append(link).append('\'')
+        sb.append(linkname).append('\'')
 
         return sb.toString()
     }

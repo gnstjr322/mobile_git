@@ -33,6 +33,9 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
     var link: String? = null
     var back : TextView? = null
     var value :Int? = 0
+    var searchList2 : List<Name2> = ArrayList()
+    var position2 : Int? = null
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -76,6 +79,27 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             }
         }
 
+        searchListView?.setOnItemClickListener{ parent, view, position, id->
+
+            this.position2 = position
+
+            Log.d("aaadsd",searchList2[position2!!].toString())
+
+            //searchList2[position].toString().split("'")
+
+            var a = searchList2[position2!!].link
+            var b = searchList2[position2!!].linkname
+
+
+            //println(weatherList[position].country)
+            val intent = Intent(activity, DetailViewActivity2::class.java)
+
+            intent.putExtra("LinkName", a)
+            intent.putExtra("Link", b)
+
+
+            startActivityForResult(intent,1)
+        }
         return view
     }
 
@@ -133,6 +157,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             }
 
             Log.d(TAG, searchList.toString())//nameList의 형식은 List<Name>
+            searchList2 = searchList
             return searchList
         }
 

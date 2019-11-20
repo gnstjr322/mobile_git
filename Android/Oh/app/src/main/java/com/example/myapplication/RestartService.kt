@@ -38,7 +38,7 @@ class RestartService : Service() {
         val notification = builder.build()
         startForeground(9, notification)
 
-        /////////////////////////////////////////////////////////////////////
+
         val `in` = Intent(this, RealService::class.java)
         startService(`in`)
 
