@@ -49,6 +49,13 @@ class TabFragment4 : Fragment() {
                 intent = Intent(activity, Setting2Activity::class.java) //알림
 
             }
+
+            else if(position == 2) { // 설정 항목 액티비티 띄우기
+                intent = Intent(activity, WebActivity::class.java) //알림
+                intent.putExtra("Link","http://lms.kau.ac.kr/")
+                startActivityForResult(intent,1)
+
+            }
             else if(position == 4) {
                 val dbHelper2 : DBHelper = DBHelper(context!!,"SECURE.db",null,1)
                 val fd = dbHelper2.getSecure()

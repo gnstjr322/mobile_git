@@ -41,11 +41,11 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
             var b = nameList[position].link
             //Linkify.addLinks(b, Linkify.WEB_URLS)
             //println(weatherList[position].country)
-            val intent = Intent(activity, DetailViewActivity::class.java)
+            val intent = Intent(activity, WebActivity::class.java)
 
             intent.putExtra("Link", b)
 
-            //startActivityForResult(intent,1)
+            startActivityForResult(intent,1)
         }
         return view
     }

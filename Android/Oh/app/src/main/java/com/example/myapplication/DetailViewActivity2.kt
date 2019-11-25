@@ -7,7 +7,11 @@ import android.util.Log
 import kotlinx.android.synthetic.main.activity_detail_view.*
 import kotlinx.android.synthetic.main.login_activity.*
 import android.text.util.Linkify
-
+import android.webkit.WebView
+import android.widget.ListView
+import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_detail_view2.*
+import android.widget.ArrayAdapter as ArrayAdapter1
 
 
 class DetailViewActivity2 : AppCompatActivity() {
@@ -16,23 +20,38 @@ class DetailViewActivity2 : AppCompatActivity() {
 
     var b1 : ArrayList<String?>? = null
     var b2 : ArrayList<String?>? = null
-
-    // 돈계산된거 보이게 한다. 텍스트로
-    fun  reload(){
-        textView33.text = b1?.toString()// text는 문자열 형식이기 떄문에 toString 해줘야함
-        textView22.text = b2?.toString()// text는 문자열 형식이기 떄문에 toString 해줘야함
-    }
+    var position : Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_view2)
-        b1 = intent.getStringArrayListExtra("LinkName")
-        b2 = intent.getStringArrayListExtra("Link")
+
+        b1 = intent?.getStringArrayListExtra("LinkName")
+        b2 = intent?.getStringArrayListExtra("Link") //url
+
         Log.d("aaadsd", b1.toString())
         Log.d("aaadsd2", b2.toString())
 
-        reload()
-        Linkify.addLinks(textView33, Linkify.WEB_URLS)
+        val list : ListView = findViewById(R.id.detail_list)
+
+        val adapter = ArrayAdapter1(this, android.R.layout.simple_list_item_1, b2 as ArrayList<String>)
+
+        list.adapter = adapter
+
+        list.setOnItemClickListener{parent , view , position, id->       //마우스 클릭했을때 이벤트 나오는것... 람다 함수
+
+            this.position = position
+            val intent = Intent(this, WebActivity::class.java)
+
+
+            intent.putExtra("Link",b1!![position])
+
+
+            startActivityForResult(intent, 1)
+        }
+
+
 
     }
 
