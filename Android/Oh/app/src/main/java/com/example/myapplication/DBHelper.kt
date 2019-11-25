@@ -9,7 +9,6 @@ import android.util.Log
 class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 받음
 (context: Context, name: String, factory: SQLiteDatabase.CursorFactory?, version: Int) : SQLiteOpenHelper(context, name, factory, version) {
 
-
     // 읽기가 가능하게 DB 열기
     // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
 
@@ -61,7 +60,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             Log.d("확3", "$fd")
             return fd
         }
-        return "NO"
+        return null
     }
     fun getSecure():String? {
         val db = readableDatabase
@@ -73,8 +72,15 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             Log.d("확3", "$fd")
             return fd
         }
-        return "NO"
+        return null
+    }
+    fun deleteSecure(id:String,pw:String){
+        val db = readableDatabase
+        db.execSQL("DELETE FROM SECURE WHERE ID = ${id}")
+        db.close()
     }
 }
+
+
 
 

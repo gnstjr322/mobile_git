@@ -58,15 +58,10 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList2: List<Name>? = ArrayList()
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
-<<<<<<< HEAD
-    var Str_url : String = "http:/192.168.171.156:8080"
-=======
-<<<<<<< HEAD
-    var Str_url : String = "http:/192.168.193.210:8080"
-=======
-    var Str_url : String = "http:/192.168.166.216:8080"
->>>>>>> b69debf5a0f6968d7da329606f1c5f07835875fb
->>>>>>> fa0425f6b2dbe1a526ac8c788df41262a53ac8a4
+
+    var Str_url : String = "http:/192.168.163.60:8080"
+
+
 
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
@@ -595,7 +590,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             Toast.makeText(applicationContext, userID + "님, 환영합니다.", Toast.LENGTH_SHORT).show()
             var fd2 : String = dbHelper.result
-            Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
+           // Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
             intent.putExtra("nameList2", nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", nameList3 as ArrayList<List<Cal>>)

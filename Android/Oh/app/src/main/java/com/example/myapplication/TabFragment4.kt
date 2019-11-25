@@ -27,6 +27,7 @@ class TabFragment4 : Fragment() {
 
         var view: View = inflater.inflate(R.layout.fragment4, container, false)
 
+
         val listview = view.findViewById<ListView>(R.id.setting_list)
         val adapter = context?.let { ArrayAdapter(it,android.R.layout.simple_list_item_1,List_MENU) }
 
@@ -49,6 +50,13 @@ class TabFragment4 : Fragment() {
 
             }
             else if(position == 4) {
+                val dbHelper2 : DBHelper = DBHelper(context!!,"SECURE.db",null,1)
+                val fd = dbHelper2.getSecure()
+                var fd1 = fd?.split('/')
+                if(fd1!=null){
+                    dbHelper2.deleteSecure(fd1[0],fd1[1])
+                }
+                Log.d("확1", " ${dbHelper2.getSecure()}")
                 intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
                 startActivity(intent)
                 val auto : SharedPreferences = context!!.getSharedPreferences("auto", MODE_PRIVATE)

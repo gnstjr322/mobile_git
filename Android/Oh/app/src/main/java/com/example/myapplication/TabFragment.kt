@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.activity_detail_view.*
 import kotlinx.android.synthetic.main.fragment1.*
 
 class TabFragment(var nameList : List<Name>) : Fragment() {
@@ -34,23 +36,16 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
 
             Log.d("aaadsd",nameList[position].toString())
 
-            //println(weatherList[position].toString().split("'"))
             nameList[position].toString().split("'")
 
-            //var accounts = arrayOf(CheckingList(weatherList[position].country, weatherList[position].weather, weatherList[position].temperature))
-
-            var a = nameList[position].name
             var b = nameList[position].link
-            var c: String? = nameList[position].day
-
+            //Linkify.addLinks(b, Linkify.WEB_URLS)
             //println(weatherList[position].country)
             val intent = Intent(activity, DetailViewActivity::class.java)
 
-            intent.putExtra("Name", a)
             intent.putExtra("Link", b)
-            intent.putExtra("Day", c)
 
-            startActivityForResult(intent,1)
+            //startActivityForResult(intent,1)
         }
         return view
     }
