@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
 
-    var Str_url : String = "http:/192.168.196.232:8080"
+    var Str_url : String = "http:/172.30.1.16:8080"
 
 
 
@@ -134,47 +134,13 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 var userID = et_id?.text.toString()
                 var userPass = et_pass?.text.toString()
                 mWeatherListView = findViewById(R.id.list_view) as? ListView
-
-
-                //result.text = dbHelper.result
-                //println("$result")
-
-
                 HttpAsyncTask(userID, userPass).execute(Str_url)
 
             }
         }
 
-        val pm = applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
-        var isWhiteListing = false
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            isWhiteListing = pm.isIgnoringBatteryOptimizations(applicationContext.packageName)
-        }
-        if (!isWhiteListing) {
-            val intent = Intent()
-            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-            intent.data = Uri.parse("package:" + applicationContext.packageName)
-            //intent.putExtra("nameList2", auto_nameList2 as ArrayList<List<Name>>)
-            startActivity(intent)
-        }
-
-        if (RealService.serviceIntent == null) {
-            RealService.serviceIntent = Intent(this, RealService::class.java)
-            startService(RealService.serviceIntent)
-        } else {
-            RealService.serviceIntent = RealService.serviceIntent//getInstance().getApplication();
-        }
-
-
-
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        if (RealService.serviceIntent != null) {
-            stopService(RealService.serviceIntent)
-            RealService.serviceIntent = null
-        }
-    }
+
     //customDialog
 
     private fun makeDialog(){
@@ -191,23 +157,10 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
-        //private val TAG = HttpAsyncTask::class.java.simpleName
-        //val intent = intent
-
 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
 
-        /*override fun onPreExecute() {
-            super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
-
-        }*/
-        //customDialogcode
         override fun onPreExecute() {
             super.onPreExecute()
             //custom dialog 실행
@@ -237,9 +190,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             var nameList: List<Name> = ArrayList()
             val strUrl = params[0]
             try {
-                //notify2()
-                //Response response2 = client.newCall(request2).execute();
-                // 요청
 
                 val request = Request.Builder()
                         .url(strUrl)
@@ -253,14 +203,12 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
                 }.type
                 nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
+
             } catch (e: IOException) {
                 //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
 
-            //Log.d(TAG, nameList.toString())//nameList의 형식은 List<Name>
             nameList2 = nameList
             for (i in nameList2){
                 if(nameList2!=null) {
@@ -277,21 +225,10 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             HttpAsyncTask3(userID, userPass).execute(Str_url)
 
-            /*Thread(Runnable {
-                try {
-                    if (dialog != null && dialog.isShowing) {
-                        dialog.dismiss()
-                    }
-                } catch (e: Exception) {
-                    Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
-            }).start()*/
             handler.postDelayed({
                 Thread(Runnable {
                     try{
                         if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                            //customAnimationDialog!!.dismiss()
                             deleteDialog()
                         }
                     }catch (e: Exception){
@@ -327,15 +264,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
 
-        /*override fun onPreExecute() {
-            super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
-        }*/
-        //customDialogcode
         override fun onPreExecute() {
             super.onPreExecute()
             //custom dialog 실행
@@ -351,29 +279,21 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             var nameList: List<Subject> = ArrayList()
             val strUrl = params[0]
             try {
-                //notify2()
-                //Response response2 = client.newCall(request2).execute();
-                // 요청
-
                 val request = Request.Builder()
                         .url(strUrl)
                         .post(formBody)
                         .build()
 
-                // 응답
                 val response = client.newCall(request).execute()
                 val gson = Gson()
                 val listType = object : TypeToken<ArrayList<Subject>>() {
 
                 }.type
                 nameList = gson.fromJson<List<Subject>>(response.body!!.string(), listType)
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
+
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
-            //Log.d("프레그먼트2", nameList.toString())//nameList의 형식은 List<Name>
 
             nameList4 = nameList
             return nameList
@@ -385,16 +305,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             HttpAsyncTask2(userID, userPass).execute(Str_url)
 
-            /*Thread(Runnable {
-                try {
-                    if (dialog != null && dialog.isShowing) {
-                        dialog.dismiss()
-                    }
-                } catch (e: Exception) {
-
-                }
-                dialog.dismiss()
-            }).start()*/
             handler.postDelayed({
                 Thread(Runnable {
                     try{
@@ -417,11 +327,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask2(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Cal>>() {
-        //private val TAG = HttpAsyncTask::class.java.simpleName
-        //val intent = intent
 
-
-        // OkHttp 클라이언트
         internal var client = OkHttpClient.Builder()
                 .connectTimeout(600, TimeUnit.SECONDS)
                 .writeTimeout(600, TimeUnit.SECONDS)
@@ -437,16 +343,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //progres dialog
         val dialog = ProgressDialog(this@RegisterActivity)
 
-
-        /*override fun onPreExecute() {
-            super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
-        }*/
-        //customDialogcode
         override fun onPreExecute() {
             super.onPreExecute()
             //custom dialog 실행
@@ -462,9 +358,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             var nameList: List<Cal> = ArrayList()
             val strUrl = params[0]
             try {
-                //notify2()
-                //Response response2 = client.newCall(request2).execute();
-                // 요청
 
                 val request = Request.Builder()
                         .url(strUrl)
@@ -478,13 +371,10 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
                 }.type
                 nameList = gson.fromJson<List<Cal>>(response.body!!.string(), listType)
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
+
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
-            //Log.d("프레그먼트2", nameList.toString())//nameList의 형식은 List<Name>
 
             nameList3 = nameList
             return nameList
@@ -493,7 +383,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         operator fun set(key: String, value: String) {
             val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
-            //val tinyDB : TinyDB = TinyDB(applicationContext)
             val autoLogin = auto.edit()
 
             autoLogin.putString(key, value)
@@ -511,17 +400,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         override fun onPostExecute(nameList: List<Cal>?) {
             super.onPostExecute(nameList)
 
-            /*Thread(Runnable {
-                try {
-                    if (dialog != null && dialog.isShowing) {
-                        dialog.dismiss()
-                    }
-                } catch (e: Exception) {
-
-                }
-                dialog.dismiss()
-            }).start()
-            */
             handler.postDelayed({
                 Thread(Runnable {
                     try{
@@ -538,20 +416,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
             },0)
 
-            //progressdialog 종료 코드 -> 위에 백그라운드 함수에서 nameList를 받아오기 전까지는
-            //onPreExecute로 pregressDialog가 계속 돌고 있을 것이고 서버에서 lms받아오면
-            //그 뒤로 5초 뒤에 보여지도록 설정하였다.
-            /*Thread(Runnable {
-                try {
-                    //Thread.sleep(5000)
-                    if (dialog != null && dialog.isShowing) {
-                        dialog.dismiss()
-                    }
-                } catch (e: Exception) {
-
-                }
-                dialog.dismiss()
-            }).start()*/
             handler.postDelayed({
                 Thread(Runnable {
                     try{

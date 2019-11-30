@@ -48,6 +48,12 @@
             android:enabled="true"
             android:exported="true" />
 
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.edisondl.SEND_BROAD_CAST"/>
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".AlarmRecever" />
         <receiver
             android:name=".RebootRecever"

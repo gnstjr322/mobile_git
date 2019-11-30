@@ -1,10 +1,15 @@
 package com.example.myapplication
 
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -42,7 +47,7 @@ class Main : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        AlarmUtill(applicationContext).Alarm()
 
         mWeatherListView = findViewById(R.id.list_view) as? ListView
 
@@ -53,6 +58,7 @@ class Main : AppCompatActivity() {
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         var Str_url  = intent.getStringExtra("url")
+        //AlarmHATT(applicationContext).cancelAlarm() 알람매니저 끄는 메소드
         Log.d("들어가라123", " $Str_url")
         Log.d("메인1", " $nameList2")
         Log.d("메인2", " $nameList3")
@@ -84,15 +90,11 @@ class Main : AppCompatActivity() {
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
-
             }
 
             override fun onTabReselected(tab: TabLayout.Tab) {
-
             }
-        }
-
-        )
+        })
         if (nameList3 != null) {
             //Log.d("HttpAsyncTask", nameList.toString());
             val adapter = CalAdapter(nameList3)
@@ -104,8 +106,6 @@ class Main : AppCompatActivity() {
             mWeatherListView?.adapter = adapter
         }
     }
-
-
 
 }
 

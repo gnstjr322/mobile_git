@@ -71,9 +71,7 @@ class TabFragment4 : Fragment() {
                 //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
                 editor.clear()
                 editor.commit()
-                ///////////////////////////////////////////////
-                /// 나중에 디비 테이블 삭제 구문 삽입
-                ///////////////////////////////////////////////
+                AlarmUtill(context!!).cancelAlarm() // 알람 매니저를 끈다.
                 Toast.makeText(activity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
 
             }
