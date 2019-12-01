@@ -32,4 +32,6 @@
     <string name = "과제알람">               Assignment Notification</string>
     <string name = "LMS">LMS</string>
     <string name = "푸시알림">Setting Notify</string>
+    <string name ="주차별세부내용">Week detail list</string>
+    <string name = "컨텐트">Content</string>
 </resources>

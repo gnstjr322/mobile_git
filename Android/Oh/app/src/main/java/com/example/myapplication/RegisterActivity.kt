@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
 
-    var Str_url : String = "http:/172.30.1.16:8080"
+    var Str_url : String = "http:/192.168.1.150:8080"
 
 
 

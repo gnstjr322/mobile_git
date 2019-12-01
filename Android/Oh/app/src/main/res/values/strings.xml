@@ -31,4 +31,6 @@
     <string name="과제알람">               과제알람</string>
     <string name="푸시알림">알림설정</string>
     <string name="LMS">LMS</string>
+    <string name="주차별세부내용">주차별 세부 목록</string>
+    <string name = "컨텐트">내용</string>
 </resources>

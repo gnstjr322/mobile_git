@@ -24,8 +24,8 @@
             android:value="true" />
 
         <activity
-            android:name=".Splash"
-            android:theme="@style/SplashTheme">
+            android:name=".LoadingActivity"
+            android:theme="@style/LoadingTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,14 +39,6 @@
         <activity android:name=".Setting2Activity" />
         <activity android:name=".Setting3Activity" />
         <activity android:name=".WebActivity"/>
-        <service
-            android:name=".RealService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".RestartService"
-            android:enabled="true"
-            android:exported="true" />
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
@@ -54,16 +46,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".AlarmRecever" />
-        <receiver
-            android:name=".RebootRecever"
-            android:enabled="true"
-            android:exported="false"
-            android:process=":remote">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+
     </application>
 
 </manifest>

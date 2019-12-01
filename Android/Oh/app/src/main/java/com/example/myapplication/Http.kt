@@ -88,7 +88,7 @@ class Http(private val context: Context) {
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
             Log.d("내용", " ${nameList}")
-            Toast.makeText(context, "방송받음", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "세부내용을 불러 오는 중입니다.", Toast.LENGTH_SHORT).show()
             println("FUCK")
             Log.d("asdasd", "start recieve")
             sendNotification(context)
