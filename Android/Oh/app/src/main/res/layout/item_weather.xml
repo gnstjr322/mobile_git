@@ -20,12 +20,6 @@
             android:text="@string/과목명" />
 
         <TextView
-            android:id="@+id/link_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/링크" />
-
-        <TextView
             android:id="@+id/day_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.android.synthetic.main.activity_detail_view.*
 import kotlinx.android.synthetic.main.login_activity.*
 import android.text.util.Linkify
 

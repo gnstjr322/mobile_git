@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_detail_view.*
 import kotlinx.android.synthetic.main.fragment1.*
 
 class TabFragment(var nameList : List<Name>) : Fragment() {
@@ -50,21 +49,4 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         return view
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(data !=null) {
-            //val accountA = data.getStringExtra("ListsBackA")
-            val accountB = data.getStringExtra("ListsBackB")
-            //val accountC = data.getStringExtra("ListsBackC")
-            if (position != null) {
-                if (accountB!= null) {
-                    nameList[position!!].link = accountB
-                }
-                (list_view.adapter as BaseAdapter).notifyDataSetChanged()
-
-            }
-        }
-
-    }
 }

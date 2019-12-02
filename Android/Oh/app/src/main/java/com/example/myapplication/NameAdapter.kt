@@ -37,7 +37,6 @@ class NameAdapter(var mList: List<Name>) : BaseAdapter() {
             holder = ViewHolder()
             holder.form = convertView!!.findViewById(R.id.iv_text) as ImageView
             holder.name = convertView!!.findViewById(R.id.name_text) as TextView
-            holder.link = convertView.findViewById(R.id.link_text) as TextView
             holder.day = convertView.findViewById(R.id.day_text) as TextView
             convertView.tag = holder
         } else {
@@ -48,7 +47,6 @@ class NameAdapter(var mList: List<Name>) : BaseAdapter() {
         if(name1.form == "gong")holder.form!!.setImageResource(R.drawable.gong)
         if(name1.form == "ilg")holder.form!!.setImageResource(R.drawable.ilg)
         holder.name!!.setText(name1.name)
-        holder.link!!.setText(name1.link)
         holder.day!!.setText(name1.day)
 
         return convertView
@@ -58,7 +56,6 @@ class NameAdapter(var mList: List<Name>) : BaseAdapter() {
     internal class ViewHolder {
         var form: ImageView? = null
         var name: TextView? = null
-        var link: TextView? = null
         var day: TextView? = null
     }
 }
