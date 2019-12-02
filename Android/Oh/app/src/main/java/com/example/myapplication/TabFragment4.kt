@@ -58,12 +58,15 @@ class TabFragment4 : Fragment() {
             }
             else if(position == 4) {
                 val dbHelper2 : DBHelper = DBHelper(context!!,"SECURE.db",null,1)
+                val dbHelper : DBHelper = DBHelper(context!!,"NAME.db",null,2)
+                dbHelper.deleteAll()
                 val fd = dbHelper2.getSecure()
                 var fd1 = fd?.split('/')
                 if(fd1!=null){
                     dbHelper2.deleteSecure(fd1[0],fd1[1])
                 }
-                Log.d("확1", " ${dbHelper2.getSecure()}")
+                Log.d("지움1", " ${dbHelper2.getSecure()}")
+                Log.d("지움2", " ${dbHelper.getName} ${dbHelper.getSubject} ${dbHelper.getCal}")
                 intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
                 startActivity(intent)
                 val auto : SharedPreferences = context!!.getSharedPreferences("auto", MODE_PRIVATE)

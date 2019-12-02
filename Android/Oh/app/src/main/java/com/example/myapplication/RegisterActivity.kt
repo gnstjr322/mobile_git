@@ -37,7 +37,9 @@ import java.util.concurrent.TimeUnit
 
 
 class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 비밀번호를 넘겨야댐
-    val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,1)
+    val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,2)
+    //val dbHelper2 : DBHelper = DBHelper(this,"SUBJECT.db",null,2)
+    //val dbHelper3 : DBHelper = DBHelper(this,"CAL.db",null,3)
     //custom dialog 변수
     var customAnimationDialog: CustomAnimationDialog? = null
     val handler = Handler()
@@ -59,7 +61,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var auto_nameList3: List<Cal>? = ArrayList()
     var auto_nameList4: List<Subject>? = ArrayList()
 
-    var Str_url : String = "http:/192.168.1.150:8080"
+    var Str_url : String = "http:/192.168.176.131:8080"
 
 
 
@@ -296,6 +298,11 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             }
 
             nameList4 = nameList
+            for (i in nameList4){
+                if(nameList4!=null) {
+                    dbHelper.subjectInsert(i.subject,i.link)
+                }
+            }
             return nameList
         }
 
@@ -377,6 +384,11 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             }
 
             nameList3 = nameList
+            for (i in nameList3){
+                if(nameList3!=null) {
+                    dbHelper.calInsert(i.date,i.mon,i.tue,i.wed,i.thu,i.fri)
+                }
+            }
             return nameList
         }
 
@@ -444,17 +456,19 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             setList("nameList2", nameList2) //저장
             setList("nameList3", nameList3) //저장
             setList("nameList4", nameList4) //저장
+            nameList2 = dbHelper.getName
+            nameList4 = dbHelper.getSubject
+            nameList3 = dbHelper.getCal
 
             //꼭 commit()을 해줘야 값이 저장됨
             autoLogin.commit()
-
             Log.d("확1", " $nameList2")
             Log.d("확2", "$nameList3")//nameList의 형식은 List<Name>
             Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
 
             Toast.makeText(applicationContext, userID + "님, 환영합니다.", Toast.LENGTH_SHORT).show()
             var fd2 : String = dbHelper.result
-           // Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
             intent.putExtra("nameList2", nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", nameList3 as ArrayList<List<Cal>>)
