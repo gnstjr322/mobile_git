@@ -85,6 +85,21 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             }
             return result
         }
+    val resultCal: String
+        get() {
+            val db = readableDatabase
+            var result = ""
+            val cursor = db.rawQuery("SELECT * FROM CAL", null)
+            while (cursor.moveToNext()) {
+                result += cursor.getString(0)
+                result += cursor.getString(1)
+                result += cursor.getString(2)
+                result += cursor.getString(3)
+                result += cursor.getString(4)
+                result += cursor.getString(5)
+            }
+            return result
+        }
     /*
      * DB 생성 총 4개의 table을 생성
      */
