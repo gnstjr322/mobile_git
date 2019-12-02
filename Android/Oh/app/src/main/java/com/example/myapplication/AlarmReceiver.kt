@@ -25,7 +25,10 @@ class AlarmReceiver : BroadcastReceiver() {
         var fd1 = fd?.split('/') // id , pw 를 꺼내온다
         if(fd1 != null){
             Log.d("아이디,패스워드", " ${dbHelper2.getSecure()}")
-           Http(context).HttpAsyncTask(fd1[0],fd1[1]).execute("http:/192.168.170.165:8080")
+
+            Http(context,"0").HttpAsyncTask(fd1[0],fd1[1]).execute("http:/13.124.174.165:6060/kau")
+            Http(context,"1").HttpAsyncTask(fd1[0],fd1[1]).execute("http:/13.124.174.165:6060/kau")
+
         }
         /*
         Log.d("내용", " ${nameList}")

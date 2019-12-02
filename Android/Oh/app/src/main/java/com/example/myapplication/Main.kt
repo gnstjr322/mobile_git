@@ -44,17 +44,22 @@ class Main : AppCompatActivity() {
     var nameList4: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AlarmUtill(applicationContext).Alarm()
 
         mWeatherListView = findViewById(R.id.list_view) as? ListView
+        val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,2)
+        nameList2 = dbHelper.getName
+        nameList4 = dbHelper.getSubject
+        nameList3 = dbHelper.getCal
 
+        //nameList2 = intent.getParcelableArrayListExtra("nameList2")
+        //nameList3 = intent.getParcelableArrayListExtra("nameList3")
+        //nameList4 = intent.getParcelableArrayListExtra("nameList4")
 
-        nameList2 = intent.getParcelableArrayListExtra("nameList2")
-        nameList3 = intent.getParcelableArrayListExtra("nameList3")
-        nameList4 = intent.getParcelableArrayListExtra("nameList4")
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         var Str_url  = intent.getStringExtra("url")
@@ -76,8 +81,6 @@ class Main : AppCompatActivity() {
 
         //탭페이지 어댑터 설정
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
-
-
         val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, nameList4, userID, userPass,Str_url,tabLayout!!.tabCount)
         viewPager!!.adapter = pagerAdapter
 
