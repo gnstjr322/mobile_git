@@ -27,7 +27,6 @@ import android.view.LayoutInflater
 //이거 실험용으로 통신파트 빼봄
 
 class Http(private val context: Context,private val num :String) {
-    var nameList2:List<Name> = ArrayList()
     val dbHelper : DBHelper = DBHelper(context,"NAME.db",null,2)
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
@@ -86,10 +85,7 @@ class Http(private val context: Context,private val num :String) {
                     }
 
                 }
-                //Log.d(TAG, "onCreate: " + weatherList.toString());
-                // notify2()
             } catch (e: IOException) {
-                //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
 
@@ -97,6 +93,10 @@ class Http(private val context: Context,private val num :String) {
                 if(num == "0"){
                     if(nameList[0].day != dbHelper.selectDate()){
                         Log.d("통신", " ${nameList}")
+                        dbHelper.deleteName()
+                        for(i in nameList){
+                            dbHelper.nameInsert(i.form,i.name,i.link,i.day)
+                        }
                         sendNotification(context,"공지사항이 올라왔습니다")
                     }else{
                         sendNotification(context,"공지사항에 변동사항이 없습니다.")
@@ -104,6 +104,10 @@ class Http(private val context: Context,private val num :String) {
                 }else if(num == "1"){
                     if(result != dbHelper.resultCal){
                         Log.d("통신", " ${nameList2}")
+                        dbHelper.deleteCal()
+                        for(i in nameList2){
+                            dbHelper.calInsert(i.date,i.mon,i.tue,i.wed,i.thu,i.fri)
+                        }
                         sendNotification(context,"시험시간표가 나왔습니다")
                     }else{
                         sendNotification(context,"시험시간표에 변동사항이 없습니다.")

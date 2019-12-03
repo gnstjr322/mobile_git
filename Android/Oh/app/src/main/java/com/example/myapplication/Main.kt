@@ -48,7 +48,6 @@ class Main : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        AlarmUtill(applicationContext).Alarm()
 
         mWeatherListView = findViewById(R.id.list_view) as? ListView
         val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,2)
@@ -56,28 +55,16 @@ class Main : AppCompatActivity() {
         nameList4 = dbHelper.getSubject
         nameList3 = dbHelper.getCal
 
-        //nameList2 = intent.getParcelableArrayListExtra("nameList2")
-        //nameList3 = intent.getParcelableArrayListExtra("nameList3")
-        //nameList4 = intent.getParcelableArrayListExtra("nameList4")
-
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         var Str_url  = intent.getStringExtra("url")
-        //AlarmHATT(applicationContext).cancelAlarm() 알람매니저 끄는 메소드
-        Log.d("들어가라123", " $Str_url")
-        Log.d("메인1", " $nameList2")
-        Log.d("메인2", " $nameList3")
-        Log.d("메인6", " $nameList4")
-        Log.d("메인3", " $userID")
-        Log.d("메인4", " $userPass")
-        //var dbHelper : DBHelper = DBHelper(this,"NAME.db",null,1)
         var dbHelper1 : DBHelper = DBHelper(this,"SECURE.db",null,1)
+        dbHelper1.settInsert(1,1) // 세팅 2개가 되어있는 상태
         dbHelper1.secureInsert(userID,userPass)
 
 
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
         tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
-        //mWeatherListView = findViewById(R.id.list_view) as? ListView
 
         //탭페이지 어댑터 설정
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
@@ -111,51 +98,3 @@ class Main : AppCompatActivity() {
     }
 
 }
-
-
-/*
-    fun notify2(){
-        lateinit var notificationManager: NotificationManager
-        lateinit var notificationChannel: NotificationChannel
-        lateinit var builder: Notification.Builder
-        val channelId = "com.example.noti"
-        val description = "뭐?과제떴다고?"
-
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        val intent = Intent(this, LauncherActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val contentView = RemoteViews(packageName, R.layout.notification_layout)
-
-        contentView.setTextViewText(R.id.tv_title, "새로운 공지사항이 추가 되었습니다.")
-        contentView.setTextViewText(R.id.tv_content, "모바일 sw")
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.GREEN
-            notificationChannel.enableVibration(false)
-            notificationManager.createNotificationChannel(notificationChannel)
-
-            builder = Notification.Builder(this, channelId)
-                    .setContent(contentView)
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
-                    .setContentIntent(pendingIntent)
-
-        } else {
-            builder = Notification.Builder(this)
-                    .setContent(contentView)
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
-                    .setContentIntent(pendingIntent)
-
-        }
-
-        notificationManager.notify(1234, builder.build())
-
-    }
-*/
-
-

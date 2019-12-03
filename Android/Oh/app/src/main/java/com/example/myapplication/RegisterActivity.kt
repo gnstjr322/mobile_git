@@ -482,51 +482,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
     }
 
-/*
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    fun notify2(){
-        lateinit var notificationManager: NotificationManager
-        lateinit var notificationChannel: NotificationChannel
-        lateinit var builder: Notification.Builder
-        val channelId = "com.example.noti"
-        val description = "뭐?과제떴다고?"
-        notificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        //ContextCompat.
-
-        val intent = Intent(this, LauncherActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val contentView = RemoteViews(packageName, R.layout.notification_layout)
-
-        contentView.setTextViewText(R.id.tv_title, "접속을 환영합니다.")
-        contentView.setTextViewText(R.id.tv_content, "로그인완료")
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.GREEN
-            notificationChannel.enableVibration(false)
-            notificationManager.createNotificationChannel(notificationChannel)
-
-            builder = Notification.Builder(this, channelId)
-                    .setContent(contentView)
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
-                    .setContentIntent(pendingIntent)
-
-        } else {
-            builder = Notification.Builder(this)
-                    .setContent(contentView)
-                    .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_launcher_background))
-                    .setContentIntent(pendingIntent)
-
-        }
-
-        notificationManager.notify(1234, builder.build())
-
-    }*/
-
 }
 
 
