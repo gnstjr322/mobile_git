@@ -2,20 +2,21 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.util.Linkify
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment1.*
+import java.util.ArrayList
 
 class TabFragment(var nameList : List<Name>) : Fragment() {
 
     var position : Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
-
+    var lastTimeBackPressed : Long = 0
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -24,13 +25,16 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         var view: View = inflater.inflate(R.layout.fragment1, container, false)
         Log.d("최종정착지", nameList.toString())
 
+
         val mWeatherListView = view.findViewById<ListView>(R.id.list_view)
         val adapter = NameAdapter(nameList)
+
         adapter.notifyDataSetChanged()
         var context = getContext()
         if(context!=null){
             AlarmUtill(context).Alarm()
         }
+
         mWeatherListView.adapter = adapter
 
 
@@ -54,8 +58,6 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         return view
     }
 
-<<<<<<< HEAD
-=======
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -71,5 +73,4 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         }
 
     }
->>>>>>> 090a6d09b0780ef660e0e0fe430220eb1c8a0dec
 }

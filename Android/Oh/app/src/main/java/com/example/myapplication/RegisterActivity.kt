@@ -1,17 +1,12 @@
 package com.example.myapplication
 
 import android.app.*
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.net.Uri
 import android.os.*
-import android.provider.Settings
-import android.text.Editable
 import android.util.Log
+
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -21,19 +16,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+
+import android.widget.*
+
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
-import org.json.JSONArray
-import org.json.JSONException
 import java.io.IOException
 import java.lang.Exception
-import java.lang.reflect.Array.set
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
@@ -65,6 +58,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
 
     var Str_url : String = "http:/13.124.174.165:6060/kau"
+    var lastTimeBackPressed : Long = 0
 
 
     var imm: InputMethodManager? = null
@@ -512,6 +506,17 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
         }
     }
+
+    override  fun onBackPressed() {
+
+        if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
+           finish()
+            return
+        }
+        lastTimeBackPressed = System.currentTimeMillis()
+        Toast.makeText(this, "'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+    }
+
 
 }
 

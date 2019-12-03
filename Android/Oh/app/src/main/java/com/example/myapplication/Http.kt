@@ -8,8 +8,6 @@ import android.media.RingtoneManager
 import android.os.AsyncTask
 import android.os.Build
 import android.util.Log
-import android.view.View
-import android.widget.ListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -20,10 +18,9 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.IOException
-import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
-import android.view.LayoutInflater
+
 //이거 실험용으로 통신파트 빼봄
 
 class Http(private val context: Context,private val num :String) {
@@ -123,7 +120,6 @@ class Http(private val context: Context,private val num :String) {
         override fun onPostExecute(nameList: List<Name>?) {
             super.onPostExecute(nameList)
             Toast.makeText(context, "세부내용을 불러 오는 중입니다.", Toast.LENGTH_SHORT).show()
-            println("FUCK")
             Log.d("asdasd", "start recieve")
             println("노티시작")
         }

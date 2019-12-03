@@ -1,15 +1,8 @@
 package com.example.myapplication
 
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.app.ProgressDialog
-import android.content.Context
-import android.content.Intent
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -20,16 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 
 import com.google.android.material.tabs.TabLayout
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
-import java.io.IOException
-import java.lang.Exception
+import java.lang.System.exit
 import java.util.ArrayList
-import java.util.concurrent.TimeUnit
 
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -42,7 +27,7 @@ class Main : AppCompatActivity() {
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList4: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
-
+    var lastTimeBackPressed : Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,6 +80,16 @@ class Main : AppCompatActivity() {
             val adapter = SubjectAdapter(nameList4)
             mWeatherListView?.adapter = adapter
         }
+    }
+
+    override  fun onBackPressed() {
+
+        if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
+            finishAffinity()
+            return
+        }
+        lastTimeBackPressed = System.currentTimeMillis()
+        Toast.makeText(this, "'뒤로' 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
     }
 
 }
