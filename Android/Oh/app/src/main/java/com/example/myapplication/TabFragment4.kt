@@ -50,33 +50,35 @@ class TabFragment4 : Fragment() {
 
             }
 
-            else if(position == 2) { // 설정 항목 액티비티 띄우기
+            else if(position == 2) { // LMS
                 intent = Intent(activity, WebActivity::class.java) //알림
                 intent.putExtra("Link","http://lms.kau.ac.kr/")
                 startActivityForResult(intent,1)
 
             }
-            else if(position == 4) {
-                val dbHelper2 : DBHelper = DBHelper(context!!,"SECURE.db",null,1)
-                val dbHelper : DBHelper = DBHelper(context!!,"NAME.db",null,2)
-                dbHelper.deleteAll()
-                val fd = dbHelper2.getSecure()
-                var fd1 = fd?.split('/')
-                if(fd1!=null){
-                    dbHelper2.deleteSecure(fd1[0],fd1[1])
+            else if(position == 4) { // 로그아웃
+                var context = getContext()
+                if(context != null){
+                    val dbHelper2 : DBHelper = DBHelper(context,"SECURE.db",null,1)
+                    val dbHelper : DBHelper = DBHelper(context,"NAME.db",null,2)
+                    dbHelper.deleteAll()
+                    dbHelper2.deleteSett()
+                    val fd = dbHelper2.getSecure()
+                    var fd1 = fd?.split('/')
+                    if(fd1 != null){
+                        dbHelper2.deleteSecure(fd1[0],fd1[1])
+                    }
+                    Log.d("지움1", " ${dbHelper2.getSecure()}")
+                    Log.d("지움2", " ${dbHelper.getName} ${dbHelper.getSubject} ${dbHelper.getCal}")
+                    intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
+                    startActivity(intent)
+                    val auto : SharedPreferences = context.getSharedPreferences("auto", MODE_PRIVATE)
+                    val editor = auto.edit()
+                    editor.clear()
+                    editor.commit()
+                    AlarmUtill(context).cancelAlarm() // 알람 매니저를 끈다.
+                    Toast.makeText(activity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
                 }
-                Log.d("지움1", " ${dbHelper2.getSecure()}")
-                Log.d("지움2", " ${dbHelper.getName} ${dbHelper.getSubject} ${dbHelper.getCal}")
-                intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
-                startActivity(intent)
-                val auto : SharedPreferences = context!!.getSharedPreferences("auto", MODE_PRIVATE)
-                val editor = auto.edit()
-                //editor.clear()는 auto에 들어있는 모든 정보를 기기에서 지웁니다.
-                editor.clear()
-                editor.commit()
-                AlarmUtill(context!!).cancelAlarm() // 알람 매니저를 끈다.
-                Toast.makeText(activity, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
-
             }
             else
                 intent = Intent(activity, Setting1Activity::class.java) //개발자

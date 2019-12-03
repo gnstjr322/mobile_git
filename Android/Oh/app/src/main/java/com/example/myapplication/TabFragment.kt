@@ -26,8 +26,13 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
 
         val mWeatherListView = view.findViewById<ListView>(R.id.list_view)
         val adapter = NameAdapter(nameList)
-        //val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, weatherList)
+        adapter.notifyDataSetChanged()
+        var context = getContext()
+        if(context!=null){
+            AlarmUtill(context).Alarm()
+        }
         mWeatherListView.adapter = adapter
+
 
         mWeatherListView.setOnItemClickListener{parent ,view , position, id->
 
@@ -49,4 +54,22 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         return view
     }
 
+<<<<<<< HEAD
+=======
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(data !=null) {
+            val accountB = data.getStringExtra("ListsBackB")
+            if (position != null) {
+                if (accountB!= null) {
+                    nameList[position!!].link = accountB
+                }
+                (list_view.adapter as BaseAdapter).notifyDataSetChanged()
+
+            }
+        }
+
+    }
+>>>>>>> 090a6d09b0780ef660e0e0fe430220eb1c8a0dec
 }

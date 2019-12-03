@@ -100,10 +100,22 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             }
             return result
         }
+    val resultSett: String
+        get() {
+            val db = readableDatabase
+            var result = ""
+            val cursor = db.rawQuery("SELECT * FROM SETT", null)
+            while (cursor.moveToNext()) {
+                result += cursor.getString(0)
+                result += cursor.getString(1)
+            }
+            return result
+        }
     /*
      * DB 생성 총 4개의 table을 생성
      */
     override fun onCreate(db: SQLiteDatabase) {
+        db.execSQL("CREATE TABLE SETT (N INT, C INT);")
         db.execSQL("CREATE TABLE NAME (FORM TEXT, TITLE TEXT, LINK TEXT, DAY TEXT);")
         db.execSQL("CREATE TABLE SECURE (ID TEXT, PW TEXT);")
         db.execSQL("CREATE TABLE SUBJECT (SUBJECT TEXT, LINK TEXT);")
@@ -117,6 +129,13 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
     /*
      * insert 구문
      */
+    fun settInsert(N: Int, C: Int) {
+        // 읽고 쓰기가 가능하게 DB 열기
+        val db = writableDatabase
+        // DB에 입력한 값으로 행 추가
+        db.execSQL("INSERT INTO SETT(N, C) VALUES('$N', '$C');")
+        db.close()
+    }
     fun secureInsert(id: String?, pwd: String?) {
         // 읽고 쓰기가 가능하게 DB 열기
         val db = writableDatabase
@@ -173,9 +192,24 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
     /*
      * delete 구문
      */
+    fun deleteSett(){
+        val db = readableDatabase
+        db.execSQL("DELETE FROM SETT")
+        db.close()
+    }
     fun deleteSecure(id:String,pw:String){
         val db = readableDatabase
         db.execSQL("DELETE FROM SECURE WHERE ID = ${id}")
+        db.close()
+    }
+    fun deleteName(){
+        val db = readableDatabase
+        db.execSQL("DELETE FROM NAME")
+        db.close()
+    }
+    fun deleteCal(){
+        val db = readableDatabase
+        db.execSQL("DELETE FROM CAL")
         db.close()
     }
     fun deleteAll(){

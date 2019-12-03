@@ -18,7 +18,7 @@ class LoadingActivity : AppCompatActivity() {
 
         val splashGif = findViewById<View>(R.id.splashani) as ImageView
         val gifImage = DrawableImageViewTarget(splashGif)
-        Glide.with(this).load(R.raw.spani).into(splashGif)
+        Glide.with(this).load(R.raw.spani).into(gifImage)
 
         startLoading()
     }

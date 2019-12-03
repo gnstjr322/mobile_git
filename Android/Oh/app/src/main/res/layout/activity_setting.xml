@@ -35,11 +35,11 @@
                 android:layout_weight="1"
                 app:srcCompat="@drawable/al" />
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch1"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-
+                android:checked="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:switchPadding="100dp"
@@ -74,7 +74,7 @@
                 android:layout_weight="1"
                 app:srcCompat="@drawable/hw" />
 
-            <Switch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch2"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -82,6 +82,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="280dp"
                 android:switchPadding="100dp"
+                android:checked="true"
                 android:text="@string/과제알람"
                 android:textSize="16sp" />
 

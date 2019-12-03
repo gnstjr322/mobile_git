@@ -46,8 +46,6 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         searchListView = view?.findViewById<ListView>(R.id.search_view)
         mWeatherListView = view?.findViewById<Spinner>(R.id.subject_spinner)
         back = view?.findViewById<TextView>(R.id.back)
-
-        //val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, weatherList)
         Log.d("들어가라", " $nameList4")
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
@@ -82,25 +80,18 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         searchListView?.setOnItemClickListener{ parent, view, position, id->
 
             this.position2 = position
-
             Log.d("aaadsd",searchList2[position2!!].toString())
-
-            //searchList2[position].toString().split("'")
-
             var a = searchList2[position2!!].link
             var b = searchList2[position2!!].linkname
 
             if(a.size == 0 && b.size == 0 ){
                 Toast.makeText(activity, "내용이 없어요.", Toast.LENGTH_SHORT).show()
             }
-            //println(weatherList[position].country)
             else {
                 val intent = Intent(activity, DetailViewActivity2::class.java)
 
                 intent.putExtra("LinkName", a)
                 intent.putExtra("Link", b)
-
-
                 startActivityForResult(intent, 1)
             }
         }
