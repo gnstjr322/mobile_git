@@ -12,13 +12,13 @@
         android:id="@+id/c"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="80sp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card1"
             android:layout_width="300dp"
             android:layout_height="400dp"
-            android:layout_marginTop="80sp"
             android:orientation="vertical"
             app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toTopOf="@id/back"
