@@ -13,8 +13,10 @@ import android.provider.Settings
 import android.text.Editable
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
@@ -49,7 +51,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     private var et_pass: EditText? = null
     private var btn_register: Button? = null
     private var mWeatherListView: ListView? = null
-
+    var linLayout: LinearLayout? = null
 
     var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
     var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
@@ -64,9 +66,11 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     var Str_url : String = "http:/13.124.174.165:6060/kau"
 
 
-
+    var imm: InputMethodManager? = null
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
+
+
     override fun onCreate(savedInstanceState: Bundle?) { // 액티비티 처음 실행되는 생명주기
 
         super.onCreate(savedInstanceState)
@@ -75,10 +79,15 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         //val dbHelper = DBHelper(applicationContext, "NAME", null, 1)
         //val result = findViewById<View>(R.id.result) as TextView
 
+        //로그인시 불편함 제거를 위해 터치또는 클릭시 키보드 내리기
+        imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         et_id = findViewById(R.id.et_id)
         et_pass = findViewById(R.id.et_pass)
         btn_register = findViewById(R.id.btn_register)
+        linLayout = findViewById(R.id.con)//register activity의 전체 레이아웃 이름
+        linLayout?.setOnClickListener(myClickListener)
+        btn_register?.setOnClickListener(myClickListener)
 
         val auto = getSharedPreferences("auto", MODE_PRIVATE)
         //처음에는 SharedPreferences에 아무런 정보도 없으므로 값을 저장할 키들을 생성한다.
@@ -143,8 +152,29 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
 
     }
 
-    //customDialog
+    //바깥화면 터치, 로그인 버튼 클릭시 키보드 내리기
 
+    var myClickListener: View.OnClickListener = View.OnClickListener { v ->
+        hideKeyboard()
+        when (v.id) {
+            //case 하나더 여기는 전체 레이아웃 id
+            R.id.btn_register -> {
+
+            }
+            R.id.con -> {
+
+            }
+
+        }
+    }
+
+    private fun hideKeyboard() {
+        imm?.hideSoftInputFromWindow(et_id?.getWindowToken(), 0)
+        imm?.hideSoftInputFromWindow(et_pass?.getWindowToken(), 0)
+    }
+
+
+    //customDialog
     private fun makeDialog(){
         CustomAnimationDialog.Builder(this)
                 .show()
