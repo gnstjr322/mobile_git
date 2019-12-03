@@ -10,19 +10,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/c"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="50sp">
+        android:layout_gravity="center">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card1"
             android:layout_width="300dp"
             android:layout_height="400dp"
+            android:layout_marginTop="80sp"
             android:orientation="vertical"
             app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@id/back"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -107,8 +107,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="75dp"
-                    android:text="@string/로그인"
+                    android:layout_marginTop="20sp"
 
+                    android:text="@string/로그인"
                     app:layout_constraintTop_toBottomOf="@id/et_pass" />
 
 
@@ -119,6 +120,7 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
             android:layout_marginBottom="140dp"
             android:text="KOREA AEROSPACE UNIV."
             app:layout_constraintBottom_toBottomOf="parent"
