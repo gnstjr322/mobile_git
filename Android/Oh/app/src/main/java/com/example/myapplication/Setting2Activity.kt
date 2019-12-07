@@ -21,7 +21,7 @@ class Setting2Activity : AppCompatActivity() {
         var dbHelper1 : DBHelper = DBHelper(this,"SECURE.db",null,1)
         swb1.setOnCheckedChangeListener { buttonView, isChecked ->
             println (isChecked)
-            if(isChecked==false){
+            if(!isChecked){
                 dbHelper1.deleteSett()
                 dbHelper1.settInsert(0,0) // 세팅 2개가 되어있는 상태
                 Log.d("세팅", " ${dbHelper1.resultSett}")
@@ -32,7 +32,7 @@ class Setting2Activity : AppCompatActivity() {
             }
         }
         swb2.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(isChecked==false){
+            if(!isChecked){
                 dbHelper1.deleteSett()
                 dbHelper1.settInsert(0,1) // 세팅 2개가 되어있는 상태
                 Log.d("세팅", " ${dbHelper1.resultSett}")

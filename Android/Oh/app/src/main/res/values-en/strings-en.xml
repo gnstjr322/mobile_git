@@ -34,4 +34,9 @@
     <string name = "푸시알림">Setting Notify</string>
     <string name ="주차별세부내용">Week detail list</string>
     <string name = "컨텐트">Content</string>
+    <string name = "학년">Grade</string>
+    <string name = "학과">Major</string>
+    <string name = "학년입력">Input Grade</string>
+    <string name = "학과입력">Input Major</string>
+    <string name = "이름">Name</string>
 </resources>

@@ -33,4 +33,9 @@
     <string name="LMS">LMS</string>
     <string name="주차별세부내용">주차별 세부 목록</string>
     <string name = "컨텐트">내용</string>
+    <string name = "학년">학년</string>
+    <string name = "학과">학과</string>
+    <string name = "학년입력">학년입력</string>
+    <string name = "학과입력">학과입력</string>
+    <string name = "이름">이름</string>
 </resources>

@@ -47,8 +47,6 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
             nameList[position].toString().split("'")
 
             var b = nameList[position].link
-            //Linkify.addLinks(b, Linkify.WEB_URLS)
-            //println(weatherList[position].country)
             val intent = Intent(activity, WebActivity::class.java)
 
             intent.putExtra("Link", b)

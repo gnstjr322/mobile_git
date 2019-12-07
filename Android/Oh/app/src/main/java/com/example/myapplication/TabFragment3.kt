@@ -43,9 +43,9 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         var view: View? = inflater.inflate(R.layout.fragment3, container, false)
 
         btn_search = view?.findViewById(R.id.btn_search)
-        searchListView = view?.findViewById<ListView>(R.id.search_view)
-        mWeatherListView = view?.findViewById<Spinner>(R.id.subject_spinner)
-        back = view?.findViewById<TextView>(R.id.back)
+        searchListView = view?.findViewById(R.id.search_view)
+        mWeatherListView = view?.findViewById(R.id.subject_spinner)
+        back = view?.findViewById(R.id.back)
         Log.d("들어가라", " $nameList4")
         if (mWeatherListView != null) {
             mWeatherListView!!.adapter = adapter
@@ -85,7 +85,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             var b = searchList2[position2!!].linkname
 
             if(a.size == 0 && b.size == 0 ){
-                Toast.makeText(activity, "내용이 없어요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "내용이 존재하지않습니다.", Toast.LENGTH_SHORT).show()
             }
             else {
                 val intent = Intent(activity, DetailViewActivity2::class.java)
@@ -117,6 +117,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
                 .add("num", title)
                 .build()
 
+        //검색에 대한 웨이팅 progress dialog
         val dialog = ProgressDialog(context)
         override fun onPreExecute() {
             super.onPreExecute()

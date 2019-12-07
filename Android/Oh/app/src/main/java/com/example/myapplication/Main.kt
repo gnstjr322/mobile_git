@@ -47,8 +47,9 @@ class Main : AppCompatActivity() {
         dbHelper1.settInsert(1,1) // 세팅 2개가 되어있는 상태
         dbHelper1.secureInsert(userID,userPass)
 
-
+        //탭레이아웃의 탭Gravity는 탭의 정렬방식옵션
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
+        //Gravity_fil은 탭의 너비를 동일하게정렬
         tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
 
         //탭페이지 어댑터 설정

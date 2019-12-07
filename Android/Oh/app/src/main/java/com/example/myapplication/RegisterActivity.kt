@@ -163,18 +163,20 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         }
     }
 
+    //바깥화면 터치시 키보드가 내려가는 함수
     private fun hideKeyboard() {
         imm?.hideSoftInputFromWindow(et_id?.getWindowToken(), 0)
         imm?.hideSoftInputFromWindow(et_pass?.getWindowToken(), 0)
     }
 
 
-    //customDialog
+    //customDialog를 시작 메소드
     private fun makeDialog(){
         CustomAnimationDialog.Builder(this)
                 .show()
     }
 
+    //customDialog를 종료 메소드
     private fun deleteDialog(){
         CustomAnimationDialog.Builder(this)
                 .dismiss()
@@ -185,8 +187,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
     private inner class HttpAsyncTask(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
 
-        //progres dialog
-        val dialog = ProgressDialog(this@RegisterActivity)
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -232,7 +232,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
 
             } catch (e: IOException) {
-                //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
             }
 
@@ -251,7 +250,7 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             super.onPostExecute(nameList)
 
             HttpAsyncTask3(userID, userPass).execute(Str_url)
-
+            //통신 완료시에 커스텀다이얼로그 종료
             handler.postDelayed({
                 Thread(Runnable {
                     try{
@@ -259,7 +258,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                             deleteDialog()
                         }
                     }catch (e: Exception){
-                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         deleteDialog()
                     }
 
@@ -288,8 +286,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 .add("num", "3")
                 .build()
 
-        //progres dialog
-        val dialog = ProgressDialog(this@RegisterActivity)
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -336,16 +332,14 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             super.onPostExecute(nameList)
 
             HttpAsyncTask2(userID, userPass).execute(Str_url)
-
+            //통신 완료시에 커스텀다이얼로그 종료
             handler.postDelayed({
                 Thread(Runnable {
                     try{
                         if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                            //customAnimationDialog!!.dismiss()
                             deleteDialog()
                         }
                     }catch (e: Exception){
-                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         deleteDialog()
                     }
 
@@ -371,9 +365,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
                 .add("pw", userPass)
                 .add("num", "1")
                 .build()
-
-        //progres dialog
-        val dialog = ProgressDialog(this@RegisterActivity)
 
         override fun onPreExecute() {
             super.onPreExecute()
@@ -436,44 +427,36 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
         @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         override fun onPostExecute(nameList: List<Cal>?) {
             super.onPostExecute(nameList)
-
+            //통신 완료시에 커스텀다이얼로그 종료
             handler.postDelayed({
                 Thread(Runnable {
                     try{
                         if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                            //customAnimationDialog!!.dismiss()
                             deleteDialog()
                         }
                     }catch (e: Exception){
-                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         deleteDialog()
                     }
-
                 }).start()
 
             },0)
-
+            //통신 완료시에 커스텀다이얼로그 종료
             handler.postDelayed({
                 Thread(Runnable {
                     try{
                         if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                            //customAnimationDialog!!.dismiss()
                             deleteDialog()
                         }
                     }catch (e: Exception){
-                        //Toast.makeText(applicationContext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         deleteDialog()
                     }
-
                 }).start()
 
             },0)
 
-            //progressdialog 코드 끝
-
+            //Customdialog 코드 끝
 
             val auto = getSharedPreferences("auto", Activity.MODE_PRIVATE)
-            //val tinyDB : TinyDB = TinyDB(applicationContext)
             val autoLogin = auto.edit()
 
             autoLogin.putString("inputId", userID) //저장
@@ -492,8 +475,8 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             Log.d("확3", "$nameList4")//nameList의 형식은 List<Name>
 
             Toast.makeText(applicationContext, userID + "님, 환영합니다.", Toast.LENGTH_SHORT).show()
-            var fd2 : String = dbHelper.result
-            Toast.makeText(applicationContext, fd2, Toast.LENGTH_SHORT).show()
+            var loginToast : String = dbHelper.result
+            Toast.makeText(applicationContext, loginToast, Toast.LENGTH_SHORT).show()
             val intent = Intent(this@RegisterActivity, Main::class.java)
             intent.putExtra("nameList2", nameList2 as ArrayList<List<Name>>)
             intent.putExtra("nameList3", nameList3 as ArrayList<List<Cal>>)
@@ -501,7 +484,6 @@ class RegisterActivity : AppCompatActivity() { // 여기서 서버에 아이디 
             intent.putExtra("userID", userID)
             intent.putExtra("userPass", userPass)
             intent.putExtra("url", Str_url)
-            //Log.d("들어가라1244", " $Str_url")
             startActivity(intent)
 
         }

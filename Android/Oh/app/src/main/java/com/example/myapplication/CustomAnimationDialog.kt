@@ -35,7 +35,7 @@ class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
         }
 
         fun dismiss() :CustomAnimationDialog{
-            if(dialog != null && dialog.isShowing()){
+            if(dialog != null && dialog.isShowing){
                 dialog.dismiss()
 
             }
