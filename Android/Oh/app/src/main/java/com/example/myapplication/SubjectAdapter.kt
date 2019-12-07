@@ -8,11 +8,7 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 
 class SubjectAdapter(var sList: List<Subject>?) : BaseAdapter() {
-    // private val mList: List<Name>
 
-    /*constructor(list: List<Name>) {
-        mList = list
-    }*/
 
     override fun getCount(): Int {
         return sList!!.size

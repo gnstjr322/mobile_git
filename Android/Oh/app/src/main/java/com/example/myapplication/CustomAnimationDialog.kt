@@ -15,7 +15,7 @@ class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
     init {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setCanceledOnTouchOutside(false)
     }
 
@@ -24,7 +24,7 @@ class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
         setContentView(R.layout.customdialog)
         imgLogo = findViewById<ImageView?>(R.id.img_android)
         val anim = AnimationUtils.loadAnimation(context, R.anim.loading)
-        imgLogo!!.animation = anim
+        imgLogo?.animation = anim
     }
     class Builder(c: Context){
         var dialog = CustomAnimationDialog(c)

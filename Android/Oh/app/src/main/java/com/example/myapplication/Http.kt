@@ -50,8 +50,8 @@ class Http(private val context: Context,private val num :String) {
 
         override fun doInBackground(vararg params: String): List<Name>? {
 
-            var nameList: List<Name> = ArrayList()
-            var nameList2: List<Cal> = ArrayList()
+            var noticeList: List<Name> = ArrayList()
+            var examList: List<Exam> = ArrayList()
             var result:String = ""
             val strUrl = params[0]
             try {
@@ -64,14 +64,14 @@ class Http(private val context: Context,private val num :String) {
                 // 응답
                 val response = client.newCall(request).execute()
                 val gson = Gson()
-                val listType2 = object : TypeToken<ArrayList<Cal>>() {}.type
+                val listType2 = object : TypeToken<ArrayList<Exam>>() {}.type
                 val listType = object : TypeToken<ArrayList<Name>>() {}.type
-                if (nameList != null) {
+                if (noticeList != null) {
                     if(num == "0"){
-                        nameList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
+                        noticeList = gson.fromJson<List<Name>>(response.body!!.string(), listType)
                     }else if(num == "1"){
-                        nameList2 = gson.fromJson<List<Cal>>(response.body!!.string(), listType2)
-                        for(i in nameList2){
+                        examList = gson.fromJson<List<Exam>>(response.body!!.string(), listType2)
+                        for(i in examList){
                             result += i.date
                             result += i.mon
                             result += i.tue
@@ -86,12 +86,12 @@ class Http(private val context: Context,private val num :String) {
                 e.printStackTrace()
             }
 
-            if (nameList != null) {
+            if (noticeList != null) {
                 if(num == "0"){
-                    if(nameList[0].day != dbHelper.selectDate()){
-                        Log.d("통신", " ${nameList}")
+                    if(noticeList[0].day != dbHelper.selectDate()){
+                        Log.d("통신", " ${noticeList}")
                         dbHelper.deleteName()
-                        for(i in nameList){
+                        for(i in noticeList){
                             dbHelper.nameInsert(i.form,i.name,i.link,i.day)
                         }
                         sendNotification(context,"공지사항이 올라왔습니다")
@@ -99,10 +99,10 @@ class Http(private val context: Context,private val num :String) {
                         sendNotification(context,"공지사항에 변동사항이 없습니다.")
                     }
                 }else if(num == "1"){
-                    if(result != dbHelper.resultCal){
-                        Log.d("통신", " ${nameList2}")
+                    if(result != dbHelper.resultExam){
+                        Log.d("통신", " ${examList}")
                         dbHelper.deleteCal()
-                        for(i in nameList2){
+                        for(i in examList){
                             dbHelper.calInsert(i.date,i.mon,i.tue,i.wed,i.thu,i.fri)
                         }
                         sendNotification(context,"시험시간표가 나왔습니다")
@@ -112,7 +112,7 @@ class Http(private val context: Context,private val num :String) {
                 }
 
             }
-            return nameList
+            return noticeList
         }
 
 

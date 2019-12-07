@@ -13,7 +13,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
     // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
     val getName:List<Name>
         get(){
-            var nameList:List<Name> = mutableListOf()
+            var noticeList:List<Name> = mutableListOf()
             //var temp_Name : Name = Name("a","a","a","a")
             val db = readableDatabase
             var cursor :Cursor = db.rawQuery("SELECT * FROM NAME",null)
@@ -25,13 +25,13 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
                 var temp_Name : Name = Name(form,name,link,day)
                 Log.d("name", "$temp_Name")
                 if(temp_Name!=null){
-                    nameList += temp_Name
+                    noticeList += temp_Name
                 }
 
             }
             cursor.close();
-            Log.d("namelist DB저장", "$nameList")
-            return nameList
+            Log.d("namelist DB저장", "$noticeList")
+            return noticeList
         }
     val getSubject:List<Subject>
         get(){
@@ -51,9 +51,9 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             Log.d("subjectlist DB저장", "$subjectList")
             return subjectList
         }
-    val getCal:List<Cal>
+    val getExam:List<Exam>
         get(){
-            var calList:List<Cal> = mutableListOf()
+            var examList:List<Exam> = mutableListOf()
             val db = readableDatabase
             var cursor :Cursor = db.rawQuery("SELECT * FROM CAL",null)
             while(cursor.moveToNext() ){
@@ -63,15 +63,15 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
                 var wed = cursor.getString(3)
                 var thu = cursor.getString(4)
                 var fri = cursor.getString(5)
-                var temp_Cal : Cal = Cal(date,mon,tue,wed,thu,fri)
+                var temp_Cal : Exam = Exam(date,mon,tue,wed,thu,fri)
                 Log.d("cal", "$temp_Cal")
                 if(temp_Cal!=null){
-                    calList += temp_Cal
+                    examList += temp_Cal
                 }
             }
             cursor.close();
-            Log.d("callist DB저장", "$calList")
-            return calList
+            Log.d("callist DB저장", "$examList")
+            return examList
         }
 
     val result: String
@@ -84,7 +84,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             }
             return result
         }
-    val resultCal: String
+    val resultExam: String
         get() {
             val db = readableDatabase
             var result = ""
@@ -219,7 +219,4 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
         db.close()
     }
 }
-
-
-
 

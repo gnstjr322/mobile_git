@@ -1,7 +1,7 @@
 package com.example.myapplication
 
 
-class Name2(var title:String, var data: String, var link : ArrayList<String?>, var linkname : ArrayList<String?> )  {
+class WeekDetail(var title:String, var data: String, var link : ArrayList<String?>, var linkname : ArrayList<String?> )  {
 
 
 

@@ -6,14 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment1.*
-import java.util.ArrayList
 
-class TabFragment(var nameList : List<Name>) : Fragment() {
+class TabFragment(var noticeList : List<Name>) : Fragment() {
 
     var position : Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
     var lastTimeBackPressed : Long = 0
@@ -23,11 +19,11 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         var view: View = inflater.inflate(R.layout.fragment1, container, false)
-        Log.d("최종정착지", nameList.toString())
+        Log.d("최종정착지", noticeList.toString())
 
 
-        val mWeatherListView = view.findViewById<ListView>(R.id.list_view)
-        val adapter = NameAdapter(nameList)
+        val listView = view.findViewById<ListView>(R.id.list_view)
+        val adapter = NameAdapter(noticeList)
 
         adapter.notifyDataSetChanged()
         var context = getContext()
@@ -35,18 +31,18 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
             AlarmUtill(context).Alarm()
         }
 
-        mWeatherListView.adapter = adapter
+        listView.adapter = adapter
 
 
-        mWeatherListView.setOnItemClickListener{parent ,view , position, id->
+        listView.setOnItemClickListener{ parent, view, position, id->
 
             this.position = position
 
-            Log.d("aaadsd",nameList[position].toString())
+            Log.d("aaadsd",noticeList[position].toString())
 
-            nameList[position].toString().split("'")
+            noticeList[position].toString().split("'")
 
-            var b = nameList[position].link
+            var b = noticeList[position].link
             val intent = Intent(activity, WebActivity::class.java)
 
             intent.putExtra("Link", b)
@@ -56,19 +52,5 @@ class TabFragment(var nameList : List<Name>) : Fragment() {
         return view
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
 
-        if(data !=null) {
-            val accountB = data.getStringExtra("ListsBackB")
-            if (position != null) {
-                if (accountB!= null) {
-                    nameList[position!!].link = accountB
-                }
-                (list_view.adapter as BaseAdapter).notifyDataSetChanged()
-
-            }
-        }
-
-    }
 }

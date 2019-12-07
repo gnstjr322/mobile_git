@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 
-class CalAdapter(var cList: List<Cal>?) : BaseAdapter() {
+class ExamAdapter(var cList: List<Exam>?) : BaseAdapter() {
    // private val mList: List<Name>
 
     /*constructor(list: List<Name>) {
@@ -45,7 +45,7 @@ class CalAdapter(var cList: List<Cal>?) : BaseAdapter() {
             holder = convertView.tag as ViewHolder
         }
 
-        val name1 = getItem(position) as Cal?
+        val name1 = getItem(position) as Exam?
         holder.date?.setText(name1?.date)
         holder.mon?.setText(name1?.mon)
         holder.tue?.setText(name1?.tue)

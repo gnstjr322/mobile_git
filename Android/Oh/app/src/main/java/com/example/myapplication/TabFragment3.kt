@@ -13,7 +13,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.activity_register.*
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -23,17 +22,17 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPass: String, var Str_url: String?) : Fragment() {
+class TabFragment3(var subjectList: List<Subject>, var userID: String, var userPass: String, var Str_url: String?) : Fragment() {
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
-    private var mWeatherListView: Spinner? = null
-    val adapter = SubjectAdapter(nameList4)
+    private var spinner: Spinner? = null
+    val adapter = SubjectAdapter(subjectList)
     var positionthis: Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
     var link: String? = null
     var back : TextView? = null
     var value :Int? = 0
-    var searchList2 : List<Name2> = ArrayList()
+    var searchList2 : List<WeekDetail> = ArrayList()
     var position2 : Int? = null
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -44,15 +43,15 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
 
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById(R.id.search_view)
-        mWeatherListView = view?.findViewById(R.id.subject_spinner)
+        spinner = view?.findViewById(R.id.subject_spinner)
         back = view?.findViewById(R.id.back)
-        Log.d("들어가라", " $nameList4")
-        if (mWeatherListView != null) {
-            mWeatherListView!!.adapter = adapter
+        Log.d("들어가라", " $subjectList")
+        if (spinner != null) {
+            spinner!!.adapter = adapter
 
 
         }
-        mWeatherListView?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 positionthis = position
 
@@ -68,7 +67,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
 
 
         btn_search?.setOnClickListener {
-            link = nameList4[positionthis!!].link
+            link = subjectList[positionthis!!].link
             Log.d("들어가라", " $Str_url")
             HttpAsyncTask().execute(Str_url)
             value = 1
@@ -88,7 +87,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
                 Toast.makeText(activity, "내용이 존재하지않습니다.", Toast.LENGTH_SHORT).show()
             }
             else {
-                val intent = Intent(activity, DetailViewActivity2::class.java)
+                val intent = Intent(activity, DetailViewActivity::class.java)
 
                 intent.putExtra("LinkName", a)
                 intent.putExtra("Link", b)
@@ -98,7 +97,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         return view
     }
 
-    private inner class HttpAsyncTask : AsyncTask<String, Void, List<Name2>>() {
+    private inner class HttpAsyncTask : AsyncTask<String, Void, List<WeekDetail>>() {
 
         var title: String = "2"
 
@@ -128,9 +127,9 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
             dialog.show()
         }
 
-        override fun doInBackground(vararg params: String): List<Name2>? {
+        override fun doInBackground(vararg params: String): List<WeekDetail>? {
 
-            var searchList: List<Name2> = ArrayList()
+            var searchList: List<WeekDetail> = ArrayList()
             val strUrl = params[0]
             try {
 
@@ -143,10 +142,10 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
                 // 응답
                 val response = client.newCall(request).execute()
                 val gson = Gson()
-                val listType = object : TypeToken<ArrayList<Name2>>() {
+                val listType = object : TypeToken<ArrayList<WeekDetail>>() {
 
                 }.type
-                searchList = gson.fromJson<List<Name2>>(response.body!!.string(), listType)
+                searchList = gson.fromJson<List<WeekDetail>>(response.body!!.string(), listType)
 
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -158,7 +157,7 @@ class TabFragment3(var nameList4: List<Subject>, var userID: String, var userPas
         }
 
 
-        override fun onPostExecute(searchList: List<Name2>?) {
+        override fun onPostExecute(searchList: List<WeekDetail>?) {
             super.onPostExecute(searchList)
 
             Thread(Runnable {

@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
 
-class SearchAdapter(var mList: List<Name2>) : BaseAdapter() {
+class SearchAdapter(var mList: List<WeekDetail>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return mList.size
@@ -37,7 +36,7 @@ class SearchAdapter(var mList: List<Name2>) : BaseAdapter() {
             holder = convertView.tag as ViewHolder
         }
 
-        val name1 = getItem(position) as Name2
+        val name1 = getItem(position) as WeekDetail
         holder.title!!.setText(name1.title)
         holder.data!!.setText(name1.data)
 

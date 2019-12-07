@@ -3,7 +3,6 @@ package com.example.myapplication
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 
@@ -13,20 +12,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 
 import com.google.android.material.tabs.TabLayout
-import java.lang.System.exit
 import java.util.ArrayList
 
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
 class Main : AppCompatActivity() {
 
-    private var mWeatherListView: ListView? = null
+    private var mainListView: ListView? = null
 
     private var tabLayout: TabLayout? = null
     private var viewPager: ViewPager? = null
-    var nameList2: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
-    var nameList3: List<Cal> = ArrayList() // 넘겨줄걸 여기다 저장
-    var nameList4: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
+    var noticeList: List<Name> = ArrayList() // 넘겨줄걸 여기다 저장
+    var examList: List<Exam> = ArrayList() // 넘겨줄걸 여기다 저장
+    var subjectList: List<Subject> = ArrayList() // 넘겨줄걸 여기다 저장
     var lastTimeBackPressed : Long = 0
 
 
@@ -34,11 +32,11 @@ class Main : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mWeatherListView = findViewById(R.id.list_view) as? ListView
+        mainListView = findViewById(R.id.list_view) as? ListView
         val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,2)
-        nameList2 = dbHelper.getName
-        nameList4 = dbHelper.getSubject
-        nameList3 = dbHelper.getCal
+        noticeList = dbHelper.getName
+        subjectList = dbHelper.getSubject
+        examList = dbHelper.getExam
 
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
@@ -54,7 +52,7 @@ class Main : AppCompatActivity() {
 
         //탭페이지 어댑터 설정
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
-        val pagerAdapter = TabPagerAdapter(supportFragmentManager, nameList2, nameList3, nameList4, userID, userPass,Str_url,tabLayout!!.tabCount)
+        val pagerAdapter = TabPagerAdapter(supportFragmentManager, noticeList, examList, subjectList, userID, userPass,Str_url,tabLayout!!.tabCount)
         viewPager!!.adapter = pagerAdapter
 
 
@@ -71,15 +69,15 @@ class Main : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab) {
             }
         })
-        if (nameList3 != null) {
+        if (examList != null) {
             //Log.d("HttpAsyncTask", nameList.toString());
-            val adapter = CalAdapter(nameList3)
-            mWeatherListView?.adapter = adapter
+            val adapter = ExamAdapter(examList)
+            mainListView?.adapter = adapter
         }
-        if (nameList4 != null) {
+        if (subjectList != null) {
             //Log.d("HttpAsyncTask", nameList.toString());
-            val adapter = SubjectAdapter(nameList4)
-            mWeatherListView?.adapter = adapter
+            val adapter = SubjectAdapter(subjectList)
+            mainListView?.adapter = adapter
         }
     }
 

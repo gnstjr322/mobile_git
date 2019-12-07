@@ -66,7 +66,7 @@ class TabFragment4 : Fragment() {
                         dbHelper2.deleteSecure(fd1[0],fd1[1])
                     }
                     Log.d("지움1", " ${dbHelper2.getSecure()}")
-                    Log.d("지움2", " ${dbHelper.getName} ${dbHelper.getSubject} ${dbHelper.getCal}")
+                    Log.d("지움2", " ${dbHelper.getName} ${dbHelper.getSubject} ${dbHelper.getExam}")
                     intent = Intent(activity, RegisterActivity::class.java) // 로그아웃
                     startActivity(intent)
                     val auto : SharedPreferences = context.getSharedPreferences("auto", MODE_PRIVATE)
