@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.Adapter.ExamAdapter
 import com.example.myapplication.Adapter.SubjectAdapter
-import com.example.myapplication.Pragment.TabPagerAdapter
+import com.example.myapplication.Fragment.TabPagerAdapter
 import com.example.myapplication.DB.DBHelper
 import com.example.myapplication.DataType.Exam
 import com.example.myapplication.DataType.Name

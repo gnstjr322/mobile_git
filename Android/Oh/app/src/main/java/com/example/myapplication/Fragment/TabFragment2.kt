@@ -1,4 +1,4 @@
-package com.example.myapplication.Pragment
+package com.example.myapplication.Fragment
 
 import android.os.Bundle
 import android.util.Log

@@ -1,4 +1,4 @@
-package com.example.myapplication.Pragment
+package com.example.myapplication.Fragment
 
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,10 +7,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.myapplication.DataType.Exam
 import com.example.myapplication.DataType.Name
 import com.example.myapplication.DataType.Subject
-import com.example.myapplication.Pragment.TabFragment
-import com.example.myapplication.Pragment.TabFragment2
-import com.example.myapplication.Pragment.TabFragment3
-import com.example.myapplication.Pragment.TabFragment4
 
 class TabPagerAdapter(fm: FragmentManager, var noticeList : List<Name>, var examList : List<Exam>, var subjectList : List<Subject>, var userID : String, var userPass : String
                       , var Str_url : String?, private val tabcount: Int) : FragmentStatePagerAdapter(fm) {

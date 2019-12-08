@@ -101,7 +101,7 @@ class HttpAlarm(private val context: Context, private val num :String) {
                         }
                         sendNotification(context,"공지사항이 올라왔습니다")
                     }else{
-                        sendNotification(context,"공지사항에 변동사항이 없습니다.")
+                        //sendNotification(context,"공지사항에 변동사항이 없습니다.")
                     }
                 }else if(num == "1"){
                     if(result != dbHelper.resultExam){
@@ -112,7 +112,7 @@ class HttpAlarm(private val context: Context, private val num :String) {
                         }
                         sendNotification(context,"시험시간표가 나왔습니다")
                     }else{
-                        sendNotification(context,"시험시간표에 변동사항이 없습니다.")
+                        //sendNotification(context,"시험시간표에 변동사항이 없습니다.")
                     }
                 }
 

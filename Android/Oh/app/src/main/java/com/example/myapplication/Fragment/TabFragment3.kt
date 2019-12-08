@@ -1,6 +1,5 @@
-package com.example.myapplication.Pragment
+package com.example.myapplication.Fragment
 
-import android.app.ProgressDialog
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.AsyncTask
@@ -26,7 +25,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 import java.io.IOException
-import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
