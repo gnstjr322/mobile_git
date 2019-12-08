@@ -40,9 +40,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.11.3'
     implementation 'com.android.support:design:29.1.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }
-//repositories {
-//    mavenCentral()
-//}
 
