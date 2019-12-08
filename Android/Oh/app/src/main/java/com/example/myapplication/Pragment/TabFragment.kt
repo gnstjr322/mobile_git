@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Pragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import com.example.myapplication.Adapter.NameAdapter
+import com.example.myapplication.Alarm.AlarmUtill
+import com.example.myapplication.DataType.Name
+import com.example.myapplication.R
+import com.example.myapplication.WebActivity
 
 class TabFragment(var noticeList : List<Name>) : Fragment() {
 

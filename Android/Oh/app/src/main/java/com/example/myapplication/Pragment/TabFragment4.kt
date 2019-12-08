@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Pragment
 
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.myapplication.*
+import com.example.myapplication.Alarm.AlarmUtill
+import com.example.myapplication.DB.DBHelper
 
 class TabFragment4 : Fragment() {
 
@@ -56,8 +59,8 @@ class TabFragment4 : Fragment() {
             else if(position == 4) { // 로그아웃
                 var context = getContext()
                 if(context != null){
-                    val dbHelper2 : DBHelper = DBHelper(context,"SECURE.db",null,1)
-                    val dbHelper : DBHelper = DBHelper(context,"NAME.db",null,2)
+                    val dbHelper2 : DBHelper = DBHelper(context, "SECURE.db", null, 1)
+                    val dbHelper : DBHelper = DBHelper(context, "NAME.db", null, 2)
                     dbHelper.deleteAll()
                     dbHelper2.deleteSett()
                     val fd = dbHelper2.getSecure()

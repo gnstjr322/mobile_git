@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Adapter
 
 
 import android.view.LayoutInflater
@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.myapplication.R
+import com.example.myapplication.DataType.WeekDetail
 
-class SubjectAdapter(var sList: List<Subject>?) : BaseAdapter() {
-
+class SearchAdapter(var mList: List<WeekDetail>) : BaseAdapter() {
 
     override fun getCount(): Int {
-        return sList!!.size
+        return mList.size
     }
 
     override fun getItem(position: Int): Any {
-        return sList!![position]
+        return mList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -27,26 +28,28 @@ class SubjectAdapter(var sList: List<Subject>?) : BaseAdapter() {
         val holder: ViewHolder
         if (convertView == null) {
             convertView =
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_subject, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_weather2, parent, false)
 
             holder = ViewHolder()
-            holder.subject = convertView!!.findViewById(R.id.subject_text) as TextView
-            //holder.link = convertView.findViewById(R.id.link_text) as TextView
+            holder.title = convertView!!.findViewById(R.id.text_text) as TextView
+            holder.data = convertView.findViewById(R.id.data_text) as TextView
             convertView.tag = holder
         } else {
             holder = convertView.tag as ViewHolder
         }
 
-        val name1 = getItem(position) as Subject
-        holder.subject!!.setText(name1.subject)
-        //holder.link!!.setText(name1.link)
+        val name1 = getItem(position) as WeekDetail
+        holder.title!!.setText(name1.title)
+        holder.data!!.setText(name1.data)
+
 
         return convertView
     }
 
     // 뷰 홀더 패턴
     internal class ViewHolder {
-        var subject: TextView? = null
-        //var link: TextView? = null
+        var title: TextView? = null
+        var data: TextView? = null
+
     }
 }

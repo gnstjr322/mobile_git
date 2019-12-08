@@ -55,19 +55,19 @@ app.post('/', (req, res) => {
   console.log("id: "+id+"pw: "+ pw);
   //var id = "2015125054"
   //var pw = "jooboo100@"
-  if(num==="0"){
+  if(num == "0"){
     var result = crawler.crawler(id,pw,function(result){
       res.json(result);
     });
-  }else if(num ==="1"){
+  }else if(num == "1"){
     var result = crawlerj.crawlerj(id,pw,function(result){            //시험시간표 크롤링 장치
        res.json(result);
     });
-  }else if(num ==="2"){
+  }else if(num == "2"){
     var result = crawlerc.crawlerc(id,pw,link,function(result){            //시험시간표 크롤링 장치
        res.json(result);
     });
-  }else if(num ==="3"){
+  }else if(num == "3"){
     var result = crawlers.crawlers(id,pw,function(result){            //시험시간표 크롤링 장치
        res.json(result);
     });

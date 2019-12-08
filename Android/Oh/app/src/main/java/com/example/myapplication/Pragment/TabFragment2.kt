@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Pragment
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
 import androidx.fragment.app.Fragment
+import com.example.myapplication.Adapter.ExamAdapter
+import com.example.myapplication.Alarm.AlarmUtill
+import com.example.myapplication.DataType.Exam
+import com.example.myapplication.R
 
 class TabFragment2(var examList : List<Exam>) : Fragment() {
     private var gridView: GridView? = null

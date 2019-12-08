@@ -81,6 +81,7 @@ exports.crawler = function(id,pw,callback){
           await page.close();
           await browser.close();
           console.error(error);
+          callback("error");
           return;
         }
         let html; // 첫번쨰 페이지
@@ -90,6 +91,7 @@ exports.crawler = function(id,pw,callback){
           html = await page.content();// 첫번째 페이지 크롤링
         } catch (error) {
           console.error(error);
+          callback("error");
           return;
         }
         let html2
@@ -105,6 +107,7 @@ exports.crawler = function(id,pw,callback){
           await page.close();
           await browser.close();
           console.error(error);
+          callback("error");
           return;
         } finally {
           await page.close();

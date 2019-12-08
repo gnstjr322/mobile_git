@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Adapter
 
 
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.myapplication.DataType.Exam
+import com.example.myapplication.R
 
 class ExamAdapter(var cList: List<Exam>?) : BaseAdapter() {
    // private val mList: List<Name>

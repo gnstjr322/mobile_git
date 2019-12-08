@@ -51,6 +51,7 @@ exports.crawlers = function(id,pw,callback){
           await page.close();
           await browser.close();
           console.error(error);
+          callback("error");
           return;
         } finally {
 

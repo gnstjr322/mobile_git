@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.DataType
 
 
 class WeekDetail(var title:String, var data: String, var link : ArrayList<String?>, var linkname : ArrayList<String?> )  {

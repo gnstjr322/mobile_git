@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Http
 
 import android.app.*
 import android.content.Context
@@ -11,6 +11,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.myapplication.DB.DBHelper
+import com.example.myapplication.DataType.Exam
+import com.example.myapplication.DataType.Name
+import com.example.myapplication.R
+import com.example.myapplication.RegisterActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
@@ -23,11 +28,11 @@ import java.util.concurrent.TimeUnit
 
 //이거 실험용으로 통신파트 빼봄
 
-class Http(private val context: Context,private val num :String) {
-    val dbHelper : DBHelper = DBHelper(context,"NAME.db",null,2)
+class HttpAlarm(private val context: Context, private val num :String) {
+    val dbHelper : DBHelper = DBHelper(context, "NAME.db", null, 2)
 
     @RequiresApi(Build.VERSION_CODES.CUPCAKE)
-    inner class HttpAsyncTask(var userID: String, var userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
+    inner class HttpAsyncTask(userID: String, userPass: String) : AsyncTask<String, Void, List<Name>>() { //첫번재
 
         override fun onPreExecute() {
             super.onPreExecute()

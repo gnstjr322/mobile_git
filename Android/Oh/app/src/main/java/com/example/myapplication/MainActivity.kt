@@ -10,13 +10,20 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
+import com.example.myapplication.Adapter.ExamAdapter
+import com.example.myapplication.Adapter.SubjectAdapter
+import com.example.myapplication.Pragment.TabPagerAdapter
+import com.example.myapplication.DB.DBHelper
+import com.example.myapplication.DataType.Exam
+import com.example.myapplication.DataType.Name
+import com.example.myapplication.DataType.Subject
 
 import com.google.android.material.tabs.TabLayout
 import java.util.ArrayList
 
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-class Main : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private var mainListView: ListView? = null
 
@@ -33,17 +40,18 @@ class Main : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mainListView = findViewById(R.id.list_view) as? ListView
-        val dbHelper : DBHelper = DBHelper(this,"NAME.db",null,2)
-        noticeList = dbHelper.getName
-        subjectList = dbHelper.getSubject
-        examList = dbHelper.getExam
-
+        val dbHelper : DBHelper = DBHelper(this, "NAME.db", null, 2)
+        var dbHelper1 : DBHelper = DBHelper(this, "SECURE.db", null, 1)
         var userID = intent.getStringExtra("userID")
         var userPass = intent.getStringExtra("userPass")
         var Str_url  = intent.getStringExtra("url")
-        var dbHelper1 : DBHelper = DBHelper(this,"SECURE.db",null,1)
-        dbHelper1.settInsert(1,1) // 세팅 2개가 되어있는 상태
-        dbHelper1.secureInsert(userID,userPass)
+
+
+        noticeList = dbHelper.getName
+        subjectList = dbHelper.getSubject
+        examList = dbHelper.getExam
+        //dbHelper1.settInsert(1,1) // 세팅 2개가 되어있는 상태
+        //dbHelper1.secureInsert(userID,userPass)
 
         //탭레이아웃의 탭Gravity는 탭의 정렬방식옵션
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
@@ -52,7 +60,7 @@ class Main : AppCompatActivity() {
 
         //탭페이지 어댑터 설정
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
-        val pagerAdapter = TabPagerAdapter(supportFragmentManager, noticeList, examList, subjectList, userID, userPass,Str_url,tabLayout!!.tabCount)
+        val pagerAdapter = TabPagerAdapter(supportFragmentManager, noticeList, examList, subjectList, userID, userPass, Str_url, tabLayout!!.tabCount)
         viewPager!!.adapter = pagerAdapter
 
 

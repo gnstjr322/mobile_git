@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".Main" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".DetailViewActivity" />
         <activity android:name=".Setting1Activity" />
         <activity android:name=".Setting2Activity" />
         <activity android:name=".Setting3Activity" />
         <activity android:name=".WebActivity"/>
 
-        <receiver android:name=".AlarmReceiver">
+        <receiver android:name=".Alarm.AlarmReceiver">
             <intent-filter>
                 <action android:name="com.edisondl.SEND_BROAD_CAST"/>
             </intent-filter>

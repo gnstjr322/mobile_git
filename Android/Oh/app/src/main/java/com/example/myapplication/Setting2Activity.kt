@@ -1,13 +1,10 @@
 package com.example.myapplication
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.android.synthetic.main.login_activity.*
-import android.text.util.Linkify
-import android.widget.Switch
 import androidx.appcompat.widget.SwitchCompat
+import com.example.myapplication.DB.DBHelper
 
 
 //알림
@@ -18,7 +15,7 @@ class Setting2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_setting)
         var swb1 :SwitchCompat = findViewById(R.id.switch1)
         var swb2 :SwitchCompat = findViewById(R.id.switch2)
-        var dbHelper1 : DBHelper = DBHelper(this,"SECURE.db",null,1)
+        var dbHelper1 : DBHelper = DBHelper(this, "SECURE.db", null, 1)
         swb1.setOnCheckedChangeListener { buttonView, isChecked ->
             println (isChecked)
             if(!isChecked){

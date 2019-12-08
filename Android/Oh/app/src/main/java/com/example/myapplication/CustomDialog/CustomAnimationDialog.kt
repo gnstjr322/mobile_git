@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.CustomDialog
 
 import android.app.ProgressDialog
 import android.content.Context
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Window
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import com.example.myapplication.R
 
 class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
     private var imgLogo: ImageView? = null
@@ -29,12 +30,12 @@ class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
     class Builder(c: Context){
         var dialog = CustomAnimationDialog(c)
 
-        fun show():CustomAnimationDialog{
+        fun show(): CustomAnimationDialog {
             dialog.show()
             return dialog
         }
 
-        fun dismiss() :CustomAnimationDialog{
+        fun dismiss() : CustomAnimationDialog {
             if(dialog != null && dialog.isShowing){
                 dialog.dismiss()
 

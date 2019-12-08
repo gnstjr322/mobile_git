@@ -1,10 +1,13 @@
-package com.example.myapplication
+package com.example.myapplication.DB
 
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.myapplication.DataType.Exam
+import com.example.myapplication.DataType.Name
+import com.example.myapplication.DataType.Subject
 
 class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 받음
 (context: Context?, name: String, factory: SQLiteDatabase.CursorFactory?, version: Int) : SQLiteOpenHelper(context, name, factory, version) {
@@ -22,7 +25,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
                 var name = cursor.getString(1)
                 var link = cursor.getString(2)
                 var day = cursor.getString(3)
-                var temp_Name : Name = Name(form,name,link,day)
+                var temp_Name : Name = Name(form, name, link, day)
                 Log.d("name", "$temp_Name")
                 if(temp_Name!=null){
                     noticeList += temp_Name
@@ -41,7 +44,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
             while(cursor.moveToNext() ){
                 var subject = cursor.getString(0)
                 var link = cursor.getString(1)
-                var temp_Subject : Subject = Subject(subject,link)
+                var temp_Subject : Subject = Subject(subject, link)
                 Log.d("subject", "$temp_Subject")
                 if(temp_Subject!=null){
                     subjectList += temp_Subject
@@ -63,7 +66,7 @@ class DBHelper// DBHelper 생성자로 관리할 DB 이름과 버전 정보를 �
                 var wed = cursor.getString(3)
                 var thu = cursor.getString(4)
                 var fri = cursor.getString(5)
-                var temp_Cal : Exam = Exam(date,mon,tue,wed,thu,fri)
+                var temp_Cal : Exam = Exam(date, mon, tue, wed, thu, fri)
                 Log.d("cal", "$temp_Cal")
                 if(temp_Cal!=null){
                     examList += temp_Cal

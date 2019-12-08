@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Pragment
 
 import android.app.ProgressDialog
 import android.content.ContentValues.TAG
@@ -11,6 +11,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.myapplication.Adapter.SearchAdapter
+import com.example.myapplication.Adapter.SubjectAdapter
+import com.example.myapplication.DataType.Subject
+import com.example.myapplication.DataType.WeekDetail
+import com.example.myapplication.DetailViewActivity
+import com.example.myapplication.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.FormBody
