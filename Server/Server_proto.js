@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended : false }));
 
-app.post('/', (req, res) => {
+app.post('/kau', (req, res) => {
   console.log("Start SCrapping");
   //var id1 = req.body.id;//안드로이드 접속시 파리미터 id를 받는다
   //var pw1 = req.body.pw;//안드로이드 접속시 파리미터 pw를 받는다
@@ -78,6 +78,6 @@ app.post('/', (req, res) => {
 
 });
 
-var server = http.createServer(app).listen(8080,function(){
-   console.log("익스프레스로 웹 서버를 실행함 : "+ "8080");
+var server = http.createServer(app).listen(6060,function(){
+   console.log("익스프레스로 웹 서버를 실행함 : "+ "6060");
 });

@@ -33,7 +33,7 @@ class HttpRegister(private val context: Context, private val id: String, private
     val dbHelper : DBHelper = DBHelper(context, "NAME.db", null, 2)
     var dbHelper1 : DBHelper = DBHelper(context, "SECURE.db", null, 1)
     val url = "http:/13.124.174.165:6060/kau"
-    var customAnimationDialog: CustomAnimationDialog? = null
+    var customAnimationDialog: CustomAnimationDialog.Builder? = null
     val handler = Handler()
 
     fun startHttp(num: String) {
@@ -56,10 +56,7 @@ class HttpRegister(private val context: Context, private val id: String, private
 
         override fun onPreExecute() {
             super.onPreExecute()
-            handler.postDelayed({
-                customAnimationDialog = CustomAnimationDialog(context)
-                makeDialog()
-            },0)
+
 
         }
 
@@ -79,11 +76,15 @@ class HttpRegister(private val context: Context, private val id: String, private
 
         override fun doInBackground(vararg params: String): String {
 
+            handler.postDelayed({
+                customAnimationDialog = CustomAnimationDialog.Builder(context)
+                customAnimationDialog!!.show()
+            },0)
 
             var subjectList: List<Subject> = ArrayList()
             var noticeList: List<Name> = ArrayList()
             var examList: List<Exam> = ArrayList()
-            var result:String = ""
+            var result:String = "error"
             val strUrl = params[0]
             try {
 
@@ -94,81 +95,62 @@ class HttpRegister(private val context: Context, private val id: String, private
 
                 // 응답
                 val response = client.newCall(request).execute()
-                Log.d("asdasd", " $response")
                 val gson = Gson()
-                val check = object : TypeToken<String>() {}.type // error 잡기
-                if(check.toString() == "error"){
-                    return "error"
-                }
-                val listTypeSubject = object : TypeToken<ArrayList<Subject>>() {}.type
-                val listTypeExam = object : TypeToken<ArrayList<Exam>>() {}.type
-                val listTypeName = object : TypeToken<ArrayList<Name>>() {}.type
-                if (noticeList != null) {
-                    if(num == "0"){
-                        noticeList = gson.fromJson<List<Name>>(response.body!!.string(), listTypeName)
+                //val checkjson = object : TypeToken<String>() {}.type // error 잡기
+                //val check = gson.fromJson<String>(response.body!!.string(), checkjson)
+                var check = response.body!!.string()
+                Log.d("asdasd", " ${check}")
+                if (check.toString() != "1") {
+                    Log.d("22222", " ${check}")
+                   if(num == "0"){
+                        val listTypeName = object : TypeToken<ArrayList<Name>>() {}.type
+                        noticeList = gson.fromJson<List<Name>>(check, listTypeName)
                         for (i in noticeList){
                             if(noticeList!=null) {
                                 dbHelper.nameInsert(i.form,i.name,i.link,i.day)
                             }
                         }
+                        result = "0"
                         startHttp("1")
                     }else if(num == "1"){
-                        examList = gson.fromJson<List<Exam>>(response.body!!.string(), listTypeExam)
+                        val listTypeExam = object : TypeToken<ArrayList<Exam>>() {}.type
+                        examList = gson.fromJson<List<Exam>>(check, listTypeExam)
                         for (i in examList){
                             if(examList!=null) {
                                 dbHelper.calInsert(i.date,i.mon,i.tue,i.wed,i.thu,i.fri)
                             }
                         }
+                        result = "1"
                         startHttp("3")
                     }else if(num == "3"){
-                        subjectList = gson.fromJson<List<Subject>>(response.body!!.string(), listTypeSubject)
+                        val listTypeSubject = object : TypeToken<ArrayList<Subject>>() {}.type
+                        subjectList = gson.fromJson<List<Subject>>(check, listTypeSubject)
                         for (i in subjectList){
                             if(subjectList!=null) {
                                 dbHelper.subjectInsert(i.subject,i.link)
                             }
                         }
+                        result = "3"
                     }
 
                 }
             } catch (e: IOException) {
-                handler.postDelayed({
-                    Thread(Runnable {
-                        try{
-                            if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                                deleteDialog()
-                            }
-                        }catch (e: Exception){
-                            deleteDialog()
-                        }
-                    }).start()
-
-                },0)
                 e.printStackTrace()
             }
-            handler.postDelayed({
-                Thread(Runnable {
-                    try{
-                        if(customAnimationDialog != null && customAnimationDialog!!.isShowing){
-                            deleteDialog()
-                        }
-                    }catch (e: Exception){
-                        deleteDialog()
-                    }
-                }).start()
+            customAnimationDialog!!.dismiss()
 
-            },0)
 
-            return num
+            return result
         }
 
 
         @RequiresApi(Build.VERSION_CODES.CUPCAKE)
-        override fun onPostExecute(num :String) {
-            super.onPostExecute(num)
-            if(num == "error"){
+        override fun onPostExecute(result :String) {
+            super.onPostExecute(result)
+            if(result == "error"){
                 Toast.makeText(context, "Login에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 dbHelper.deleteAll()
-            } else if(num == "3"){
+            } else if(result == "3"){
                 dbHelper1.settInsert(1,1) // 세팅 2개가 되어있는 상태
                 dbHelper1.secureInsert(id,pw) // id / pw 저장
                 val auto = context.getSharedPreferences("auto", Activity.MODE_PRIVATE)

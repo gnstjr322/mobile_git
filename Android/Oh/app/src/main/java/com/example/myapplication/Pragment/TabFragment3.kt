@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.myapplication.Adapter.SearchAdapter
 import com.example.myapplication.Adapter.SubjectAdapter
+import com.example.myapplication.CustomDialog.CustomAnimationDialog
 import com.example.myapplication.DataType.Subject
 import com.example.myapplication.DataType.WeekDetail
 import com.example.myapplication.DetailViewActivity
@@ -123,14 +125,17 @@ class TabFragment3(var subjectList: List<Subject>, var userID: String, var userP
                 .build()
 
         //검색에 대한 웨이팅 progress dialog
-        val dialog = ProgressDialog(context)
+        var customAnimationDialog: CustomAnimationDialog.Builder? = null
+        val handler = Handler()
         override fun onPreExecute() {
             super.onPreExecute()
-            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-            dialog.setMessage("로딩중입니다...")
-            dialog.setCanceledOnTouchOutside(false)
-            dialog.setCancelable(false)
-            dialog.show()
+            handler.postDelayed({
+                var context = getContext()
+                if(context != null){
+                    customAnimationDialog = CustomAnimationDialog.Builder(context)
+                    customAnimationDialog!!.show()
+                }
+            },0)
         }
 
         override fun doInBackground(vararg params: String): List<WeekDetail>? {
@@ -165,19 +170,9 @@ class TabFragment3(var subjectList: List<Subject>, var userID: String, var userP
 
         override fun onPostExecute(searchList: List<WeekDetail>?) {
             super.onPostExecute(searchList)
-
-            Thread(Runnable {
-                try {
-                    //Thread.sleep(5000)
-                    if (dialog != null && dialog.isShowing) {
-                        dialog.dismiss()
-                    }
-                } catch (e: Exception) {
-
-                }
-                dialog.dismiss()
-            }).start()
-
+            if(context!=null){
+                customAnimationDialog!!.dismiss()
+            }
 
             if (searchList != null) {
                 val adapter = SearchAdapter(searchList)

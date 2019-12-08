@@ -74,7 +74,7 @@ exports.crawlerj = function(id,pw,callback){ // 모듈화
           await page.close();
           await browser.close();
           console.error(error);
-          callback("error");
+          callback(1);
           return;
         }
         let html; // 첫번쨰 페이지
@@ -83,7 +83,7 @@ exports.crawlerj = function(id,pw,callback){ // 모듈화
           html = await page.content();// 첫번째 페이지 크롤링
         } catch (error) {
           console.error(error);
-          callback("error");
+          callback(1);
           return;
         } finally {
           await page.close();
