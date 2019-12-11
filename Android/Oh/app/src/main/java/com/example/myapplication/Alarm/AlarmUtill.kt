@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
 
-class AlarmUtill(private val context: Context) {
+class AlarmUtill(private val context: Context) { // 알람을 주기적으로 하기위해 수치같은 것들을 정확하게 설정해주는 클래스
     fun Alarm() {
         val AlarmIntent = Intent(context, AlarmReceiver::class.java)
         var firstTime = SystemClock.elapsedRealtime()

@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import com.example.myapplication.Http.HttpRegister
 
 
-class RegisterActivity : AppCompatActivity() { //  서버에 아이디 비밀번호 전송
+class RegisterActivity : AppCompatActivity() { //  서버에 아이디 비밀번호 전송하는 클래스. 이후 통신이 완료되면 다음 화면으로 넘어간다.
 
 
     private var et_id: EditText? = null
@@ -104,6 +104,7 @@ class RegisterActivity : AppCompatActivity() { //  서버에 아이디 비밀번
         imm?.hideSoftInputFromWindow(et_pass?.getWindowToken(), 0)
     }
 
+    //뒤로가기 한번더 누르면 종료
     override  fun onBackPressed() {
         if (System.currentTimeMillis() - lastTimeBackPressed < 1500) {
             finish()

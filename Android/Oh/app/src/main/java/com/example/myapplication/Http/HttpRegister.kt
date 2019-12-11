@@ -27,7 +27,7 @@ import java.lang.Exception
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-//이거 실험용으로 통신파트 빼봄
+//통신 파트 ( 안드로이드와 서버를 연결시켜주기 위해 통신부분을 담당)
 
 class HttpRegister(private val context: Context, private val id: String, private val pw: String) {
     val dbHelper : DBHelper = DBHelper(context, "NAME.db", null, 2)

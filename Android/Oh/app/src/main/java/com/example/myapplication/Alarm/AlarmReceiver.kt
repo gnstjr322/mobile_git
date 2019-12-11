@@ -7,7 +7,7 @@ import android.util.Log
 import com.example.myapplication.DB.DBHelper
 import com.example.myapplication.Http.HttpAlarm
 
-class AlarmReceiver : BroadcastReceiver() {
+class AlarmReceiver : BroadcastReceiver() { // 통신을 주기적으로 하기 위해 알람 리시버를 활용함.(db에 있는 아이디 비번으로 주기적으로 통신을 해줌-> 이부분은 HttpALarm 클래스 이용)
     override fun onReceive(context: Context, intent: Intent) {
         var dbHelper2 : DBHelper = DBHelper(context, "SECURE.db", null, 1)
         var Sett :String = dbHelper2.resultSett

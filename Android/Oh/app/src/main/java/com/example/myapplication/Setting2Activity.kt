@@ -7,7 +7,7 @@ import androidx.appcompat.widget.SwitchCompat
 import com.example.myapplication.DB.DBHelper
 
 
-//알림
+//알림설정을 해주는 액티비티
 class Setting2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

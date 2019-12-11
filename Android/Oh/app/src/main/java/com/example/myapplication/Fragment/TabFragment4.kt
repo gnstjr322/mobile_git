@@ -16,7 +16,7 @@ import com.example.myapplication.*
 import com.example.myapplication.Alarm.AlarmUtill
 import com.example.myapplication.DB.DBHelper
 
-class TabFragment4 : Fragment() {
+class TabFragment4 : Fragment() { //설정화면
 
     val List_MENU = arrayOf("내정보","알림","LMS","개발자","로그아웃")
     var position : Int? = null

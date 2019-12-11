@@ -9,19 +9,15 @@ import android.widget.TextView
 import com.example.myapplication.DataType.Exam
 import com.example.myapplication.R
 
-class ExamAdapter(var cList: List<Exam>?) : BaseAdapter() {
-   // private val mList: List<Name>
+class ExamAdapter(var cList: List<Exam>) : BaseAdapter() { //시험 시간표를 위한 어댑터(그리드뷰와 파싱받아온 리스트를 연결)
 
-    /*constructor(list: List<Name>) {
-        mList = list
-    }*/
 
     override fun getCount(): Int {
-        return cList!!.size
+        return cList.size
     }
 
     override fun getItem(position: Int): Any {
-        return cList!![position]
+        return cList[position]
     }
 
     override fun getItemId(position: Int): Long {

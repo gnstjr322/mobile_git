@@ -9,22 +9,22 @@ import android.widget.TextView
 import com.example.myapplication.DataType.Subject
 import com.example.myapplication.R
 
-class SubjectAdapter(var sList: List<Subject>?) : BaseAdapter() {
+class SubjectAdapter(var sList: List<Subject>) : BaseAdapter() { //탭프레그먼트 3에서 과목 리스트 보여줌(스피너로)
 
 
     override fun getCount(): Int {
-        return sList!!.size
+        return sList.size
     }
 
     override fun getItem(position: Int): Any {
-        return sList!![position]
+        return sList[position]
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
         var convertView = convertView
         val holder: ViewHolder
         if (convertView == null) {
@@ -32,16 +32,16 @@ class SubjectAdapter(var sList: List<Subject>?) : BaseAdapter() {
                     LayoutInflater.from(parent.context).inflate(R.layout.item_subject, parent, false)
 
             holder = ViewHolder()
-            holder.subject = convertView!!.findViewById(R.id.subject_text) as TextView
-            //holder.link = convertView.findViewById(R.id.link_text) as TextView
+            holder.subject = convertView.findViewById(R.id.subject_text) as TextView
+
             convertView.tag = holder
         } else {
             holder = convertView.tag as ViewHolder
         }
 
         val name1 = getItem(position) as Subject
-        holder.subject!!.setText(name1.subject)
-        //holder.link!!.setText(name1.link)
+        holder.subject?.setText(name1.subject)
+
 
         return convertView
     }

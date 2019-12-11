@@ -26,7 +26,7 @@ import java.io.IOException
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-//이거 실험용으로 통신파트 빼봄
+//노티피케이션을 해주기 위해 통신을 하는 부분
 
 class HttpAlarm(private val context: Context, private val num :String) {
     val dbHelper : DBHelper = DBHelper(context, "NAME.db", null, 2)

@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.login_activity.*
 import android.text.util.Linkify
 
 
-//내정보
+//내정보를 띄어주는 클래스
 class Setting3Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

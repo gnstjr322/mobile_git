@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter as ArrayAdapter1
 
 
 class DetailViewActivity : AppCompatActivity() {
+    //탭프레그먼트 3에서 리스트뷰를 누르면 주차별 상세 내용이 리스트뷰로 공지되는 액티비티. -> 이후 웹뷰로 연결!
     // putExtra 한것을 가져와야 한다. 딕셔너리. account를 첨 사용할때 인덴트 한걸 따로 선언하지 않고 바로 사용할 수 있다
     //val wl by lazy { intent.extras["Lists"] as CheckingList}
 

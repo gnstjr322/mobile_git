@@ -14,9 +14,9 @@ import com.example.myapplication.DataType.Name
 import com.example.myapplication.R
 import com.example.myapplication.WebActivity
 
-class TabFragment(var noticeList : List<Name>) : Fragment() {
+class TabFragment(var noticeList : List<Name>) : Fragment() { //메인 화면 클래스(메인 엑티비티에서 여기로 먼저 넘어옴)
 
-    var position : Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
+    var position : Int? = null // 프로퍼티는 전역변수같은 의미
     var lastTimeBackPressed : Long = 0
 
     override fun onCreateView(inflater: LayoutInflater,

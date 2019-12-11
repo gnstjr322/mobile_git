@@ -23,7 +23,7 @@ import java.util.ArrayList
 
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() { //여기서 프레그먼트로 통신 받은 정보들을 tabpageradpater 를 통해 인자로 이동시킨다. 이후 프레그먼트에서 이벤트를 처리한다.
 
     private var mainListView: ListView? = null
 
@@ -56,17 +56,17 @@ class MainActivity : AppCompatActivity() {
         //탭레이아웃의 탭Gravity는 탭의 정렬방식옵션
         tabLayout = findViewById<View>(R.id.tabLayout) as TabLayout?
         //Gravity_fil은 탭의 너비를 동일하게정렬
-        tabLayout!!.tabGravity = TabLayout.GRAVITY_FILL
+        tabLayout?.tabGravity  = TabLayout.GRAVITY_FILL
 
         //탭페이지 어댑터 설정
         viewPager = findViewById<View>(R.id.viewpager) as? ViewPager
         val pagerAdapter = TabPagerAdapter(supportFragmentManager, noticeList, examList, subjectList, userID, userPass, Str_url, tabLayout!!.tabCount)
-        viewPager!!.adapter = pagerAdapter
+        viewPager?.adapter = pagerAdapter
 
 
         //페이지 체인지 리스너 설정
-        viewPager!!.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        viewPager?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }

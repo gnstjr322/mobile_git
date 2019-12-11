@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import com.example.myapplication.R
 
-class CustomAnimationDialog(c: Context) : ProgressDialog(c) {
+class CustomAnimationDialog(c: Context) : ProgressDialog(c) { // 통신을 할때 사용자에게 보여지는 로딩화면 구성하는 클래스
     private var imgLogo: ImageView? = null
 
     init {

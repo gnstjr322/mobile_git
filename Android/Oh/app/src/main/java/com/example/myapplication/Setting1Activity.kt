@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.login_activity.*
 import android.text.util.Linkify
 
 
-//만든 사람들
+//만든 사람들(구체적인것 필요)
 class Setting1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

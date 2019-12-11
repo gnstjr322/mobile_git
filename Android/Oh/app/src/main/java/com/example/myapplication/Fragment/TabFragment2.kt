@@ -12,8 +12,8 @@ import com.example.myapplication.Alarm.AlarmUtill
 import com.example.myapplication.DataType.Exam
 import com.example.myapplication.R
 
-class TabFragment2(var examList : List<Exam>) : Fragment() {
-    private var gridView: GridView? = null
+class TabFragment2(var examList : List<Exam>) : Fragment() { //시험시간표 화면
+    private lateinit var gridView: GridView
 
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -30,7 +30,7 @@ class TabFragment2(var examList : List<Exam>) : Fragment() {
             AlarmUtill(context).Alarm()
         }
         if (gridView != null) {
-            gridView!!.adapter = adapter
+            gridView.adapter = adapter
         }
 
         return view

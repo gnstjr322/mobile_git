@@ -28,11 +28,11 @@ import java.io.IOException
 import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
-class TabFragment3(var subjectList: List<Subject>, var userID: String, var userPass: String, var Str_url: String?) : Fragment() {
+class TabFragment3(var subjectList: List<Subject>, var userID: String, var userPass: String, var Str_url: String?) : Fragment() { //검색 화면
 
     private var btn_search: Button? = null
     private var searchListView: ListView? = null
-    private var spinner: Spinner? = null
+    private lateinit var spinner: Spinner
     val adapter = SubjectAdapter(subjectList)
     var positionthis: Int? = null // 프로퍼티는 전역변수같은 의미라 생각해
     var link: String? = null
@@ -49,11 +49,13 @@ class TabFragment3(var subjectList: List<Subject>, var userID: String, var userP
 
         btn_search = view?.findViewById(R.id.btn_search)
         searchListView = view?.findViewById(R.id.search_view)
-        spinner = view?.findViewById(R.id.subject_spinner)
+        if (view != null) {
+            spinner = view.findViewById(R.id.subject_spinner)
+        }
         back = view?.findViewById(R.id.back)
         Log.d("들어가라", " $subjectList")
         if (spinner != null) {
-            spinner!!.adapter = adapter
+            spinner.adapter = adapter
 
 
         }
@@ -78,7 +80,7 @@ class TabFragment3(var subjectList: List<Subject>, var userID: String, var userP
             HttpAsyncTask().execute(Str_url)
             value = 1
             if(value == 1){
-                back!!.text = null
+                back?.text  = null
             }
         }
 
