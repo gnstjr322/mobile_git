@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--검색 레이아웃, 검색 버튼과 함께 스피너로 검색 가능 과목 조회 가능,
+    검색을 통해 제공되는 내용들은 리스트뷰로써 제공되고 바깥 디자인을 카드뷰로 제공-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

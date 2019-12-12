@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--설정 프래그먼트 중 하나 레이아웃으로 내 정보에 대한 레이아웃을 제공-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >

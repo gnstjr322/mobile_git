@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--설정 항목들을 테이블 레이아웃으로 보여주는 레이아웃-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

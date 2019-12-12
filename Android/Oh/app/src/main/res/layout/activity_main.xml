@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--처음 로그인 접속 시 나타나는 시작 페이지로써 뷰페이져와 탭레이아웃으로 구성-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

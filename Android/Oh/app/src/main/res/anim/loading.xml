@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--로딩 애니메이션 디렉토리의 레이아웃
+   커스텀 다이얼로그가 돌아가는 애니메이션에 대한 레이아웃
+   -->
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <scale android:toYScale="1.0"
         android:toXScale="-1.0"

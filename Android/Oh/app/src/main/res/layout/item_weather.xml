@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--공지사항을 보여주기위한 리스트뷰의 구성요소로써 과목명과 날짜를 제공하는 레이아웃-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() { //여기서 프레그먼트로 통신
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mainListView = findViewById(R.id.list_view) as? ListView
+        mainListView = this.findViewById(R.id.list_view) as? ListView
         val dbHelper : DBHelper = DBHelper(this, "NAME.db", null, 2)
         var dbHelper1 : DBHelper = DBHelper(this, "SECURE.db", null, 1)
         var userID = intent.getStringExtra("userID")
