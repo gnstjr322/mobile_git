@@ -1,7 +1,3 @@
-# mobile_git
+# LMS Notify Application
 <h1>뭐 과제 떴다고? - 항공대 LMS를 위한 어플</h1>
-<h2>이민규</h2>
-<h2>이훈석</h2>
-<h2>박승재</h2>
 <p>KOREA AEROSPACE UNIVERSITY</p>
-<p>Mobile Project</p>
